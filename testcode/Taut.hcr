@@ -1,0 +1,534 @@
+%module main:Taut
+  %data main:Taut.Prop =
+    {main:Taut.Const ghczmprim:GHCziBool.Bool;
+     main:Taut.Var ghczmprim:GHCziTypes.Int;
+     main:Taut.Not main:Taut.Prop;
+     main:Taut.And main:Taut.Prop main:Taut.Prop;
+     main:Taut.Implies main:Taut.Prop main:Taut.Prop};
+  %rec
+  {main:Taut.a :: ghczmprim:GHCziTypes.Int =
+     ghczmprim:GHCziTypes.Izh (113::ghczmprim:GHCziPrim.Intzh);
+   main:Taut.lvl :: main:Taut.Prop = main:Taut.Var main:Taut.a;
+   lvl1r1KQ :: (main:Flite.List
+                ((main:Flite.List ghczmprim:GHCziBool.Bool))) =
+     main:Flite.Cons @ ((main:Flite.List ghczmprim:GHCziBool.Bool))
+     (main:Flite.Nil @ ghczmprim:GHCziBool.Bool)
+     (main:Flite.Nil @ ((main:Flite.List ghczmprim:GHCziBool.Bool)));
+   lvl2r1KS :: (main:Flite.List ghczmprim:GHCziBool.Bool) ->
+               (main:Flite.List ghczmprim:GHCziBool.Bool) =
+     main:Flite.Cons @ ghczmprim:GHCziBool.Bool
+     ghczmprim:GHCziBool.True;
+   lvl3r1KU :: (main:Flite.List ghczmprim:GHCziBool.Bool) ->
+               (main:Flite.List ghczmprim:GHCziBool.Bool) =
+     main:Flite.Cons @ ghczmprim:GHCziBool.Bool
+     ghczmprim:GHCziBool.False;
+   lvl4r1KW :: %forall ta1A2 . ta1A2 =
+     \ @ ta1A2 ->
+         base:ControlziExceptionziBase.patError @ ta1A2
+         ("Taut.hs:(10,0)-(13,31)|function find"::ghczmprim:GHCziPrim.Addrzh);
+   main:Taut.lvl5 :: %forall ta1xH . ta1xH =
+     \ @ ta1xH ->
+         base:ControlziExceptionziBase.patError @ ta1xH
+         ("Taut.hs:(83,0)-(86,23)|function foldr1"::ghczmprim:GHCziPrim.Addrzh);
+   main:Taut.zdstake :: %forall aa1wT . (main:Flite.List aa1wT) ->
+                                        ghczmprim:GHCziPrim.Intzh -> (main:Flite.List aa1wT) =
+     \ @ aa1wT
+       (scs1IA::(main:Flite.List aa1wT))
+       (sc1s1IB::ghczmprim:GHCziPrim.Intzh) ->
+         %case ((main:Flite.List aa1wT)) scs1IA
+         %of (wildB1::(main:Flite.List aa1wT))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ aa1wT;
+            main:Flite.Cons
+            (ipvs1C8::aa1wT) (ipv1s1C9::(main:Flite.List aa1wT)) ->
+              %case ((main:Flite.List aa1wT)) sc1s1IB
+              %of (dsX1Bu::ghczmprim:GHCziPrim.Intzh)
+                {%_ ->
+                   main:Flite.Cons @ aa1wT ipvs1C8
+                   (main:Taut.zdstake @ aa1wT ipv1s1C9
+                    (ghczmprim:GHCziPrim.zmzh dsX1Bu (1::ghczmprim:GHCziPrim.Intzh)));
+                 (0::ghczmprim:GHCziPrim.Intzh) ->
+                   main:Flite.Nil @ aa1wT}};
+   main:Taut.take :: %forall aa1wT . ghczmprim:GHCziTypes.Int ->
+                                     (main:Flite.List aa1wT) -> (main:Flite.List aa1wT) =
+     \ @ aa1wT
+       (dsd1AL::ghczmprim:GHCziTypes.Int)
+       (ds1d1AM::(main:Flite.List aa1wT)) ->
+         %case ((main:Flite.List aa1wT)) ds1d1AM
+         %of (wildB1::(main:Flite.List aa1wT))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ aa1wT;
+            main:Flite.Cons
+            (ipvs1C8::aa1wT) (ipv1s1C9::(main:Flite.List aa1wT)) ->
+              %case ((main:Flite.List aa1wT)) dsd1AL
+              %of (wild1XD::ghczmprim:GHCziTypes.Int)
+                {ghczmprim:GHCziTypes.Izh (ds2d1AN::ghczmprim:GHCziPrim.Intzh) ->
+                   %case ((main:Flite.List aa1wT)) ds2d1AN
+                   %of (ds3X1Bu::ghczmprim:GHCziPrim.Intzh)
+                     {%_ ->
+                        main:Flite.Cons @ aa1wT ipvs1C8
+                        (main:Taut.zdstake @ aa1wT ipv1s1C9
+                         (ghczmprim:GHCziPrim.zmzh ds3X1Bu (1::ghczmprim:GHCziPrim.Intzh)));
+                      (0::ghczmprim:GHCziPrim.Intzh) ->
+                        main:Flite.Nil @ aa1wT}}};
+   main:Taut.lvl6 :: (ghczmprim:GHCziTypes.ZMZN
+                      ghczmprim:GHCziTypes.Char) =
+     base:GHCziBase.unpackCStringzh
+     ("abcdefghijklmnop"::ghczmprim:GHCziPrim.Addrzh);
+   main:Taut.names :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Flite.str main:Taut.lvl6;
+   main:Taut.imp :: ghczmprim:GHCziTypes.Int -> main:Taut.Prop =
+     \ (va1w0::ghczmprim:GHCziTypes.Int) ->
+         main:Taut.Implies main:Taut.lvl (main:Taut.Var va1w0);
+   main:Taut.zdsfoldr1 :: %forall ta1xH . (main:Flite.List ta1xH) ->
+                                          ta1xH -> (ta1xH -> ta1xH -> ta1xH) -> ta1xH =
+     \ @ ta1xH
+       (scs1IK::(main:Flite.List ta1xH))
+       (sc1s1IL::ta1xH)
+       (sc2s1IM::ta1xH -> ta1xH -> ta1xH) ->
+         %case ta1xH scs1IK %of (wildXX::(main:Flite.List ta1xH))
+           {main:Flite.Nil ->
+              sc1s1IL;
+            main:Flite.Cons (xa1vC::ta1xH) (xsa1vE::(main:Flite.List ta1xH)) ->
+              sc2s1IM sc1s1IL
+              (main:Taut.zdsfoldr1 @ ta1xH xsa1vE xa1vC sc2s1IM)};
+   main:Taut.foldr1 :: %forall ta1xH . (ta1xH -> ta1xH -> ta1xH) ->
+                                       (main:Flite.List ta1xH) -> ta1xH =
+     \ @ ta1xH
+       (fa1vU::ta1xH -> ta1xH -> ta1xH)
+       (dsd1B5::(main:Flite.List ta1xH)) ->
+         %case ta1xH dsd1B5 %of (wildB1::(main:Flite.List ta1xH))
+           {main:Flite.Nil ->
+              main:Taut.lvl5 @ ta1xH;
+            main:Flite.Cons (xa1vW::ta1xH) (xsa1vY::(main:Flite.List ta1xH)) ->
+              %case ta1xH xsa1vY %of (wild1XX::(main:Flite.List ta1xH))
+                {main:Flite.Nil ->
+                   xa1vW;
+                 main:Flite.Cons
+                 (x1a1vC::ta1xH) (xs1a1vE::(main:Flite.List ta1xH)) ->
+                   fa1vU xa1vW (main:Taut.zdsfoldr1 @ ta1xH xs1a1vE x1a1vC fa1vU)}};
+   main:Taut.zzip :: %forall ta1xe t1a1xh . (main:Flite.List ta1xe) ->
+                                            (main:Flite.List t1a1xh) ->
+                                            (main:Flite.List ((main:Flite.Pair ta1xe t1a1xh))) =
+     \ @ ta1xe
+       @ t1a1xh
+       (dsd1AU::(main:Flite.List ta1xe))
+       (ysa1vG::(main:Flite.List t1a1xh)) ->
+         %case ((main:Flite.List ((main:Flite.Pair ta1xe t1a1xh)))) dsd1AU
+         %of (wildB1::(main:Flite.List ta1xe))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ ((main:Flite.Pair ta1xe t1a1xh));
+            main:Flite.Cons (xa1vI::ta1xe) (xsa1vK::(main:Flite.List ta1xe)) ->
+              %case ((main:Flite.List ((main:Flite.Pair ta1xe t1a1xh)))) ysa1vG
+              %of (wild1XH::(main:Flite.List t1a1xh))
+                {main:Flite.Nil ->
+                   main:Flite.Nil @ ((main:Flite.Pair ta1xe t1a1xh));
+                 main:Flite.Cons
+                 (ya1vQ::t1a1xh) (ys1a1vS::(main:Flite.List t1a1xh)) ->
+                   main:Flite.Cons @ ((main:Flite.Pair ta1xe t1a1xh))
+                   (main:Flite.Pair @ ta1xe @ t1a1xh xa1vI ya1vQ)
+                   (main:Taut.zzip @ ta1xe @ t1a1xh xsa1vK ys1a1vS)}};
+   main:Taut.null :: %forall ta1xA . (main:Flite.List ta1xA) ->
+                                     ghczmprim:GHCziBool.Bool =
+     \ @ ta1xA (dsd1AZZ::(main:Flite.List ta1xA)) ->
+         %case ghczmprim:GHCziBool.Bool dsd1AZZ
+         %of (wildB1::(main:Flite.List ta1xA))
+           {main:Flite.Nil ->
+              ghczmprim:GHCziBool.True;
+            main:Flite.Cons (xa1vC::ta1xA) (xsa1vE::(main:Flite.List ta1xA)) ->
+              ghczmprim:GHCziBool.False};
+   main:Taut.filter :: %forall aa1xV . (aa1xV ->
+                                        ghczmprim:GHCziBool.Bool)
+                                       -> (main:Flite.List aa1xV) -> (main:Flite.List aa1xV) =
+     \ @ aa1xV
+       (pa1vu::aa1xV -> ghczmprim:GHCziBool.Bool)
+       (dsd1Bb::(main:Flite.List aa1xV)) ->
+         %case ((main:Flite.List aa1xV)) dsd1Bb
+         %of (wildB1::(main:Flite.List aa1xV))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ aa1xV;
+            main:Flite.Cons (xa1vy::aa1xV) (xsa1vA::(main:Flite.List aa1xV)) ->
+              %case ((main:Flite.List aa1xV)) (pa1vu xa1vy)
+              %of (wild1XK::ghczmprim:GHCziBool.Bool)
+                {ghczmprim:GHCziBool.False ->
+                   main:Taut.filter @ aa1xV pa1vu xsa1vA;
+                 ghczmprim:GHCziBool.True ->
+                   main:Flite.Cons @ aa1xV xa1vy
+                   (main:Taut.filter @ aa1xV pa1vu xsa1vA)}};
+   main:Taut.and :: (main:Flite.List ghczmprim:GHCziBool.Bool) ->
+                    ghczmprim:GHCziBool.Bool =
+     \ (dsd1Bh::(main:Flite.List ghczmprim:GHCziBool.Bool)) ->
+         %case ghczmprim:GHCziBool.Bool dsd1Bh
+         %of (wildB1::(main:Flite.List ghczmprim:GHCziBool.Bool))
+           {main:Flite.Nil ->
+              ghczmprim:GHCziBool.True;
+            main:Flite.Cons
+            (ba1vq::ghczmprim:GHCziBool.Bool)
+            (bsa1vs::(main:Flite.List ghczmprim:GHCziBool.Bool)) ->
+              %case ghczmprim:GHCziBool.Bool ba1vq
+              %of (wild1XY::ghczmprim:GHCziBool.Bool)
+                {ghczmprim:GHCziBool.False ->
+                   ghczmprim:GHCziBool.False;
+                 ghczmprim:GHCziBool.True ->
+                   main:Taut.and bsa1vs}};
+   main:Taut.map :: %forall ta1yg aa1yi . (ta1yg -> aa1yi) ->
+                                          (main:Flite.List ta1yg) -> (main:Flite.List aa1yi) =
+     \ @ ta1yg
+       @ aa1yi
+       (fa1vi::ta1yg -> aa1yi)
+       (dsd1Bk::(main:Flite.List ta1yg)) ->
+         %case ((main:Flite.List aa1yi)) dsd1Bk
+         %of (wildB1::(main:Flite.List ta1yg))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ aa1yi;
+            main:Flite.Cons (xa1vm::ta1yg) (xsa1vo::(main:Flite.List ta1yg)) ->
+              main:Flite.Cons @ aa1yi (fa1vi xa1vm)
+              (main:Taut.map @ ta1yg @ aa1yi fa1vi xsa1vo)};
+   main:Taut.lvl7 :: (main:Flite.List main:Taut.Prop) =
+     main:Taut.map @ ghczmprim:GHCziTypes.Int @ main:Taut.Prop
+     main:Taut.imp main:Taut.names;
+   main:Taut.a1 :: main:Taut.Prop =
+     %case main:Taut.Prop main:Taut.lvl7
+     %of (wildB1::(main:Flite.List main:Taut.Prop))
+       {main:Flite.Nil ->
+          main:Taut.lvl5 @ main:Taut.Prop;
+        main:Flite.Cons
+        (xa1vW::main:Taut.Prop)
+        (xsa1vY::(main:Flite.List main:Taut.Prop)) ->
+          %case main:Taut.Prop xsa1vY
+          %of (wild1XX::(main:Flite.List main:Taut.Prop))
+            {main:Flite.Nil ->
+               xa1vW;
+             main:Flite.Cons
+             (x1a1vC::main:Taut.Prop)
+             (xs1a1vE::(main:Flite.List main:Taut.Prop)) ->
+               main:Taut.And xa1vW
+               (main:Taut.zdsfoldr1 @ main:Taut.Prop xs1a1vE x1a1vC
+                main:Taut.And)}};
+   main:Taut.lvl8 :: (main:Flite.List main:Taut.Prop) =
+     main:Taut.map @ ghczmprim:GHCziTypes.Int @ main:Taut.Prop
+     main:Taut.Var main:Taut.names;
+   main:Taut.a2 :: main:Taut.Prop =
+     %case main:Taut.Prop main:Taut.lvl8
+     %of (wildB1::(main:Flite.List main:Taut.Prop))
+       {main:Flite.Nil ->
+          main:Taut.lvl5 @ main:Taut.Prop;
+        main:Flite.Cons
+        (xa1vW::main:Taut.Prop)
+        (xsa1vY::(main:Flite.List main:Taut.Prop)) ->
+          %case main:Taut.Prop xsa1vY
+          %of (wild1XX::(main:Flite.List main:Taut.Prop))
+            {main:Flite.Nil ->
+               xa1vW;
+             main:Flite.Cons
+             (x1a1vC::main:Taut.Prop)
+             (xs1a1vE::(main:Flite.List main:Taut.Prop)) ->
+               main:Taut.And xa1vW
+               (main:Taut.zdsfoldr1 @ main:Taut.Prop xs1a1vE x1a1vC
+                main:Taut.And)}};
+   main:Taut.a3 :: main:Taut.Prop =
+     main:Taut.Implies main:Taut.lvl main:Taut.a2;
+   main:Taut.testProp :: main:Taut.Prop =
+     main:Taut.Implies main:Taut.a1 main:Taut.a3;
+   main:Taut.append :: %forall ta1yzz . (main:Flite.List ta1yzz) ->
+                                        (main:Flite.List ta1yzz) -> (main:Flite.List ta1yzz) =
+     \ @ ta1yzz
+       (dsd1Bn::(main:Flite.List ta1yzz))
+       (ysa1va::(main:Flite.List ta1yzz)) ->
+         %case ((main:Flite.List ta1yzz)) dsd1Bn
+         %of (wildB1::(main:Flite.List ta1yzz))
+           {main:Flite.Nil ->
+              ysa1va;
+            main:Flite.Cons
+            (xa1vc::ta1yzz) (xsa1ve::(main:Flite.List ta1yzz)) ->
+              main:Flite.Cons @ ta1yzz xa1vc
+              (main:Taut.append @ ta1yzz xsa1ve ysa1va)};
+   main:Taut.zdwlength :: %forall ta1yH . (main:Flite.List ta1yH) ->
+                                          ghczmprim:GHCziPrim.Intzh =
+     \ @ ta1yH (ws1Gb::(main:Flite.List ta1yH)) ->
+         %case ghczmprim:GHCziPrim.Intzh ws1Gb
+         %of (wildB1::(main:Flite.List ta1yH))
+           {main:Flite.Nil ->
+              (0::ghczmprim:GHCziPrim.Intzh);
+            main:Flite.Cons (xa1v6::ta1yH) (xsa1v8::(main:Flite.List ta1yH)) ->
+              %case ghczmprim:GHCziPrim.Intzh (main:Taut.zdwlength @ ta1yH
+                                               xsa1v8)
+              %of (wws1Ge::ghczmprim:GHCziPrim.Intzh)
+                {%_ ->
+                   ghczmprim:GHCziPrim.zpzh (1::ghczmprim:GHCziPrim.Intzh) wws1Ge}};
+   main:Taut.length :: %forall ta1yH . (main:Flite.List ta1yH) ->
+                                       ghczmprim:GHCziTypes.Int =
+     %note "InlineMe"
+     \ @ ta1yH (ws1Gb::(main:Flite.List ta1yH)) ->
+         %case ghczmprim:GHCziTypes.Int (main:Taut.zdwlength @ ta1yH ws1Gb)
+         %of (wws1Ge::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              ghczmprim:GHCziTypes.Izh wws1Ge};
+   main:Taut.flip :: %forall ta1yR t1a1yS t2a1yV . (t1a1yS ->
+                                                    ta1yR -> t2a1yV)
+                                                   -> ta1yR -> t1a1yS -> t2a1yV =
+     \ @ ta1yR
+       @ t1a1yS
+       @ t2a1yV
+       (fa1v0::t1a1yS -> ta1yR -> t2a1yV)
+       (ya1v2::ta1yR)
+       (xa1v4::t1a1yS) ->
+         fa1v0 xa1v4 ya1v2;
+   main:Taut.rmdups :: (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                       (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     \ (dsd1Bt::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+         %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) dsd1Bt
+         %of (wildB1::(main:Flite.List ghczmprim:GHCziTypes.Int))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ ghczmprim:GHCziTypes.Int;
+            main:Flite.Cons
+            (xa1uQ::ghczmprim:GHCziTypes.Int)
+            (xsa1uS::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              main:Flite.Cons @ ghczmprim:GHCziTypes.Int xa1uQ
+              (main:Taut.rmdups
+               (main:Taut.filter @ ghczmprim:GHCziTypes.Int
+                (base:GHCziBase.neInt xa1uQ) xsa1uS))};
+   main:Taut.neq :: ghczmprim:GHCziTypes.Int ->
+                    ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziBool.Bool =
+     base:GHCziBase.neInt;
+   main:Taut.zdwbools :: ghczmprim:GHCziPrim.Intzh ->
+                         (main:Flite.List ((main:Flite.List ghczmprim:GHCziBool.Bool))) =
+     \ (wws1Gr::ghczmprim:GHCziPrim.Intzh) ->
+         %case ((main:Flite.List
+                 ((main:Flite.List ghczmprim:GHCziBool.Bool)))) wws1Gr
+         %of (wildB1::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              %let a4s1E2 :: ghczmprim:GHCziPrim.Intzh =
+                     ghczmprim:GHCziPrim.zmzh wildB1 (1::ghczmprim:GHCziPrim.Intzh)
+              %in main:Taut.append @ ((main:Flite.List ghczmprim:GHCziBool.Bool))
+                  (main:Taut.map @ ((main:Flite.List ghczmprim:GHCziBool.Bool))
+                   @ ((main:Flite.List ghczmprim:GHCziBool.Bool)) lvl3r1KU
+                   (main:Taut.zdwbools a4s1E2))
+                  (main:Taut.map @ ((main:Flite.List ghczmprim:GHCziBool.Bool))
+                   @ ((main:Flite.List ghczmprim:GHCziBool.Bool)) lvl2r1KS
+                   (main:Taut.zdwbools a4s1E2));
+            (0::ghczmprim:GHCziPrim.Intzh) ->
+              lvl1r1KQ};
+   main:Taut.bools :: ghczmprim:GHCziTypes.Int ->
+                      (main:Flite.List ((main:Flite.List ghczmprim:GHCziBool.Bool))) =
+     %note "InlineMe"
+     \ (ws1Gp::ghczmprim:GHCziTypes.Int) ->
+         %case ((main:Flite.List
+                 ((main:Flite.List ghczmprim:GHCziBool.Bool)))) ws1Gp
+         %of (w1X1HA::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1Gr::ghczmprim:GHCziPrim.Intzh) ->
+              main:Taut.zdwbools wws1Gr};
+   main:Taut.vars :: main:Taut.Prop ->
+                     (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     \ (dsd1Bzz::main:Taut.Prop) ->
+         %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) dsd1Bzz
+         %of (wildB1::main:Taut.Prop)
+           {main:Taut.Const (ba1uu::ghczmprim:GHCziBool.Bool) ->
+              main:Flite.Nil @ ghczmprim:GHCziTypes.Int;
+            main:Taut.Var (xa1uw::ghczmprim:GHCziTypes.Int) ->
+              main:Flite.Cons @ ghczmprim:GHCziTypes.Int xa1uw
+              (main:Flite.Nil @ ghczmprim:GHCziTypes.Int);
+            main:Taut.Not (pa1uy::main:Taut.Prop) ->
+              main:Taut.vars pa1uy;
+            main:Taut.And (pa1uA::main:Taut.Prop) (qa1uC::main:Taut.Prop) ->
+              main:Taut.append @ ghczmprim:GHCziTypes.Int (main:Taut.vars pa1uA)
+              (main:Taut.vars qa1uC);
+            main:Taut.Implies
+            (pa1uE::main:Taut.Prop) (qa1uG::main:Taut.Prop) ->
+              main:Taut.append @ ghczmprim:GHCziTypes.Int (main:Taut.vars pa1uE)
+              (main:Taut.vars qa1uG)};
+   main:Taut.substs :: main:Taut.Prop ->
+                       (main:Flite.List
+                        ((main:Flite.List
+                          ((main:Flite.Pair
+                            ghczmprim:GHCziTypes.Int
+                            ghczmprim:GHCziBool.Bool))))) =
+     \ (pa1uU::main:Taut.Prop) ->
+         %let vss1HP :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+                main:Taut.rmdups (main:Taut.vars pa1uU)
+         %in %case ((main:Flite.List
+                     ((main:Flite.List
+                       ((main:Flite.Pair
+                         ghczmprim:GHCziTypes.Int
+                         ghczmprim:GHCziBool.Bool)))))) (main:Taut.zdwlength
+                                                         @ ghczmprim:GHCziTypes.Int vss1HP)
+             %of (wws1Ge::ghczmprim:GHCziPrim.Intzh)
+               {%_ ->
+                  main:Taut.map @ ((main:Flite.List ghczmprim:GHCziBool.Bool))
+                  @ ((main:Flite.List
+                      ((main:Flite.Pair
+                        ghczmprim:GHCziTypes.Int
+                        ghczmprim:GHCziBool.Bool))))
+                  (main:Taut.zzip @ ghczmprim:GHCziTypes.Int
+                   @ ghczmprim:GHCziBool.Bool vss1HP)
+                  (main:Taut.zdwbools wws1Ge)};
+   main:Taut.zdwfind :: %forall ta1A2 . ghczmprim:GHCziPrim.Intzh ->
+                                        (main:Flite.List
+                                         ((main:Flite.Pair ghczmprim:GHCziTypes.Int ta1A2)))
+                                        -> ta1A2 =
+     \ @ ta1A2
+       (wws1Gk::ghczmprim:GHCziPrim.Intzh)
+       (ws1Gm::(main:Flite.List
+                ((main:Flite.Pair ghczmprim:GHCziTypes.Int ta1A2)))) ->
+         %case ta1A2 ws1Gm
+         %of (wildB1::(main:Flite.List
+                       ((main:Flite.Pair ghczmprim:GHCziTypes.Int ta1A2))))
+           {main:Flite.Nil ->
+              lvl4r1KW @ ta1A2;
+            main:Flite.Cons
+            (dsd1BJ::(main:Flite.Pair ghczmprim:GHCziTypes.Int ta1A2))
+            (ta1u4::(main:Flite.List
+                     ((main:Flite.Pair ghczmprim:GHCziTypes.Int ta1A2)))) ->
+              %case ta1A2 dsd1BJ
+              %of (wild1XV::(main:Flite.Pair ghczmprim:GHCziTypes.Int ta1A2))
+                {main:Flite.Pair
+                 (ka1u0::ghczmprim:GHCziTypes.Int) (va1u2::ta1A2) ->
+                   %case ta1A2 ka1u0 %of (wild11aLT::ghczmprim:GHCziTypes.Int)
+                     {ghczmprim:GHCziTypes.Izh (yaLV::ghczmprim:GHCziPrim.Intzh) ->
+                        %case ta1A2 (ghczmprim:GHCziPrim.zezezh wws1Gk yaLV)
+                        %of (wild2X11::ghczmprim:GHCziBool.Bool)
+                          {ghczmprim:GHCziBool.False ->
+                             main:Taut.zdwfind @ ta1A2 wws1Gk ta1u4;
+                           ghczmprim:GHCziBool.True ->
+                             va1u2}}}};
+   main:Taut.find :: %forall ta1A2 . ghczmprim:GHCziTypes.Int ->
+                                     (main:Flite.List
+                                      ((main:Flite.Pair ghczmprim:GHCziTypes.Int ta1A2)))
+                                     -> ta1A2 =
+     %note "InlineMe"
+     \ @ ta1A2
+       (ws1Gi::ghczmprim:GHCziTypes.Int)
+       (w1s1Gm::(main:Flite.List
+                 ((main:Flite.Pair ghczmprim:GHCziTypes.Int ta1A2)))) ->
+         %case ta1A2 ws1Gi %of (w2X1Hzz::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1Gk::ghczmprim:GHCziPrim.Intzh) ->
+              main:Taut.zdwfind @ ta1A2 wws1Gk w1s1Gm};
+   main:Taut.eval :: (main:Flite.List
+                      ((main:Flite.Pair
+                        ghczmprim:GHCziTypes.Int
+                        ghczmprim:GHCziBool.Bool)))
+                     -> main:Taut.Prop -> ghczmprim:GHCziBool.Bool =
+     \ (sa1u6::(main:Flite.List
+                ((main:Flite.Pair
+                  ghczmprim:GHCziTypes.Int
+                  ghczmprim:GHCziBool.Bool))))
+       (dsd1BW::main:Taut.Prop) ->
+         %case ghczmprim:GHCziBool.Bool dsd1BW %of (wildB1::main:Taut.Prop)
+           {main:Taut.Const (ba1u8::ghczmprim:GHCziBool.Bool) ->
+              ba1u8;
+            main:Taut.Var (xa1uc::ghczmprim:GHCziTypes.Int) ->
+              main:Taut.find @ ghczmprim:GHCziBool.Bool xa1uc sa1u6;
+            main:Taut.Not (pa1ug::main:Taut.Prop) ->
+              %case ghczmprim:GHCziBool.Bool (main:Taut.eval sa1u6 pa1ug)
+              %of (wild1XV::ghczmprim:GHCziBool.Bool)
+                {ghczmprim:GHCziBool.False ->
+                   ghczmprim:GHCziBool.True;
+                 ghczmprim:GHCziBool.True ->
+                   ghczmprim:GHCziBool.False};
+            main:Taut.And (pa1uk::main:Taut.Prop) (qa1um::main:Taut.Prop) ->
+              %case ghczmprim:GHCziBool.Bool (main:Taut.eval sa1u6 pa1uk)
+              %of (wild1XW::ghczmprim:GHCziBool.Bool)
+                {ghczmprim:GHCziBool.False ->
+                   ghczmprim:GHCziBool.False;
+                 ghczmprim:GHCziBool.True ->
+                   main:Taut.eval sa1u6 qa1um};
+            main:Taut.Implies
+            (pa1uq::main:Taut.Prop) (qa1us::main:Taut.Prop) ->
+              %case ghczmprim:GHCziBool.Bool (main:Taut.eval sa1u6 pa1uq)
+              %of (wild1XW::ghczmprim:GHCziBool.Bool)
+                {ghczmprim:GHCziBool.False ->
+                   ghczmprim:GHCziBool.True;
+                 ghczmprim:GHCziBool.True ->
+                   main:Taut.eval sa1u6 qa1us}};
+   main:Taut.isTaut :: main:Taut.Prop -> ghczmprim:GHCziBool.Bool =
+     \ (pa1uY::main:Taut.Prop) ->
+         main:Taut.and
+         (main:Taut.map
+          @ ((main:Flite.List
+              ((main:Flite.Pair
+                ghczmprim:GHCziTypes.Int
+                ghczmprim:GHCziBool.Bool))))
+          @ ghczmprim:GHCziBool.Bool
+          (main:Taut.flip @ main:Taut.Prop
+           @ ((main:Flite.List
+               ((main:Flite.Pair
+                 ghczmprim:GHCziTypes.Int
+                 ghczmprim:GHCziBool.Bool))))
+           @ ghczmprim:GHCziBool.Bool main:Taut.eval pa1uY)
+          (main:Taut.substs pa1uY));
+   main:Taut.testTaut :: ghczmprim:GHCziTypes.Int ->
+                         ghczmprim:GHCziBool.Bool =
+     \ (na1w8::ghczmprim:GHCziTypes.Int) ->
+         %let xss1HR :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+                %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) main:Taut.names
+                %of (wildB1::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                  {main:Flite.Nil ->
+                     main:Flite.Nil @ ghczmprim:GHCziTypes.Int;
+                   main:Flite.Cons
+                   (ipvs1C8::ghczmprim:GHCziTypes.Int)
+                   (ipv1s1C9::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                     %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) na1w8
+                     %of (wild1XD::ghczmprim:GHCziTypes.Int)
+                       {ghczmprim:GHCziTypes.Izh (dsd1AN::ghczmprim:GHCziPrim.Intzh) ->
+                          %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) dsd1AN
+                          %of (ds1X1Bu::ghczmprim:GHCziPrim.Intzh)
+                            {%_ ->
+                               main:Flite.Cons @ ghczmprim:GHCziTypes.Int ipvs1C8
+                               (main:Taut.zdstake @ ghczmprim:GHCziTypes.Int ipv1s1C9
+                                (ghczmprim:GHCziPrim.zmzh ds1X1Bu (1::ghczmprim:GHCziPrim.Intzh)));
+                             (0::ghczmprim:GHCziPrim.Intzh) ->
+                               main:Flite.Nil @ ghczmprim:GHCziTypes.Int}}}
+         %in %let a4s1HV :: main:Taut.Prop =
+                    %case main:Taut.Prop (main:Taut.map @ ghczmprim:GHCziTypes.Int
+                                          @ main:Taut.Prop main:Taut.Var xss1HR)
+                    %of (wildB1::(main:Flite.List main:Taut.Prop))
+                      {main:Flite.Nil ->
+                         main:Taut.lvl5 @ main:Taut.Prop;
+                       main:Flite.Cons
+                       (xa1vW::main:Taut.Prop)
+                       (xs1a1vY::(main:Flite.List main:Taut.Prop)) ->
+                         %case main:Taut.Prop xs1a1vY
+                         %of (wild1XX::(main:Flite.List main:Taut.Prop))
+                           {main:Flite.Nil ->
+                              xa1vW;
+                            main:Flite.Cons
+                            (x1a1vC::main:Taut.Prop)
+                            (xs2a1vE::(main:Flite.List main:Taut.Prop)) ->
+                              main:Taut.And xa1vW
+                              (main:Taut.zdsfoldr1 @ main:Taut.Prop xs2a1vE x1a1vC
+                               main:Taut.And)}}
+             %in %let a5s1HX :: main:Taut.Prop =
+                        main:Taut.Implies main:Taut.lvl a4s1HV
+                 %in %let a6s1HT :: main:Taut.Prop =
+                            %case main:Taut.Prop (main:Taut.map @ ghczmprim:GHCziTypes.Int
+                                                  @ main:Taut.Prop main:Taut.imp xss1HR)
+                            %of (wildB1::(main:Flite.List main:Taut.Prop))
+                              {main:Flite.Nil ->
+                                 main:Taut.lvl5 @ main:Taut.Prop;
+                               main:Flite.Cons
+                               (xa1vW::main:Taut.Prop)
+                               (xs1a1vY::(main:Flite.List main:Taut.Prop)) ->
+                                 %case main:Taut.Prop xs1a1vY
+                                 %of (wild1XX::(main:Flite.List main:Taut.Prop))
+                                   {main:Flite.Nil ->
+                                      xa1vW;
+                                    main:Flite.Cons
+                                    (x1a1vC::main:Taut.Prop)
+                                    (xs2a1vE::(main:Flite.List main:Taut.Prop)) ->
+                                      main:Taut.And xa1vW
+                                      (main:Taut.zdsfoldr1 @ main:Taut.Prop xs2a1vE x1a1vC
+                                       main:Taut.And)}}
+                     %in %let ps1HZZ :: main:Taut.Prop = main:Taut.Implies a6s1HT a5s1HX
+                         %in main:Taut.and
+                             (main:Taut.map
+                              @ ((main:Flite.List
+                                  ((main:Flite.Pair
+                                    ghczmprim:GHCziTypes.Int
+                                    ghczmprim:GHCziBool.Bool))))
+                              @ ghczmprim:GHCziBool.Bool
+                              (\ (xa1v4::(main:Flite.List
+                                          ((main:Flite.Pair
+                                            ghczmprim:GHCziTypes.Int
+                                            ghczmprim:GHCziBool.Bool)))) ->
+                                   main:Taut.eval xa1v4 ps1HZZ)
+                              (main:Taut.substs ps1HZZ))};

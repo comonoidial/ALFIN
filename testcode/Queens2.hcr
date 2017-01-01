@@ -1,0 +1,419 @@
+%module main:Queens2
+  %rec
+  {main:Queens2.a :: ghczmprim:GHCziTypes.Int ->
+                     ghczmprim:GHCziBool.Bool =
+     \ (ds1aLO::ghczmprim:GHCziTypes.Int) ->
+         %case ghczmprim:GHCziBool.Bool ds1aLO
+         %of (wild1aLT::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (yaLV::ghczmprim:GHCziPrim.Intzh) ->
+              %case ghczmprim:GHCziBool.Bool yaLV
+              %of (wildB1::ghczmprim:GHCziPrim.Intzh)
+                {%_ ->
+                   ghczmprim:GHCziBool.False;
+                 (0::ghczmprim:GHCziPrim.Intzh) ->
+                   ghczmprim:GHCziBool.True}};
+   main:Queens2.a1 :: ghczmprim:GHCziTypes.Int ->
+                      ghczmprim:GHCziBool.Bool =
+     \ (ds1aLO::ghczmprim:GHCziTypes.Int) ->
+         %case ghczmprim:GHCziBool.Bool ds1aLO
+         %of (wild1aLT::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (yaLV::ghczmprim:GHCziPrim.Intzh) ->
+              %case ghczmprim:GHCziBool.Bool yaLV
+              %of (wildB1::ghczmprim:GHCziPrim.Intzh)
+                {%_ ->
+                   ghczmprim:GHCziBool.False;
+                 (2::ghczmprim:GHCziPrim.Intzh) ->
+                   ghczmprim:GHCziBool.True}};
+   main:Queens2.a2 :: ghczmprim:GHCziTypes.Int ->
+                      ghczmprim:GHCziBool.Bool =
+     \ (ds1aLO::ghczmprim:GHCziTypes.Int) ->
+         %case ghczmprim:GHCziBool.Bool ds1aLO
+         %of (wild1aLT::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (yaLV::ghczmprim:GHCziPrim.Intzh) ->
+              %case ghczmprim:GHCziBool.Bool yaLV
+              %of (wildB1::ghczmprim:GHCziPrim.Intzh)
+                {%_ ->
+                   ghczmprim:GHCziBool.False;
+                 (1::ghczmprim:GHCziPrim.Intzh) ->
+                   ghczmprim:GHCziBool.True}};
+   lvlr1Ga :: (main:Flite.List
+               ((main:Flite.List
+                 ((main:Flite.List
+                   ((main:Flite.List ghczmprim:GHCziTypes.Int))))))) =
+     main:Flite.Cons
+     @ ((main:Flite.List
+         ((main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))))))
+     (main:Flite.Nil
+      @ ((main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int)))))
+     (main:Flite.Nil
+      @ ((main:Flite.List
+          ((main:Flite.List
+            ((main:Flite.List ghczmprim:GHCziTypes.Int)))))));
+   main:Queens2.lvl1 :: %forall ta1yd . (main:Flite.List ta1yd) =
+     \ @ ta1yd ->
+         base:ControlziExceptionziBase.patError @ ((main:Flite.List ta1yd))
+         ("Queens2.hs:7:0-20|function tail"::ghczmprim:GHCziPrim.Addrzh);
+   main:Queens2.eq :: ghczmprim:GHCziTypes.Int ->
+                      ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziBool.Bool =
+     base:GHCziBase.eqInt;
+   main:Queens2.d :: ghczmprim:GHCziTypes.Int =
+     ghczmprim:GHCziTypes.Izh (2::ghczmprim:GHCziPrim.Intzh);
+   main:Queens2.a3 :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Flite.Cons @ ghczmprim:GHCziTypes.Int main:Queens2.d
+     (main:Flite.Nil @ ghczmprim:GHCziTypes.Int);
+   main:Queens2.r :: ghczmprim:GHCziTypes.Int =
+     ghczmprim:GHCziTypes.Izh (1::ghczmprim:GHCziPrim.Intzh);
+   main:Queens2.a4 :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Flite.Cons @ ghczmprim:GHCziTypes.Int main:Queens2.r
+     main:Queens2.a3;
+   main:Queens2.l :: ghczmprim:GHCziTypes.Int =
+     ghczmprim:GHCziTypes.Izh (0::ghczmprim:GHCziPrim.Intzh);
+   main:Queens2.lvl2 :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Flite.Cons @ ghczmprim:GHCziTypes.Int main:Queens2.l
+     main:Queens2.a4;
+   main:Queens2.lrd :: %forall ta1wh . (main:Flite.List ta1wh) ->
+                                       (main:Flite.List
+                                        ((main:Flite.List ghczmprim:GHCziTypes.Int)))
+                                       ->
+                                       (main:Flite.List
+                                        ((main:Flite.List
+                                          ((main:Flite.List ghczmprim:GHCziTypes.Int))))) =
+     \ @ ta1wh
+       (dsd1yX::(main:Flite.List ta1wh))
+       (ysa1uS::(main:Flite.List
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+         %case ((main:Flite.List
+                 ((main:Flite.List
+                   ((main:Flite.List ghczmprim:GHCziTypes.Int)))))) dsd1yX
+         %of (wildB1::(main:Flite.List ta1wh))
+           {main:Flite.Nil ->
+              main:Flite.Cons
+              @ ((main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+              (main:Flite.Cons @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+               main:Queens2.lvl2 ysa1uS)
+              (main:Flite.Nil
+               @ ((main:Flite.List
+                   ((main:Flite.List ghczmprim:GHCziTypes.Int)))));
+            main:Flite.Cons (xa1uU::ta1wh) (xsa1uW::(main:Flite.List ta1wh)) ->
+              main:Flite.Nil
+              @ ((main:Flite.List
+                  ((main:Flite.List ghczmprim:GHCziTypes.Int))))};
+   main:Queens2.zdwreplicate :: %forall aa1wr . ghczmprim:GHCziPrim.Intzh
+                                                -> aa1wr -> (main:Flite.List aa1wr) =
+     \ @ aa1wr (wws1D6::ghczmprim:GHCziPrim.Intzh) (ws1D8::aa1wr) ->
+         %case ((main:Flite.List aa1wr)) wws1D6
+         %of (wildB1::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              main:Flite.Cons @ aa1wr ws1D8
+              (main:Queens2.zdwreplicate @ aa1wr
+               (ghczmprim:GHCziPrim.zmzh wildB1 (1::ghczmprim:GHCziPrim.Intzh))
+               ws1D8);
+            (0::ghczmprim:GHCziPrim.Intzh) ->
+              main:Flite.Nil @ aa1wr};
+   main:Queens2.replicate :: %forall aa1wr . ghczmprim:GHCziTypes.Int
+                                             -> aa1wr -> (main:Flite.List aa1wr) =
+     %note "InlineMe"
+     \ @ aa1wr (ws1D4::ghczmprim:GHCziTypes.Int) (w1s1D8::aa1wr) ->
+         %case ((main:Flite.List aa1wr)) ws1D4
+         %of (w2X1DX::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1D6::ghczmprim:GHCziPrim.Intzh) ->
+              main:Queens2.zdwreplicate @ aa1wr wws1D6 w1s1D8};
+   main:Queens2.zdwlength :: %forall ta1wA . (main:Flite.List ta1wA)
+                                             -> ghczmprim:GHCziPrim.Intzh =
+     \ @ ta1wA (ws1Db::(main:Flite.List ta1wA)) ->
+         %case ghczmprim:GHCziPrim.Intzh ws1Db
+         %of (wildB1::(main:Flite.List ta1wA))
+           {main:Flite.Nil ->
+              (0::ghczmprim:GHCziPrim.Intzh);
+            main:Flite.Cons (xa1ug::ta1wA) (xsa1ui::(main:Flite.List ta1wA)) ->
+              %case ghczmprim:GHCziPrim.Intzh (main:Queens2.zdwlength @ ta1wA
+                                               xsa1ui)
+              %of (wws1De::ghczmprim:GHCziPrim.Intzh)
+                {%_ ->
+                   ghczmprim:GHCziPrim.zpzh (1::ghczmprim:GHCziPrim.Intzh) wws1De}};
+   main:Queens2.length :: %forall ta1wA . (main:Flite.List ta1wA) ->
+                                          ghczmprim:GHCziTypes.Int =
+     %note "InlineMe"
+     \ @ ta1wA (ws1Db::(main:Flite.List ta1wA)) ->
+         %case ghczmprim:GHCziTypes.Int (main:Queens2.zdwlength @ ta1wA
+                                         ws1Db)
+         %of (wws1De::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              ghczmprim:GHCziTypes.Izh wws1De};
+   main:Queens2.append :: %forall ta1wJ . (main:Flite.List ta1wJ) ->
+                                          (main:Flite.List ta1wJ) -> (main:Flite.List ta1wJ) =
+     \ @ ta1wJ
+       (dsd1zz6::(main:Flite.List ta1wJ))
+       (ysa1u0::(main:Flite.List ta1wJ)) ->
+         %case ((main:Flite.List ta1wJ)) dsd1zz6
+         %of (wildB1::(main:Flite.List ta1wJ))
+           {main:Flite.Nil ->
+              ysa1u0;
+            main:Flite.Cons (xa1u2::ta1wJ) (xsa1u4::(main:Flite.List ta1wJ)) ->
+              main:Flite.Cons @ ta1wJ xa1u2
+              (main:Queens2.append @ ta1wJ xsa1u4 ysa1u0)};
+   main:Queens2.concatMap :: %forall ta1wS aa1wU . (ta1wS ->
+                                                    (main:Flite.List aa1wU))
+                                                   ->
+                                                   (main:Flite.List ta1wS) ->
+                                                   (main:Flite.List aa1wU) =
+     \ @ ta1wS
+       @ aa1wU
+       (fa1u8::ta1wS -> (main:Flite.List aa1wU))
+       (dsd1zz9::(main:Flite.List ta1wS)) ->
+         %case ((main:Flite.List aa1wU)) dsd1zz9
+         %of (wildB1::(main:Flite.List ta1wS))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ aa1wU;
+            main:Flite.Cons (xa1uc::ta1wS) (xsa1ue::(main:Flite.List ta1wS)) ->
+              main:Queens2.append @ aa1wU (fa1u8 xa1uc)
+              (main:Queens2.concatMap @ ta1wS @ aa1wU fa1u8 xsa1ue)};
+   main:Queens2.merge :: %forall ta1xc . (main:Flite.List
+                                          ((main:Flite.List ta1xc)))
+                                         ->
+                                         (main:Flite.List ((main:Flite.List ta1xc))) ->
+                                         (main:Flite.List ((main:Flite.List ta1xc))) =
+     \ @ ta1xc
+       (dsd1zzc::(main:Flite.List ((main:Flite.List ta1xc))))
+       (ysa1uy::(main:Flite.List ((main:Flite.List ta1xc)))) ->
+         %case ((main:Flite.List ((main:Flite.List ta1xc)))) dsd1zzc
+         %of (wildB1::(main:Flite.List ((main:Flite.List ta1xc))))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ ((main:Flite.List ta1xc));
+            main:Flite.Cons
+            (xa1uA::(main:Flite.List ta1xc))
+            (xsa1uC::(main:Flite.List ((main:Flite.List ta1xc)))) ->
+              %case ((main:Flite.List ((main:Flite.List ta1xc)))) ysa1uy
+              %of (wild1XK::(main:Flite.List ((main:Flite.List ta1xc))))
+                {main:Flite.Nil ->
+                   wildB1;
+                 main:Flite.Cons
+                 (ya1uI::(main:Flite.List ta1xc))
+                 (ys1a1uK::(main:Flite.List ((main:Flite.List ta1xc)))) ->
+                   main:Flite.Cons @ ((main:Flite.List ta1xc))
+                   (main:Queens2.append @ ta1xc xa1uA ya1uI)
+                   (main:Queens2.merge @ ta1xc xsa1uC ys1a1uK)}};
+   main:Queens2.map :: %forall ta1xk aa1xm . (ta1xk -> aa1xm) ->
+                                             (main:Flite.List ta1xk) -> (main:Flite.List aa1xm) =
+     \ @ ta1xk
+       @ aa1xm
+       (fa1tS::ta1xk -> aa1xm)
+       (dsd1zzh::(main:Flite.List ta1xk)) ->
+         %case ((main:Flite.List aa1xm)) dsd1zzh
+         %of (wildB1::(main:Flite.List ta1xk))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ aa1xm;
+            main:Flite.Cons (xa1tW::ta1xk) (xsa1tY::(main:Flite.List ta1xk)) ->
+              main:Flite.Cons @ aa1xm (fa1tS xa1tW)
+              (main:Queens2.map @ ta1xk @ aa1xm fa1tS xsa1tY)};
+   main:Queens2.fill :: (main:Flite.List
+                         ((main:Flite.List ghczmprim:GHCziTypes.Int)))
+                        ->
+                        (main:Flite.List
+                         ((main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))))) =
+     \ (dsd1zzk::(main:Flite.List
+                  ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+         %case ((main:Flite.List
+                 ((main:Flite.List
+                   ((main:Flite.List ghczmprim:GHCziTypes.Int)))))) dsd1zzk
+         %of (wildB1::(main:Flite.List
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+           {main:Flite.Nil ->
+              main:Flite.Nil
+              @ ((main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))));
+            main:Flite.Cons
+            (xa1uO::(main:Flite.List ghczmprim:GHCziTypes.Int))
+            (xsa1uQ::(main:Flite.List
+                      ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+              main:Queens2.append
+              @ ((main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+              (main:Queens2.lrd @ ghczmprim:GHCziTypes.Int xa1uO xsa1uQ)
+              (main:Queens2.map
+               @ ((main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+               @ ((main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+               (main:Flite.Cons @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                xa1uO)
+               (main:Queens2.fill xsa1uQ))};
+   main:Queens2.one :: %forall aa1xL . (aa1xL ->
+                                        ghczmprim:GHCziBool.Bool)
+                                       -> (main:Flite.List aa1xL) -> (main:Flite.List aa1xL) =
+     \ @ aa1xL
+       (pa1tK::aa1xL -> ghczmprim:GHCziBool.Bool)
+       (dsd1zzq::(main:Flite.List aa1xL)) ->
+         %case ((main:Flite.List aa1xL)) dsd1zzq
+         %of (wildB1::(main:Flite.List aa1xL))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ aa1xL;
+            main:Flite.Cons (xa1tO::aa1xL) (xsa1tQ::(main:Flite.List aa1xL)) ->
+              %case ((main:Flite.List aa1xL)) (pa1tK xa1tO)
+              %of (wild1XN::ghczmprim:GHCziBool.Bool)
+                {ghczmprim:GHCziBool.False ->
+                   main:Queens2.one @ aa1xL pa1tK xsa1tQ;
+                 ghczmprim:GHCziBool.True ->
+                   main:Flite.Cons @ aa1xL xa1tO (main:Flite.Nil @ aa1xL)}};
+   main:Queens2.lvl3 :: (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                        (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Queens2.one @ ghczmprim:GHCziTypes.Int main:Queens2.a2;
+   main:Queens2.right :: (main:Flite.List
+                          ((main:Flite.List ghczmprim:GHCziTypes.Int)))
+                         -> (main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     \ (xsa1uu::(main:Flite.List
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+         main:Flite.Cons @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+         (main:Flite.Nil @ ghczmprim:GHCziTypes.Int)
+         (main:Queens2.map @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+          @ ((main:Flite.List ghczmprim:GHCziTypes.Int)) main:Queens2.lvl3
+          xsa1uu);
+   main:Queens2.lvl4 :: (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                        (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Queens2.one @ ghczmprim:GHCziTypes.Int main:Queens2.a1;
+   main:Queens2.down :: (main:Flite.List
+                         ((main:Flite.List ghczmprim:GHCziTypes.Int)))
+                        -> (main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     \ (xsa1uw::(main:Flite.List
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+         main:Queens2.map @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+         @ ((main:Flite.List ghczmprim:GHCziTypes.Int)) main:Queens2.lvl4
+         xsa1uw;
+   main:Queens2.lvl5 :: (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                        (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Queens2.one @ ghczmprim:GHCziTypes.Int main:Queens2.a;
+   main:Queens2.tail :: %forall ta1yd . (main:Flite.List ta1yd) ->
+                                        (main:Flite.List ta1yd) =
+     \ @ ta1yd (dsd1zzt::(main:Flite.List ta1yd)) ->
+         %case ((main:Flite.List ta1yd)) dsd1zzt
+         %of (wildB1::(main:Flite.List ta1yd))
+           {main:Flite.Nil ->
+              main:Queens2.lvl1 @ ta1yd;
+            main:Flite.Cons (xa1tG::ta1yd) (xsa1tI::(main:Flite.List ta1yd)) ->
+              xsa1tI};
+   main:Queens2.left :: (main:Flite.List
+                         ((main:Flite.List ghczmprim:GHCziTypes.Int)))
+                        -> (main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     \ (xsa1us::(main:Flite.List
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+         main:Queens2.map @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+         @ ((main:Flite.List ghczmprim:GHCziTypes.Int)) main:Queens2.lvl5
+         (main:Queens2.tail @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+          xsa1us);
+   main:Queens2.next :: (main:Flite.List
+                         ((main:Flite.List ghczmprim:GHCziTypes.Int)))
+                        -> (main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     \ (maska1uM::(main:Flite.List
+                   ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+         main:Queens2.merge @ ghczmprim:GHCziTypes.Int
+         (main:Queens2.merge @ ghczmprim:GHCziTypes.Int
+          (main:Queens2.down maska1uM) (main:Queens2.left maska1uM))
+         (main:Queens2.right maska1uM);
+   main:Queens2.zdwsolve :: ghczmprim:GHCziPrim.Intzh ->
+                            (main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))) ->
+                            (main:Flite.List
+                             ((main:Flite.List
+                               ((main:Flite.List
+                                 ((main:Flite.List ghczmprim:GHCziTypes.Int))))))) =
+     \ (wws1Dk::ghczmprim:GHCziPrim.Intzh)
+       (ws1Dm::(main:Flite.List
+                ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+         %case ((main:Flite.List
+                 ((main:Flite.List
+                   ((main:Flite.List
+                     ((main:Flite.List ghczmprim:GHCziTypes.Int)))))))) wws1Dk
+         %of (wildB1::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              main:Queens2.concatMap
+              @ ((main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+              @ ((main:Flite.List
+                  ((main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))))))
+              (%let a5s1Bi :: ghczmprim:GHCziPrim.Intzh =
+                      ghczmprim:GHCziPrim.zmzh wildB1 (1::ghczmprim:GHCziPrim.Intzh)
+               %in \ (rowa1v6::(main:Flite.List
+                                ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+                       main:Queens2.map
+                       @ ((main:Flite.List
+                           ((main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))))))
+                       @ ((main:Flite.List
+                           ((main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))))))
+                       (main:Flite.Cons
+                        @ ((main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+                        rowa1v6)
+                       (main:Queens2.zdwsolve a5s1Bi (main:Queens2.next rowa1v6)))
+              (main:Queens2.fill ws1Dm);
+            (0::ghczmprim:GHCziPrim.Intzh) ->
+              lvlr1Ga};
+   main:Queens2.solve :: ghczmprim:GHCziTypes.Int ->
+                         (main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))) ->
+                         (main:Flite.List
+                          ((main:Flite.List
+                            ((main:Flite.List
+                              ((main:Flite.List ghczmprim:GHCziTypes.Int))))))) =
+     %note "InlineMe"
+     \ (ws1Di::ghczmprim:GHCziTypes.Int)
+       (w1s1Dm::(main:Flite.List
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+         %case ((main:Flite.List
+                 ((main:Flite.List
+                   ((main:Flite.List
+                     ((main:Flite.List ghczmprim:GHCziTypes.Int)))))))) ws1Di
+         %of (w2X1Es::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1Dk::ghczmprim:GHCziPrim.Intzh) ->
+              main:Queens2.zdwsolve wws1Dk w1s1Dm};
+   main:Queens2.sol :: ghczmprim:GHCziTypes.Int ->
+                       (main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))) ->
+                       (main:Flite.List
+                        ((main:Flite.List
+                          ((main:Flite.List
+                            ((main:Flite.List ghczmprim:GHCziTypes.Int))))))) =
+     \ (na1v4::ghczmprim:GHCziTypes.Int)
+       (rowa1v6::(main:Flite.List
+                  ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+         %case ((main:Flite.List
+                 ((main:Flite.List
+                   ((main:Flite.List
+                     ((main:Flite.List ghczmprim:GHCziTypes.Int)))))))) na1v4
+         %of (wX1Es::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1Dk::ghczmprim:GHCziPrim.Intzh) ->
+              main:Queens2.map
+              @ ((main:Flite.List
+                  ((main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))))))
+              @ ((main:Flite.List
+                  ((main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))))))
+              (main:Flite.Cons
+               @ ((main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+               rowa1v6)
+              (main:Queens2.zdwsolve wws1Dk (main:Queens2.next rowa1v6))};
+   main:Queens2.nqueens :: ghczmprim:GHCziTypes.Int ->
+                           ghczmprim:GHCziTypes.Int =
+     \ (na1v8::ghczmprim:GHCziTypes.Int) ->
+         %case ghczmprim:GHCziTypes.Int na1v8
+         %of (wX1Es::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1Dk::ghczmprim:GHCziPrim.Intzh) ->
+              %case ghczmprim:GHCziTypes.Int (main:Queens2.zdwlength
+                                              @ ((main:Flite.List
+                                                  ((main:Flite.List
+                                                    ((main:Flite.List ghczmprim:GHCziTypes.Int))))))
+                                              (main:Queens2.zdwsolve wws1Dk
+                                               (main:Queens2.zdwreplicate
+                                                @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                                                wws1Dk
+                                                (main:Flite.Nil @ ghczmprim:GHCziTypes.Int))))
+              %of (ww1s1De::ghczmprim:GHCziPrim.Intzh)
+                {%_ ->
+                   ghczmprim:GHCziTypes.Izh ww1s1De}};
+   main:Queens2.testQueens2 :: ghczmprim:GHCziTypes.Int ->
+                               ghczmprim:GHCziTypes.Int =
+     \ (na1va::ghczmprim:GHCziTypes.Int) ->
+         %case ghczmprim:GHCziTypes.Int na1va
+         %of (wX1Es::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1Dk::ghczmprim:GHCziPrim.Intzh) ->
+              %case ghczmprim:GHCziTypes.Int (main:Queens2.zdwlength
+                                              @ ((main:Flite.List
+                                                  ((main:Flite.List
+                                                    ((main:Flite.List ghczmprim:GHCziTypes.Int))))))
+                                              (main:Queens2.zdwsolve wws1Dk
+                                               (main:Queens2.zdwreplicate
+                                                @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                                                wws1Dk
+                                                (main:Flite.Nil @ ghczmprim:GHCziTypes.Int))))
+              %of (ww1s1De::ghczmprim:GHCziPrim.Intzh)
+                {%_ ->
+                   ghczmprim:GHCziTypes.Izh ww1s1De}}};

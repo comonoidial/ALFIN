@@ -1,0 +1,1683 @@
+%module main:SumPuzz
+  %rec
+  {main:SumPuzz.a :: ghczmprim:GHCziTypes.Int =
+     ghczmprim:GHCziTypes.Izh (0::ghczmprim:GHCziPrim.Intzh);
+   main:SumPuzz.a1 :: ghczmprim:GHCziTypes.Int =
+     ghczmprim:GHCziTypes.Izh (1::ghczmprim:GHCziPrim.Intzh);
+   lvlr1ZZF :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Flite.Cons @ ghczmprim:GHCziTypes.Int main:SumPuzz.a1
+     (main:Flite.Nil @ ghczmprim:GHCziTypes.Int);
+   main:SumPuzz.lvl1 :: %forall ta1Du . ta1Du =
+     \ @ ta1Du ->
+         base:ControlziExceptionziBase.patError @ ta1Du
+         ("SumPuz.hs:15:0-20|function fromJust"::ghczmprim:GHCziPrim.Addrzh);
+   main:SumPuzz.lvl2 :: %forall ta1AU . ta1AU =
+     \ @ ta1AU ->
+         base:ControlziExceptionziBase.patError @ ta1AU
+         ("SumPuz.hs:76:0-19|function head"::ghczmprim:GHCziPrim.Addrzh);
+   main:SumPuzz.lvl3 :: %forall ta1AO . (main:Flite.List ta1AO) =
+     \ @ ta1AO ->
+         base:ControlziExceptionziBase.patError @ ((main:Flite.List ta1AO))
+         ("SumPuz.hs:77:0-20|function tail"::ghczmprim:GHCziPrim.Addrzh);
+   failr1ZZH :: (main:Flite.List
+                 ((main:Flite.List
+                   ((main:Flite.Pair
+                     ghczmprim:GHCziTypes.Int
+                     ghczmprim:GHCziTypes.Int))))) =
+     base:ControlziExceptionziBase.patError
+     @ ((main:Flite.List
+         ((main:Flite.List
+           ((main:Flite.Pair
+             ghczmprim:GHCziTypes.Int
+             ghczmprim:GHCziTypes.Int))))))
+     ("SumPuz.hs:(79,0)-(92,61)|function solutions"::ghczmprim:GHCziPrim.Addrzh);
+   main:SumPuzz.lvl4 :: (ghczmprim:GHCziTypes.ZMZN
+                         ghczmprim:GHCziTypes.Char) =
+     base:GHCziBase.unpackCStringzh
+     ("NOLEM"::ghczmprim:GHCziPrim.Addrzh);
+   main:SumPuzz.a2 :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Flite.str main:SumPuzz.lvl4;
+   main:SumPuzz.a3 :: (main:Flite.List
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     main:Flite.Cons @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+     main:SumPuzz.a2
+     (main:Flite.Nil @ ((main:Flite.List ghczmprim:GHCziTypes.Int)));
+   main:SumPuzz.lvl5 :: (ghczmprim:GHCziTypes.ZMZN
+                         ghczmprim:GHCziTypes.Char) =
+     base:GHCziBase.unpackCStringzh
+     ("IHCTIL"::ghczmprim:GHCziPrim.Addrzh);
+   main:SumPuzz.a4 :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Flite.str main:SumPuzz.lvl5;
+   main:SumPuzz.a5 :: (main:Flite.List
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     main:Flite.Cons @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+     main:SumPuzz.a4 main:SumPuzz.a3;
+   main:SumPuzz.lvl6 :: (ghczmprim:GHCziTypes.ZMZN
+                         ghczmprim:GHCziTypes.Char) =
+     base:GHCziBase.unpackCStringzh
+     ("AYAPAP"::ghczmprim:GHCziPrim.Addrzh);
+   main:SumPuzz.a6 :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Flite.str main:SumPuzz.lvl6;
+   main:SumPuzz.a7 :: (main:Flite.List
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     main:Flite.Cons @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+     main:SumPuzz.a6 main:SumPuzz.a5;
+   main:SumPuzz.lvl7 :: (ghczmprim:GHCziTypes.ZMZN
+                         ghczmprim:GHCziTypes.Char) =
+     base:GHCziBase.unpackCStringzh
+     ("ODACAVA"::ghczmprim:GHCziPrim.Addrzh);
+   main:SumPuzz.a8 :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Flite.str main:SumPuzz.lvl7;
+   main:SumPuzz.a9 :: (main:Flite.List
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     main:Flite.Cons @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+     main:SumPuzz.a8 main:SumPuzz.a7;
+   main:SumPuzz.lvl8 :: (ghczmprim:GHCziTypes.ZMZN
+                         ghczmprim:GHCziTypes.Char) =
+     base:GHCziBase.unpackCStringzh
+     ("AVAUG"::ghczmprim:GHCziPrim.Addrzh);
+   main:SumPuzz.a10 :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Flite.str main:SumPuzz.lvl8;
+   main:SumPuzz.a11 :: (main:Flite.List
+                        ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     main:Flite.Cons @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+     main:SumPuzz.a10 main:SumPuzz.a9;
+   main:SumPuzz.lvl9 :: (ghczmprim:GHCziTypes.ZMZN
+                         ghczmprim:GHCziTypes.Char) =
+     base:GHCziBase.unpackCStringzh
+     ("NOMEL"::ghczmprim:GHCziPrim.Addrzh);
+   main:SumPuzz.a12 :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Flite.str main:SumPuzz.lvl9;
+   main:SumPuzz.a13 :: (main:Flite.List
+                        ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     main:Flite.Cons @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+     main:SumPuzz.a12 main:SumPuzz.a11;
+   main:SumPuzz.lvl10 :: (ghczmprim:GHCziTypes.ZMZN
+                          ghczmprim:GHCziTypes.Char) =
+     base:GHCziBase.unpackCStringzh
+     ("EVILO"::ghczmprim:GHCziPrim.Addrzh);
+   main:SumPuzz.a14 :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Flite.str main:SumPuzz.lvl10;
+   main:SumPuzz.a15 :: (main:Flite.List
+                        ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     main:Flite.Cons @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+     main:SumPuzz.a14 main:SumPuzz.a13;
+   main:SumPuzz.lvl11 :: (ghczmprim:GHCziTypes.ZMZN
+                          ghczmprim:GHCziTypes.Char) =
+     base:GHCziBase.unpackCStringzh
+     ("TOCIRPA"::ghczmprim:GHCziPrim.Addrzh);
+   main:SumPuzz.a16 :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Flite.str main:SumPuzz.lvl11;
+   main:SumPuzz.a17 :: (main:Flite.List
+                        ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     main:Flite.Cons @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+     main:SumPuzz.a16 main:SumPuzz.a15;
+   main:SumPuzz.lvl12 :: (ghczmprim:GHCziTypes.ZMZN
+                          ghczmprim:GHCziTypes.Char) =
+     base:GHCziBase.unpackCStringzh
+     ("HCAEP"::ghczmprim:GHCziPrim.Addrzh);
+   main:SumPuzz.a18 :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Flite.str main:SumPuzz.lvl12;
+   main:SumPuzz.a19 :: (main:Flite.List
+                        ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     main:Flite.Cons @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+     main:SumPuzz.a18 main:SumPuzz.a17;
+   main:SumPuzz.lvl13 :: (ghczmprim:GHCziTypes.ZMZN
+                          ghczmprim:GHCziTypes.Char) =
+     base:GHCziBase.unpackCStringzh
+     ("YRREHC"::ghczmprim:GHCziPrim.Addrzh);
+   main:SumPuzz.a20 :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Flite.str main:SumPuzz.lvl13;
+   main:SumPuzz.a21 :: (main:Flite.List
+                        ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     main:Flite.Cons @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+     main:SumPuzz.a20 main:SumPuzz.a19;
+   main:SumPuzz.lvl14 :: (ghczmprim:GHCziTypes.ZMZN
+                          ghczmprim:GHCziTypes.Char) =
+     base:GHCziBase.unpackCStringzh
+     ("ELPPA"::ghczmprim:GHCziPrim.Addrzh);
+   main:SumPuzz.a22 :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Flite.str main:SumPuzz.lvl14;
+   main:SumPuzz.a23 :: (main:Flite.List
+                        ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     main:Flite.Cons @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+     main:SumPuzz.a22 main:SumPuzz.a21;
+   main:SumPuzz.lvl15 :: (ghczmprim:GHCziTypes.ZMZN
+                          ghczmprim:GHCziTypes.Char) =
+     base:GHCziBase.unpackCStringzh
+     ("ANANAB"::ghczmprim:GHCziPrim.Addrzh);
+   main:SumPuzz.a24 :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:Flite.str main:SumPuzz.lvl15;
+   main:SumPuzz.zdwlengthAcc :: %forall ta1zzk . ghczmprim:GHCziPrim.Intzh
+                                                 ->
+                                                 (main:Flite.List ta1zzk) ->
+                                                 ghczmprim:GHCziPrim.Intzh =
+     \ @ ta1zzk
+       (wws1Pm::ghczmprim:GHCziPrim.Intzh)
+       (ws1Po::(main:Flite.List ta1zzk)) ->
+         %case ghczmprim:GHCziPrim.Intzh ws1Po
+         %of (wildB1::(main:Flite.List ta1zzk))
+           {main:Flite.Nil ->
+              wws1Pm;
+            main:Flite.Cons
+            (xa1yO::ta1zzk) (xsa1yQ::(main:Flite.List ta1zzk)) ->
+              main:SumPuzz.zdwlengthAcc @ ta1zzk
+              (ghczmprim:GHCziPrim.zpzh wws1Pm (1::ghczmprim:GHCziPrim.Intzh))
+              xsa1yQ};
+   main:SumPuzz.lengthAcc :: %forall ta1zzk . ghczmprim:GHCziTypes.Int
+                                              ->
+                                              (main:Flite.List ta1zzk) -> ghczmprim:GHCziTypes.Int =
+     %note "InlineMe"
+     \ @ ta1zzk
+       (ws1Pk::ghczmprim:GHCziTypes.Int)
+       (w1s1Po::(main:Flite.List ta1zzk)) ->
+         %case ghczmprim:GHCziTypes.Int ws1Pk
+         %of (w2X1Rv::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1Pm::ghczmprim:GHCziPrim.Intzh) ->
+              %case ghczmprim:GHCziTypes.Int (main:SumPuzz.zdwlengthAcc @ ta1zzk
+                                              wws1Pm w1s1Po)
+              %of (ww1s1Pr::ghczmprim:GHCziPrim.Intzh)
+                {%_ ->
+                   ghczmprim:GHCziTypes.Izh ww1s1Pr}};
+   main:SumPuzz.length :: %forall ta1zzs . (main:Flite.List ta1zzs) ->
+                                           ghczmprim:GHCziTypes.Int =
+     \ @ ta1zzs (xsa1yI::(main:Flite.List ta1zzs)) ->
+         %case ghczmprim:GHCziTypes.Int (main:SumPuzz.zdwlengthAcc @ ta1zzs
+                                         (0::ghczmprim:GHCziPrim.Intzh) xsa1yI)
+         %of (wws1Pr::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              ghczmprim:GHCziTypes.Izh wws1Pr};
+   main:SumPuzz.zdwsumMapAcc :: %forall ta1zzA . (ta1zzA ->
+                                                  ghczmprim:GHCziTypes.Int)
+                                                 ->
+                                                 (main:Flite.List ta1zzA) ->
+                                                 ghczmprim:GHCziPrim.Intzh ->
+                                                 ghczmprim:GHCziPrim.Intzh =
+     \ @ ta1zzA
+       (ws1Pw::ta1zzA -> ghczmprim:GHCziTypes.Int)
+       (w1s1Px::(main:Flite.List ta1zzA))
+       (wws1PA::ghczmprim:GHCziPrim.Intzh) ->
+         %case ghczmprim:GHCziPrim.Intzh w1s1Px
+         %of (wildB1::(main:Flite.List ta1zzA))
+           {main:Flite.Nil ->
+              wws1PA;
+            main:Flite.Cons
+            (xa1ye::ta1zzA) (xsa1yg::(main:Flite.List ta1zzA)) ->
+              %case ghczmprim:GHCziPrim.Intzh (ws1Pw xa1ye)
+              %of (wild1aLv::ghczmprim:GHCziTypes.Int)
+                {ghczmprim:GHCziTypes.Izh (x1aLx::ghczmprim:GHCziPrim.Intzh) ->
+                   main:SumPuzz.zdwsumMapAcc @ ta1zzA ws1Pw xsa1yg
+                   (ghczmprim:GHCziPrim.zpzh x1aLx wws1PA)}};
+   main:SumPuzz.sumMapAcc :: %forall ta1zzA . (ta1zzA ->
+                                               ghczmprim:GHCziTypes.Int)
+                                              ->
+                                              (main:Flite.List ta1zzA) ->
+                                              ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int =
+     %note "InlineMe"
+     \ @ ta1zzA
+       (ws1Pw::ta1zzA -> ghczmprim:GHCziTypes.Int)
+       (w1s1Px::(main:Flite.List ta1zzA))
+       (w2s1Py::ghczmprim:GHCziTypes.Int) ->
+         %case ghczmprim:GHCziTypes.Int w2s1Py
+         %of (w3X1RN::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1PA::ghczmprim:GHCziPrim.Intzh) ->
+              %case ghczmprim:GHCziTypes.Int (main:SumPuzz.zdwsumMapAcc @ ta1zzA
+                                              ws1Pw w1s1Px wws1PA)
+              %of (ww1s1PE::ghczmprim:GHCziPrim.Intzh)
+                {%_ ->
+                   ghczmprim:GHCziTypes.Izh ww1s1PE}};
+   main:SumPuzz.sumMap :: %forall ta1zzM . (ta1zzM ->
+                                            ghczmprim:GHCziTypes.Int)
+                                           -> (main:Flite.List ta1zzM) -> ghczmprim:GHCziTypes.Int =
+     \ @ ta1zzM
+       (fa1y4::ta1zzM -> ghczmprim:GHCziTypes.Int)
+       (xsa1y6::(main:Flite.List ta1zzM)) ->
+         %case ghczmprim:GHCziTypes.Int (main:SumPuzz.zdwsumMapAcc @ ta1zzM
+                                         fa1y4 xsa1y6 (0::ghczmprim:GHCziPrim.Intzh))
+         %of (wws1PE::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              ghczmprim:GHCziTypes.Izh wws1PE};
+   main:SumPuzz.and :: ghczmprim:GHCziBool.Bool ->
+                       ghczmprim:GHCziBool.Bool -> ghczmprim:GHCziBool.Bool =
+     \ (dsd1GT::ghczmprim:GHCziBool.Bool)
+       (xa1xU::ghczmprim:GHCziBool.Bool) ->
+         %case ghczmprim:GHCziBool.Bool dsd1GT
+         %of (wildB1::ghczmprim:GHCziBool.Bool)
+           {ghczmprim:GHCziBool.False ->
+              ghczmprim:GHCziBool.False;
+            ghczmprim:GHCziBool.True ->
+              xa1xU};
+   main:SumPuzz.isSingleton :: %forall ta1zzY . (main:Flite.List
+                                                 ta1zzY)
+                                                -> ghczmprim:GHCziBool.Bool =
+     \ @ ta1zzY (dsd1GW::(main:Flite.List ta1zzY)) ->
+         %case ghczmprim:GHCziBool.Bool dsd1GW
+         %of (wildB1::(main:Flite.List ta1zzY))
+           {main:Flite.Nil ->
+              ghczmprim:GHCziBool.False;
+            main:Flite.Cons
+            (xa1xM::ta1zzY) (ds1d1GX::(main:Flite.List ta1zzY)) ->
+              %case ghczmprim:GHCziBool.Bool ds1d1GX
+              %of (wild1XX::(main:Flite.List ta1zzY))
+                {main:Flite.Nil ->
+                   ghczmprim:GHCziBool.True;
+                 main:Flite.Cons
+                 (ya1xQ::ta1zzY) (ysa1xS::(main:Flite.List ta1zzY)) ->
+                   ghczmprim:GHCziBool.False}};
+   main:SumPuzz.zdwdivMod10 :: ghczmprim:GHCziPrim.Intzh ->
+                               (ghczmprim:GHCziPrim.Z2H
+                                ghczmprim:GHCziTypes.Int
+                                ghczmprim:GHCziTypes.Int) =
+     \ (wws1PP::ghczmprim:GHCziPrim.Intzh) ->
+         %case ((ghczmprim:GHCziPrim.Z2H
+                 ghczmprim:GHCziTypes.Int
+                 ghczmprim:GHCziTypes.Int)) (ghczmprim:GHCziPrim.zlzezh wws1PP
+                                             (9::ghczmprim:GHCziPrim.Intzh))
+         %of (wildB1::ghczmprim:GHCziBool.Bool)
+           {ghczmprim:GHCziBool.False ->
+              %case ((ghczmprim:GHCziPrim.Z2H
+                      ghczmprim:GHCziTypes.Int
+                      ghczmprim:GHCziTypes.Int)) (main:SumPuzz.zdwdivMod10
+                                                  (ghczmprim:GHCziPrim.zmzh wws1PP
+                                                   (10::ghczmprim:GHCziPrim.Intzh)))
+              %of (ww1s1Qg::(ghczmprim:GHCziPrim.Z2H
+                             ghczmprim:GHCziTypes.Int
+                             ghczmprim:GHCziTypes.Int))
+                {ghczmprim:GHCziPrim.Z2H
+                 (ww2s1Qi::ghczmprim:GHCziTypes.Int)
+                 (ww3s1Qj::ghczmprim:GHCziTypes.Int) ->
+                   ghczmprim:GHCziPrim.Z2H @ ghczmprim:GHCziTypes.Int
+                   @ ghczmprim:GHCziTypes.Int
+                   (%case ghczmprim:GHCziTypes.Int ww2s1Qi
+                    %of (wild1aLv::ghczmprim:GHCziTypes.Int)
+                      {ghczmprim:GHCziTypes.Izh (xaLx::ghczmprim:GHCziPrim.Intzh) ->
+                         ghczmprim:GHCziTypes.Izh
+                         (ghczmprim:GHCziPrim.zpzh xaLx (1::ghczmprim:GHCziPrim.Intzh))})
+                   ww3s1Qj};
+            ghczmprim:GHCziBool.True ->
+              ghczmprim:GHCziPrim.Z2H @ ghczmprim:GHCziTypes.Int
+              @ ghczmprim:GHCziTypes.Int main:SumPuzz.a
+              (ghczmprim:GHCziTypes.Izh wws1PP)};
+   main:SumPuzz.divMod10 :: ghczmprim:GHCziTypes.Int ->
+                            (main:Flite.Pair
+                             ghczmprim:GHCziTypes.Int
+                             ghczmprim:GHCziTypes.Int) =
+     %note "InlineMe"
+     \ (ws1PN::ghczmprim:GHCziTypes.Int) ->
+         %case ((main:Flite.Pair
+                 ghczmprim:GHCziTypes.Int
+                 ghczmprim:GHCziTypes.Int)) ws1PN
+         %of (w1X1S4::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1PP::ghczmprim:GHCziPrim.Intzh) ->
+              %case ((main:Flite.Pair
+                      ghczmprim:GHCziTypes.Int
+                      ghczmprim:GHCziTypes.Int)) (main:SumPuzz.zdwdivMod10 wws1PP)
+              %of (ww1s1Qg::(ghczmprim:GHCziPrim.Z2H
+                             ghczmprim:GHCziTypes.Int
+                             ghczmprim:GHCziTypes.Int))
+                {ghczmprim:GHCziPrim.Z2H
+                 (ww2s1Qi::ghczmprim:GHCziTypes.Int)
+                 (ww3s1Qj::ghczmprim:GHCziTypes.Int) ->
+                   main:Flite.Pair @ ghczmprim:GHCziTypes.Int
+                   @ ghczmprim:GHCziTypes.Int ww2s1Qi ww3s1Qj}};
+   main:SumPuzz.curry :: %forall aa1AG ba1AH ta1AI . ((main:Flite.Pair
+                                                       aa1AG
+                                                       ba1AH)
+                                                      -> ta1AI)
+                                                     -> aa1AG -> ba1AH -> ta1AI =
+     \ @ aa1AG
+       @ ba1AH
+       @ ta1AI
+       (fa1xi::(main:Flite.Pair aa1AG ba1AH) -> ta1AI)
+       (xa1xk::aa1AG)
+       (ya1xm::ba1AH) ->
+         fa1xi (main:Flite.Pair @ aa1AG @ ba1AH xa1xk ya1xm);
+   main:SumPuzz.tail :: %forall ta1AO . (main:Flite.List ta1AO) ->
+                                        (main:Flite.List ta1AO) =
+     \ @ ta1AO (dsd1Ha::(main:Flite.List ta1AO)) ->
+         %case ((main:Flite.List ta1AO)) dsd1Ha
+         %of (wildB1::(main:Flite.List ta1AO))
+           {main:Flite.Nil ->
+              main:SumPuzz.lvl3 @ ta1AO;
+            main:Flite.Cons (xa1wS::ta1AO) (xsa1wU::(main:Flite.List ta1AO)) ->
+              xsa1wU};
+   main:SumPuzz.head :: %forall ta1AU . (main:Flite.List ta1AU) ->
+                                        ta1AU =
+     \ @ ta1AU (dsd1Hd::(main:Flite.List ta1AU)) ->
+         %case ta1AU dsd1Hd %of (wildB1::(main:Flite.List ta1AU))
+           {main:Flite.Nil ->
+              main:SumPuzz.lvl2 @ ta1AU;
+            main:Flite.Cons (xa1wO::ta1AU) (xsa1wQ::(main:Flite.List ta1AU)) ->
+              xa1wO};
+   main:SumPuzz.ifNull :: %forall ta1B2 t1a1B4 . (main:Flite.List
+                                                  t1a1B4)
+                                                 -> ta1B2 -> ta1B2 -> ta1B2 =
+     \ @ ta1B2
+       @ t1a1B4
+       (dsd1Hg::(main:Flite.List t1a1B4))
+       (ta1wC::ta1B2)
+       (ea1wE::ta1B2) ->
+         %case ta1B2 dsd1Hg %of (wildB1::(main:Flite.List t1a1B4))
+           {main:Flite.Nil ->
+              ta1wC;
+            main:Flite.Cons
+            (xa1wG::t1a1B4) (xsa1wI::(main:Flite.List t1a1B4)) ->
+              ea1wE};
+   main:SumPuzz.append :: %forall ta1Bb . (main:Flite.List ta1Bb) ->
+                                          (main:Flite.List ta1Bb) -> (main:Flite.List ta1Bb) =
+     \ @ ta1Bb
+       (dsd1Hj::(main:Flite.List ta1Bb))
+       (ysa1wm::(main:Flite.List ta1Bb)) ->
+         %case ((main:Flite.List ta1Bb)) dsd1Hj
+         %of (wildB1::(main:Flite.List ta1Bb))
+           {main:Flite.Nil ->
+              ysa1wm;
+            main:Flite.Cons (xa1wo::ta1Bb) (xsa1wq::(main:Flite.List ta1Bb)) ->
+              main:Flite.Cons @ ta1Bb xa1wo
+              (main:SumPuzz.append @ ta1Bb xsa1wq ysa1wm)};
+   main:SumPuzz.ofAll :: %forall ta1Bk aa1Bm . (ta1Bk ->
+                                                (main:Flite.List aa1Bm))
+                                               ->
+                                               (main:Flite.List ta1Bk) -> (main:Flite.List aa1Bm) =
+     \ @ ta1Bk
+       @ aa1Bm
+       (fa1wu::ta1Bk -> (main:Flite.List aa1Bm))
+       (dsd1Hm::(main:Flite.List ta1Bk)) ->
+         %case ((main:Flite.List aa1Bm)) dsd1Hm
+         %of (wildB1::(main:Flite.List ta1Bk))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ aa1Bm;
+            main:Flite.Cons (xa1wy::ta1Bk) (xsa1wA::(main:Flite.List ta1Bk)) ->
+              main:SumPuzz.append @ aa1Bm (fa1wu xa1wy)
+              (main:SumPuzz.ofAll @ ta1Bk @ aa1Bm fa1wu xsa1wA)};
+   main:SumPuzz.zzip :: %forall ta1BK t1a1BN . (main:Flite.List ta1BK)
+                                               ->
+                                               (main:Flite.List t1a1BN) ->
+                                               (main:Flite.List ((main:Flite.Pair ta1BK t1a1BN))) =
+     \ @ ta1BK
+       @ t1a1BN
+       (dsd1Hs::(main:Flite.List ta1BK))
+       (ysa1vS::(main:Flite.List t1a1BN)) ->
+         %case ((main:Flite.List ((main:Flite.Pair ta1BK t1a1BN)))) dsd1Hs
+         %of (wildB1::(main:Flite.List ta1BK))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ ((main:Flite.Pair ta1BK t1a1BN));
+            main:Flite.Cons (xa1vU::ta1BK) (xsa1vW::(main:Flite.List ta1BK)) ->
+              %case ((main:Flite.List ((main:Flite.Pair ta1BK t1a1BN)))) ysa1vS
+              %of (wild1X17::(main:Flite.List t1a1BN))
+                {main:Flite.Nil ->
+                   main:Flite.Nil @ ((main:Flite.Pair ta1BK t1a1BN));
+                 main:Flite.Cons
+                 (ya1w2::t1a1BN) (ys1a1w4::(main:Flite.List t1a1BN)) ->
+                   main:Flite.Cons @ ((main:Flite.Pair ta1BK t1a1BN))
+                   (main:Flite.Pair @ ta1BK @ t1a1BN xa1vU ya1w2)
+                   (main:SumPuzz.zzip @ ta1BK @ t1a1BN xsa1vW ys1a1w4)}};
+   main:SumPuzz.repeat :: %forall aa1BZZ . aa1BZZ ->
+                                           (main:Flite.List aa1BZZ) =
+     \ @ aa1BZZ (xa1vQ::aa1BZZ) ->
+         main:Flite.Cons @ aa1BZZ xa1vQ
+         (main:SumPuzz.repeat @ aa1BZZ xa1vQ);
+   main:SumPuzz.flip :: %forall ta1Ck t1a1Cl t2a1Co . (t1a1Cl ->
+                                                       ta1Ck -> t2a1Co)
+                                                      -> ta1Ck -> t1a1Cl -> t2a1Co =
+     \ @ ta1Ck
+       @ t1a1Cl
+       @ t2a1Co
+       (fa1vy::t1a1Cl -> ta1Ck -> t2a1Co)
+       (xa1vA::ta1Ck)
+       (ya1vC::t1a1Cl) ->
+         fa1vy ya1vC xa1vA;
+   main:SumPuzz.zdwsum :: (main:Flite.List ghczmprim:GHCziTypes.Int)
+                          -> ghczmprim:GHCziPrim.Intzh =
+     \ (ws1PH::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+         %case ghczmprim:GHCziPrim.Intzh ws1PH
+         %of (wildB1::(main:Flite.List ghczmprim:GHCziTypes.Int))
+           {main:Flite.Nil ->
+              (0::ghczmprim:GHCziPrim.Intzh);
+            main:Flite.Cons
+            (xa1ve::ghczmprim:GHCziTypes.Int)
+            (xsa1vg::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              %case ghczmprim:GHCziPrim.Intzh xa1ve
+              %of (wild1aLv::ghczmprim:GHCziTypes.Int)
+                {ghczmprim:GHCziTypes.Izh (x1aLx::ghczmprim:GHCziPrim.Intzh) ->
+                   %case ghczmprim:GHCziPrim.Intzh (main:SumPuzz.zdwsum xsa1vg)
+                   %of (wws1PK::ghczmprim:GHCziPrim.Intzh)
+                     {%_ ->
+                        ghczmprim:GHCziPrim.zpzh x1aLx wws1PK}}};
+   main:SumPuzz.sum :: (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                       ghczmprim:GHCziTypes.Int =
+     %note "InlineMe"
+     \ (ws1PH::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+         %case ghczmprim:GHCziTypes.Int (main:SumPuzz.zdwsum ws1PH)
+         %of (wws1PK::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              ghczmprim:GHCziTypes.Izh wws1PK};
+   main:SumPuzz.fromJust :: %forall ta1Du . (main:Flite.Maybe ta1Du)
+                                            -> ta1Du =
+     \ @ ta1Du (dsd1HX::(main:Flite.Maybe ta1Du)) ->
+         %case ta1Du dsd1HX %of (wildB1::(main:Flite.Maybe ta1Du))
+           {main:Flite.Nothing ->
+              main:SumPuzz.lvl1 @ ta1Du;
+            main:Flite.Just (xa1v2::ta1Du) ->
+              xa1v2};
+   main:SumPuzz.fst :: %forall ta1Ep t1a1Eq . (main:Flite.Pair
+                                               ta1Ep
+                                               t1a1Eq)
+                                              -> ta1Ep =
+     \ @ ta1Ep @ t1a1Eq (dsd1I8::(main:Flite.Pair ta1Ep t1a1Eq)) ->
+         %case ta1Ep dsd1I8 %of (wildB1::(main:Flite.Pair ta1Ep t1a1Eq))
+           {main:Flite.Pair (xa1uQ::ta1Ep) (ya1uS::t1a1Eq) ->
+              xa1uQ};
+   main:SumPuzz.zdsdel :: (main:Flite.List ghczmprim:GHCziTypes.Int)
+                          ->
+                          ghczmprim:GHCziPrim.Intzh ->
+                          (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     \ (scs1Ve::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (sc1s1Vf::ghczmprim:GHCziPrim.Intzh) ->
+         %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) scs1Ve
+         %of (wildB1::(main:Flite.List ghczmprim:GHCziTypes.Int))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ ghczmprim:GHCziTypes.Int;
+            main:Flite.Cons
+            (ya1vm::ghczmprim:GHCziTypes.Int)
+            (ysa1vo::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) ya1vm
+              %of (wild1aLT::ghczmprim:GHCziTypes.Int)
+                {ghczmprim:GHCziTypes.Izh (y1aLV::ghczmprim:GHCziPrim.Intzh) ->
+                   %case ((main:Flite.List
+                           ghczmprim:GHCziTypes.Int)) (ghczmprim:GHCziPrim.zezezh sc1s1Vf
+                                                       y1aLV)
+                   %of (wild11X1h::ghczmprim:GHCziBool.Bool)
+                     {ghczmprim:GHCziBool.False ->
+                        main:Flite.Cons @ ghczmprim:GHCziTypes.Int wild1aLT
+                        (main:SumPuzz.zdsdel ysa1vo sc1s1Vf);
+                      ghczmprim:GHCziBool.True ->
+                        ysa1vo}}};
+   main:SumPuzz.del :: ghczmprim:GHCziTypes.Int ->
+                       (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                       (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     \ (xa1vi::ghczmprim:GHCziTypes.Int)
+       (dsd1HJ::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+         %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) dsd1HJ
+         %of (wildB1::(main:Flite.List ghczmprim:GHCziTypes.Int))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ ghczmprim:GHCziTypes.Int;
+            main:Flite.Cons
+            (ya1vm::ghczmprim:GHCziTypes.Int)
+            (ysa1vo::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) xa1vi
+              %of (wild1aLP::ghczmprim:GHCziTypes.Int)
+                {ghczmprim:GHCziTypes.Izh (x1aLR::ghczmprim:GHCziPrim.Intzh) ->
+                   %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) ya1vm
+                   %of (wild11aLT::ghczmprim:GHCziTypes.Int)
+                     {ghczmprim:GHCziTypes.Izh (y1aLV::ghczmprim:GHCziPrim.Intzh) ->
+                        %case ((main:Flite.List
+                                ghczmprim:GHCziTypes.Int)) (ghczmprim:GHCziPrim.zezezh x1aLR y1aLV)
+                        %of (wild2X1h::ghczmprim:GHCziBool.Bool)
+                          {ghczmprim:GHCziBool.False ->
+                             main:Flite.Cons @ ghczmprim:GHCziTypes.Int wild11aLT
+                             (main:SumPuzz.zdsdel ysa1vo x1aLR);
+                           ghczmprim:GHCziBool.True ->
+                             ysa1vo}}}};
+   main:SumPuzz.a25 :: (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                       ghczmprim:GHCziTypes.Int ->
+                       (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     \ (xa1vA::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (ya1vC::ghczmprim:GHCziTypes.Int) ->
+         main:SumPuzz.del ya1vC xa1vA;
+   main:SumPuzz.foldl :: %forall ta1C7 t1a1Cd . (t1a1Cd ->
+                                                 ta1C7 -> t1a1Cd)
+                                                -> t1a1Cd -> (main:Flite.List ta1C7) -> t1a1Cd =
+     \ @ ta1C7
+       @ t1a1Cd
+       (fa1vE::t1a1Cd -> ta1C7 -> t1a1Cd)
+       (a26a1vG::t1a1Cd)
+       (dsd1Hx::(main:Flite.List ta1C7)) ->
+         %case t1a1Cd dsd1Hx %of (wildB1::(main:Flite.List ta1C7))
+           {main:Flite.Nil ->
+              a26a1vG;
+            main:Flite.Cons (xa1vM::ta1C7) (xsa1vO::(main:Flite.List ta1C7)) ->
+              main:SumPuzz.foldl @ ta1C7 @ t1a1Cd fa1vE (fa1vE a26a1vG xa1vM)
+              xsa1vO};
+   main:SumPuzz.diff :: (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                        (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                        (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     main:SumPuzz.foldl @ ghczmprim:GHCziTypes.Int
+     @ ((main:Flite.List ghczmprim:GHCziTypes.Int)) main:SumPuzz.a25;
+   main:SumPuzz.map :: %forall ta1Bx aa1Bzz . (ta1Bx -> aa1Bzz) ->
+                                              (main:Flite.List ta1Bx) -> (main:Flite.List aa1Bzz) =
+     \ @ ta1Bx
+       @ aa1Bzz
+       (fa1w6::ta1Bx -> aa1Bzz)
+       (dsd1Hp::(main:Flite.List ta1Bx)) ->
+         %case ((main:Flite.List aa1Bzz)) dsd1Hp
+         %of (wildB1::(main:Flite.List ta1Bx))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ aa1Bzz;
+            main:Flite.Cons (xa1wa::ta1Bx) (xsa1wc::(main:Flite.List ta1Bx)) ->
+              main:Flite.Cons @ aa1Bzz (fa1w6 xa1wa)
+              (main:SumPuzz.map @ ta1Bx @ aa1Bzz fa1w6 xsa1wc)};
+   main:SumPuzz.snd :: %forall ta1DK t1a1DL . (main:Flite.Pair
+                                               ta1DK
+                                               t1a1DL)
+                                              -> t1a1DL =
+     \ @ ta1DK @ t1a1DL (dsd1I0::(main:Flite.Pair ta1DK t1a1DL)) ->
+         %case t1a1DL dsd1I0 %of (wildB1::(main:Flite.Pair ta1DK t1a1DL))
+           {main:Flite.Pair (xa1uU::ta1DK) (ya1uW::t1a1DL) ->
+              ya1uW};
+   main:SumPuzz.rng :: %forall ta1DS t1a1DT . (main:Flite.List
+                                               ((main:Flite.Pair ta1DS t1a1DT)))
+                                              -> (main:Flite.List t1a1DT) =
+     \ @ ta1DS @ t1a1DT ->
+         main:SumPuzz.map @ ((main:Flite.Pair ta1DS t1a1DT)) @ t1a1DT
+         (main:SumPuzz.snd @ ta1DS @ t1a1DT);
+   main:SumPuzz.zdsfromTo :: ghczmprim:GHCziPrim.Intzh ->
+                             ghczmprim:GHCziPrim.Intzh ->
+                             (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     \ (scs1Vs::ghczmprim:GHCziPrim.Intzh)
+       (sc1s1Vt::ghczmprim:GHCziPrim.Intzh) ->
+         main:Flite.Cons @ ghczmprim:GHCziTypes.Int
+         (ghczmprim:GHCziTypes.Izh sc1s1Vt)
+         (%case ((main:Flite.List
+                  ghczmprim:GHCziTypes.Int)) (ghczmprim:GHCziPrim.zezezh sc1s1Vt
+                                              scs1Vs)
+          %of (wildB1::ghczmprim:GHCziBool.Bool)
+            {ghczmprim:GHCziBool.False ->
+               main:SumPuzz.zdsfromTo scs1Vs
+               (ghczmprim:GHCziPrim.zpzh sc1s1Vt (1::ghczmprim:GHCziPrim.Intzh));
+             ghczmprim:GHCziBool.True ->
+               main:Flite.Nil @ ghczmprim:GHCziTypes.Int});
+   main:SumPuzz.fromTo :: ghczmprim:GHCziTypes.Int ->
+                          ghczmprim:GHCziTypes.Int ->
+                          (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     \ (na1xI::ghczmprim:GHCziTypes.Int)
+       (ma1xK::ghczmprim:GHCziTypes.Int) ->
+         main:Flite.Cons @ ghczmprim:GHCziTypes.Int na1xI
+         (%case ((main:Flite.List ghczmprim:GHCziTypes.Int)) na1xI
+          %of (wildaLP::ghczmprim:GHCziTypes.Int)
+            {ghczmprim:GHCziTypes.Izh (xaLR::ghczmprim:GHCziPrim.Intzh) ->
+               %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) ma1xK
+               %of (wild1aLT::ghczmprim:GHCziTypes.Int)
+                 {ghczmprim:GHCziTypes.Izh (yaLV::ghczmprim:GHCziPrim.Intzh) ->
+                    %case ((main:Flite.List
+                            ghczmprim:GHCziTypes.Int)) (ghczmprim:GHCziPrim.zezezh xaLR yaLV)
+                    %of (wild11B1::ghczmprim:GHCziBool.Bool)
+                      {ghczmprim:GHCziBool.False ->
+                         main:SumPuzz.zdsfromTo yaLV
+                         (ghczmprim:GHCziPrim.zpzh xaLR (1::ghczmprim:GHCziPrim.Intzh));
+                       ghczmprim:GHCziBool.True ->
+                         main:Flite.Nil @ ghczmprim:GHCziTypes.Int}}});
+   main:SumPuzz.zdslookup :: %forall aa1Dj . (main:Flite.List
+                                              ((main:Flite.Pair ghczmprim:GHCziTypes.Int aa1Dj)))
+                                             ->
+                                             ghczmprim:GHCziPrim.Intzh -> (main:Flite.Maybe aa1Dj) =
+     \ @ aa1Dj
+       (scs1VB::(main:Flite.List
+                 ((main:Flite.Pair ghczmprim:GHCziTypes.Int aa1Dj))))
+       (sc1s1VC::ghczmprim:GHCziPrim.Intzh) ->
+         %case ((main:Flite.Maybe aa1Dj)) scs1VB
+         %of (wildB1::(main:Flite.List
+                       ((main:Flite.Pair ghczmprim:GHCziTypes.Int aa1Dj))))
+           {main:Flite.Nil ->
+              main:Flite.Nothing @ aa1Dj;
+            main:Flite.Cons
+            (dsd1HT::(main:Flite.Pair ghczmprim:GHCziTypes.Int aa1Dj))
+            (resta1vc::(main:Flite.List
+                        ((main:Flite.Pair ghczmprim:GHCziTypes.Int aa1Dj)))) ->
+              %case ((main:Flite.Maybe aa1Dj)) dsd1HT
+              %of (wild1X1g::(main:Flite.Pair ghczmprim:GHCziTypes.Int aa1Dj))
+                {main:Flite.Pair
+                 (ba1v8::ghczmprim:GHCziTypes.Int) (ca1va::aa1Dj) ->
+                   %case ((main:Flite.Maybe aa1Dj)) ba1v8
+                   %of (wild11aLT::ghczmprim:GHCziTypes.Int)
+                     {ghczmprim:GHCziTypes.Izh (yaLV::ghczmprim:GHCziPrim.Intzh) ->
+                        %case ((main:Flite.Maybe aa1Dj)) (ghczmprim:GHCziPrim.zezezh
+                                                          sc1s1VC yaLV)
+                        %of (wild2X1m::ghczmprim:GHCziBool.Bool)
+                          {ghczmprim:GHCziBool.False ->
+                             main:SumPuzz.zdslookup @ aa1Dj resta1vc sc1s1VC;
+                           ghczmprim:GHCziBool.True ->
+                             main:Flite.Just @ aa1Dj ca1va}}}};
+   main:SumPuzz.lookup :: %forall aa1Dj . ghczmprim:GHCziTypes.Int ->
+                                          (main:Flite.List
+                                           ((main:Flite.Pair ghczmprim:GHCziTypes.Int aa1Dj)))
+                                          -> (main:Flite.Maybe aa1Dj) =
+     \ @ aa1Dj
+       (a26a1v4::ghczmprim:GHCziTypes.Int)
+       (dsd1HS::(main:Flite.List
+                 ((main:Flite.Pair ghczmprim:GHCziTypes.Int aa1Dj)))) ->
+         %case ((main:Flite.Maybe aa1Dj)) dsd1HS
+         %of (wildB1::(main:Flite.List
+                       ((main:Flite.Pair ghczmprim:GHCziTypes.Int aa1Dj))))
+           {main:Flite.Nil ->
+              main:Flite.Nothing @ aa1Dj;
+            main:Flite.Cons
+            (ds1d1HT::(main:Flite.Pair ghczmprim:GHCziTypes.Int aa1Dj))
+            (resta1vc::(main:Flite.List
+                        ((main:Flite.Pair ghczmprim:GHCziTypes.Int aa1Dj)))) ->
+              %case ((main:Flite.Maybe aa1Dj)) ds1d1HT
+              %of (wild1X1g::(main:Flite.Pair ghczmprim:GHCziTypes.Int aa1Dj))
+                {main:Flite.Pair
+                 (ba1v8::ghczmprim:GHCziTypes.Int) (ca1va::aa1Dj) ->
+                   %case ((main:Flite.Maybe aa1Dj)) a26a1v4
+                   %of (wild2aLP::ghczmprim:GHCziTypes.Int)
+                     {ghczmprim:GHCziTypes.Izh (xaLR::ghczmprim:GHCziPrim.Intzh) ->
+                        %case ((main:Flite.Maybe aa1Dj)) ba1v8
+                        %of (wild11aLT::ghczmprim:GHCziTypes.Int)
+                          {ghczmprim:GHCziTypes.Izh (yaLV::ghczmprim:GHCziPrim.Intzh) ->
+                             %case ((main:Flite.Maybe aa1Dj)) (ghczmprim:GHCziPrim.zezezh xaLR
+                                                               yaLV)
+                             %of (wild3X1m::ghczmprim:GHCziBool.Bool)
+                               {ghczmprim:GHCziBool.False ->
+                                  main:SumPuzz.zdslookup @ aa1Dj resta1vc xaLR;
+                                ghczmprim:GHCziBool.True ->
+                                  main:Flite.Just @ aa1Dj ca1va}}}}};
+   main:SumPuzz.img :: %forall ta1DD . (main:Flite.List
+                                        ((main:Flite.Pair ghczmprim:GHCziTypes.Int ta1DD)))
+                                       -> ghczmprim:GHCziTypes.Int -> ta1DD =
+     \ @ ta1DD
+       (ldsa1uY::(main:Flite.List
+                  ((main:Flite.Pair ghczmprim:GHCziTypes.Int ta1DD))))
+       (la1v0::ghczmprim:GHCziTypes.Int) ->
+         %case ta1DD ldsa1uY
+         %of (wildB1::(main:Flite.List
+                       ((main:Flite.Pair ghczmprim:GHCziTypes.Int ta1DD))))
+           {main:Flite.Nil ->
+              main:SumPuzz.lvl1 @ ta1DD;
+            main:Flite.Cons
+            (dsd1HT::(main:Flite.Pair ghczmprim:GHCziTypes.Int ta1DD))
+            (resta1vc::(main:Flite.List
+                        ((main:Flite.Pair ghczmprim:GHCziTypes.Int ta1DD)))) ->
+              %case ta1DD dsd1HT
+              %of (wild1X1g::(main:Flite.Pair ghczmprim:GHCziTypes.Int ta1DD))
+                {main:Flite.Pair
+                 (ba1v8::ghczmprim:GHCziTypes.Int) (ca1va::ta1DD) ->
+                   %case ta1DD la1v0 %of (wild2aLP::ghczmprim:GHCziTypes.Int)
+                     {ghczmprim:GHCziTypes.Izh (xaLR::ghczmprim:GHCziPrim.Intzh) ->
+                        %case ta1DD ba1v8 %of (wild11aLT::ghczmprim:GHCziTypes.Int)
+                          {ghczmprim:GHCziTypes.Izh (yaLV::ghczmprim:GHCziPrim.Intzh) ->
+                             %case ta1DD (ghczmprim:GHCziPrim.zezezh xaLR yaLV)
+                             %of (wild3X1m::ghczmprim:GHCziBool.Bool)
+                               {ghczmprim:GHCziBool.False ->
+                                  %case ta1DD (main:SumPuzz.zdslookup @ ta1DD resta1vc xaLR)
+                                  %of (wild4X3h::(main:Flite.Maybe ta1DD))
+                                    {main:Flite.Nothing ->
+                                       main:SumPuzz.lvl1 @ ta1DD;
+                                     main:Flite.Just (x1a1v2::ta1DD) ->
+                                       x1a1v2};
+                                ghczmprim:GHCziBool.True ->
+                                  ca1va}}}}};
+   main:SumPuzz.zdsmember :: (main:Flite.List
+                              ghczmprim:GHCziTypes.Int)
+                             -> ghczmprim:GHCziPrim.Intzh -> ghczmprim:GHCziBool.Bool =
+     \ (scs1VK::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (sc1s1VL::ghczmprim:GHCziPrim.Intzh) ->
+         %case ghczmprim:GHCziBool.Bool scs1VK
+         %of (wildB1::(main:Flite.List ghczmprim:GHCziTypes.Int))
+           {main:Flite.Nil ->
+              ghczmprim:GHCziBool.False;
+            main:Flite.Cons
+            (ya1vu::ghczmprim:GHCziTypes.Int)
+            (ysa1vw::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              %case ghczmprim:GHCziBool.Bool ya1vu
+              %of (wild1aLT::ghczmprim:GHCziTypes.Int)
+                {ghczmprim:GHCziTypes.Izh (y1aLV::ghczmprim:GHCziPrim.Intzh) ->
+                   %case ghczmprim:GHCziBool.Bool (ghczmprim:GHCziPrim.zezezh sc1s1VL
+                                                   y1aLV)
+                   %of (wild11X1k::ghczmprim:GHCziBool.Bool)
+                     {ghczmprim:GHCziBool.False ->
+                        main:SumPuzz.zdsmember ysa1vw sc1s1VL;
+                      ghczmprim:GHCziBool.True ->
+                        ghczmprim:GHCziBool.True}}};
+   main:SumPuzz.member :: ghczmprim:GHCziTypes.Int ->
+                          (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                          ghczmprim:GHCziBool.Bool =
+     \ (xa1vq::ghczmprim:GHCziTypes.Int)
+       (dsd1HD::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+         %case ghczmprim:GHCziBool.Bool dsd1HD
+         %of (wildB1::(main:Flite.List ghczmprim:GHCziTypes.Int))
+           {main:Flite.Nil ->
+              ghczmprim:GHCziBool.False;
+            main:Flite.Cons
+            (ya1vu::ghczmprim:GHCziTypes.Int)
+            (ysa1vw::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              %case ghczmprim:GHCziBool.Bool xa1vq
+              %of (wild1aLP::ghczmprim:GHCziTypes.Int)
+                {ghczmprim:GHCziTypes.Izh (x1aLR::ghczmprim:GHCziPrim.Intzh) ->
+                   %case ghczmprim:GHCziBool.Bool ya1vu
+                   %of (wild11aLT::ghczmprim:GHCziTypes.Int)
+                     {ghczmprim:GHCziTypes.Izh (y1aLV::ghczmprim:GHCziPrim.Intzh) ->
+                        %case ghczmprim:GHCziBool.Bool (ghczmprim:GHCziPrim.zezezh x1aLR
+                                                        y1aLV)
+                        %of (wild2X1k::ghczmprim:GHCziBool.Bool)
+                          {ghczmprim:GHCziBool.False ->
+                             main:SumPuzz.zdsmember ysa1vw x1aLR;
+                           ghczmprim:GHCziBool.True ->
+                             ghczmprim:GHCziBool.True}}}};
+   main:SumPuzz.bindings :: ghczmprim:GHCziTypes.Int ->
+                            (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                            (main:Flite.List
+                             ((main:Flite.Pair
+                               ghczmprim:GHCziTypes.Int
+                               ghczmprim:GHCziTypes.Int)))
+                            ->
+                            (main:Flite.List
+                             ((main:Flite.List
+                               ((main:Flite.Pair
+                                 ghczmprim:GHCziTypes.Int
+                                 ghczmprim:GHCziTypes.Int))))) =
+     \ (la1we::ghczmprim:GHCziTypes.Int)
+       (dsa1wg::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (ldsa1wi::(main:Flite.List
+                  ((main:Flite.Pair
+                    ghczmprim:GHCziTypes.Int
+                    ghczmprim:GHCziTypes.Int)))) ->
+         %let zdjs1Xv :: (main:Flite.List
+                          ((main:Flite.List
+                            ((main:Flite.Pair
+                              ghczmprim:GHCziTypes.Int
+                              ghczmprim:GHCziTypes.Int))))) =
+                    main:SumPuzz.map
+                    @ ((main:Flite.Pair
+                        ghczmprim:GHCziTypes.Int
+                        ghczmprim:GHCziTypes.Int))
+                    @ ((main:Flite.List
+                        ((main:Flite.Pair
+                          ghczmprim:GHCziTypes.Int
+                          ghczmprim:GHCziTypes.Int))))
+                    (\ (ya1vC::(main:Flite.Pair
+                                ghczmprim:GHCziTypes.Int
+                                ghczmprim:GHCziTypes.Int)) ->
+                         main:Flite.Cons
+                         @ ((main:Flite.Pair
+                             ghczmprim:GHCziTypes.Int
+                             ghczmprim:GHCziTypes.Int))
+                         ya1vC ldsa1wi)
+                    (main:SumPuzz.zzip @ ghczmprim:GHCziTypes.Int
+                     @ ghczmprim:GHCziTypes.Int
+                     (main:SumPuzz.repeat @ ghczmprim:GHCziTypes.Int la1we)
+                     (main:SumPuzz.foldl @ ghczmprim:GHCziTypes.Int
+                      @ ((main:Flite.List ghczmprim:GHCziTypes.Int)) main:SumPuzz.a25
+                      dsa1wg
+                      (main:SumPuzz.map
+                       @ ((main:Flite.Pair
+                           ghczmprim:GHCziTypes.Int
+                           ghczmprim:GHCziTypes.Int))
+                       @ ghczmprim:GHCziTypes.Int
+                       (main:SumPuzz.snd @ ghczmprim:GHCziTypes.Int
+                        @ ghczmprim:GHCziTypes.Int)
+                       ldsa1wi)))
+         %in %let zdj1s1Xx :: ghczmprim:GHCziTypes.Int ->
+                              (main:Flite.List
+                               ((main:Flite.List
+                                 ((main:Flite.Pair
+                                   ghczmprim:GHCziTypes.Int
+                                   ghczmprim:GHCziTypes.Int))))) =
+                    \ (da1wk::ghczmprim:GHCziTypes.Int) ->
+                        %case ((main:Flite.List
+                                ((main:Flite.List
+                                  ((main:Flite.Pair
+                                    ghczmprim:GHCziTypes.Int
+                                    ghczmprim:GHCziTypes.Int)))))) dsa1wg
+                        %of (wildX30::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                          {main:Flite.Nil ->
+                             main:Flite.Nil
+                             @ ((main:Flite.List
+                                 ((main:Flite.Pair
+                                   ghczmprim:GHCziTypes.Int
+                                   ghczmprim:GHCziTypes.Int))));
+                           main:Flite.Cons
+                           (ya1vu::ghczmprim:GHCziTypes.Int)
+                           (ysa1vw::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                             %case ((main:Flite.List
+                                     ((main:Flite.List
+                                       ((main:Flite.Pair
+                                         ghczmprim:GHCziTypes.Int
+                                         ghczmprim:GHCziTypes.Int)))))) da1wk
+                             %of (wild1aLP::ghczmprim:GHCziTypes.Int)
+                               {ghczmprim:GHCziTypes.Izh (xaLR::ghczmprim:GHCziPrim.Intzh) ->
+                                  %case ((main:Flite.List
+                                          ((main:Flite.List
+                                            ((main:Flite.Pair
+                                              ghczmprim:GHCziTypes.Int
+                                              ghczmprim:GHCziTypes.Int)))))) ya1vu
+                                  %of (wild11aLT::ghczmprim:GHCziTypes.Int)
+                                    {ghczmprim:GHCziTypes.Izh (y1aLV::ghczmprim:GHCziPrim.Intzh) ->
+                                       %case ((main:Flite.List
+                                               ((main:Flite.List
+                                                 ((main:Flite.Pair
+                                                   ghczmprim:GHCziTypes.Int
+                                                   ghczmprim:GHCziTypes.Int)))))) (ghczmprim:GHCziPrim.zezezh
+                                                                                   xaLR y1aLV)
+                                       %of (wild2X1k::ghczmprim:GHCziBool.Bool)
+                                         {ghczmprim:GHCziBool.False ->
+                                            %case ((main:Flite.List
+                                                    ((main:Flite.List
+                                                      ((main:Flite.Pair
+                                                        ghczmprim:GHCziTypes.Int
+                                                        ghczmprim:GHCziTypes.Int)))))) (main:SumPuzz.zdsmember
+                                                                                        ysa1vw xaLR)
+                                            %of (wild3X1i::ghczmprim:GHCziBool.Bool)
+                                              {ghczmprim:GHCziBool.False ->
+                                                 main:Flite.Nil
+                                                 @ ((main:Flite.List
+                                                     ((main:Flite.Pair
+                                                       ghczmprim:GHCziTypes.Int
+                                                       ghczmprim:GHCziTypes.Int))));
+                                               ghczmprim:GHCziBool.True ->
+                                                 main:Flite.Cons
+                                                 @ ((main:Flite.List
+                                                     ((main:Flite.Pair
+                                                       ghczmprim:GHCziTypes.Int
+                                                       ghczmprim:GHCziTypes.Int))))
+                                                 ldsa1wi
+                                                 (main:Flite.Nil
+                                                  @ ((main:Flite.List
+                                                      ((main:Flite.Pair
+                                                        ghczmprim:GHCziTypes.Int
+                                                        ghczmprim:GHCziTypes.Int)))))};
+                                          ghczmprim:GHCziBool.True ->
+                                            main:Flite.Cons
+                                            @ ((main:Flite.List
+                                                ((main:Flite.Pair
+                                                  ghczmprim:GHCziTypes.Int
+                                                  ghczmprim:GHCziTypes.Int))))
+                                            ldsa1wi
+                                            (main:Flite.Nil
+                                             @ ((main:Flite.List
+                                                 ((main:Flite.Pair
+                                                   ghczmprim:GHCziTypes.Int
+                                                   ghczmprim:GHCziTypes.Int)))))}}}}
+             %in %case ((main:Flite.List
+                         ((main:Flite.List
+                           ((main:Flite.Pair
+                             ghczmprim:GHCziTypes.Int
+                             ghczmprim:GHCziTypes.Int)))))) ldsa1wi
+                 %of (wildB1::(main:Flite.List
+                               ((main:Flite.Pair
+                                 ghczmprim:GHCziTypes.Int
+                                 ghczmprim:GHCziTypes.Int))))
+                   {main:Flite.Nil -> zdjs1Xv;
+                    main:Flite.Cons
+                    (ds1d1HT::(main:Flite.Pair
+                               ghczmprim:GHCziTypes.Int
+                               ghczmprim:GHCziTypes.Int))
+                    (resta1vc::(main:Flite.List
+                                ((main:Flite.Pair
+                                  ghczmprim:GHCziTypes.Int
+                                  ghczmprim:GHCziTypes.Int)))) ->
+                      %case ((main:Flite.List
+                              ((main:Flite.List
+                                ((main:Flite.Pair
+                                  ghczmprim:GHCziTypes.Int
+                                  ghczmprim:GHCziTypes.Int)))))) ds1d1HT
+                      %of (wild1X1g::(main:Flite.Pair
+                                      ghczmprim:GHCziTypes.Int
+                                      ghczmprim:GHCziTypes.Int))
+                        {main:Flite.Pair
+                         (ba1v8::ghczmprim:GHCziTypes.Int)
+                         (ca1va::ghczmprim:GHCziTypes.Int) ->
+                           %case ((main:Flite.List
+                                   ((main:Flite.List
+                                     ((main:Flite.Pair
+                                       ghczmprim:GHCziTypes.Int
+                                       ghczmprim:GHCziTypes.Int)))))) la1we
+                           %of (wild2aLP::ghczmprim:GHCziTypes.Int)
+                             {ghczmprim:GHCziTypes.Izh (xaLR::ghczmprim:GHCziPrim.Intzh) ->
+                                %case ((main:Flite.List
+                                        ((main:Flite.List
+                                          ((main:Flite.Pair
+                                            ghczmprim:GHCziTypes.Int
+                                            ghczmprim:GHCziTypes.Int)))))) ba1v8
+                                %of (wild11aLT::ghczmprim:GHCziTypes.Int)
+                                  {ghczmprim:GHCziTypes.Izh (yaLV::ghczmprim:GHCziPrim.Intzh) ->
+                                     %case ((main:Flite.List
+                                             ((main:Flite.List
+                                               ((main:Flite.Pair
+                                                 ghczmprim:GHCziTypes.Int
+                                                 ghczmprim:GHCziTypes.Int)))))) (ghczmprim:GHCziPrim.zezezh
+                                                                                 xaLR yaLV)
+                                     %of (wild3X1m::ghczmprim:GHCziBool.Bool)
+                                       {ghczmprim:GHCziBool.False ->
+                                          %case ((main:Flite.List
+                                                  ((main:Flite.List
+                                                    ((main:Flite.Pair
+                                                      ghczmprim:GHCziTypes.Int
+                                                      ghczmprim:GHCziTypes.Int)))))) (main:SumPuzz.zdslookup
+                                                                                      @ ghczmprim:GHCziTypes.Int
+                                                                                      resta1vc xaLR)
+                                          %of (wild4X3n::(main:Flite.Maybe
+                                                          ghczmprim:GHCziTypes.Int))
+                                            {main:Flite.Nothing ->
+                                               zdjs1Xv;
+                                             main:Flite.Just (da1wk::ghczmprim:GHCziTypes.Int) ->
+                                               zdj1s1Xx da1wk};
+                                        ghczmprim:GHCziBool.True ->
+                                          zdj1s1Xx ca1va}}}}};
+   main:SumPuzz.solns :: %forall aa1EU . ghczmprim:GHCziTypes.Int ->
+                                         ghczmprim:GHCziTypes.Int ->
+                                         ghczmprim:GHCziTypes.Int ->
+                                         ghczmprim:GHCziTypes.Int ->
+                                         ((main:Flite.Pair
+                                           ghczmprim:GHCziTypes.Int
+                                           ((main:Flite.List
+                                             ((main:Flite.Pair
+                                               ghczmprim:GHCziTypes.Int
+                                               ghczmprim:GHCziTypes.Int)))))
+                                          -> (main:Flite.List aa1EU))
+                                         ->
+                                         (main:Flite.List
+                                          ((main:Flite.Pair
+                                            ghczmprim:GHCziTypes.Int
+                                            ghczmprim:GHCziTypes.Int)))
+                                         -> (main:Flite.List aa1EU) =
+     \ @ aa1EU
+       (ca1xo::ghczmprim:GHCziTypes.Int)
+       (xa1xq::ghczmprim:GHCziTypes.Int)
+       (ya1xs::ghczmprim:GHCziTypes.Int)
+       (zza1xu::ghczmprim:GHCziTypes.Int)
+       (fa1xw::(main:Flite.Pair
+                ghczmprim:GHCziTypes.Int
+                ((main:Flite.List
+                  ((main:Flite.Pair
+                    ghczmprim:GHCziTypes.Int
+                    ghczmprim:GHCziTypes.Int)))))
+               -> (main:Flite.List aa1EU))
+       (sa1xy::(main:Flite.List
+                ((main:Flite.Pair
+                  ghczmprim:GHCziTypes.Int
+                  ghczmprim:GHCziTypes.Int)))) ->
+         %let qrs1T4 :: (main:Flite.Pair
+                         ghczmprim:GHCziTypes.Int
+                         ghczmprim:GHCziTypes.Int) =
+                %let zdjs1XC :: ghczmprim:GHCziTypes.Int ->
+                                (main:Flite.Pair
+                                 ghczmprim:GHCziTypes.Int
+                                 ghczmprim:GHCziTypes.Int) =
+                       \ (x1a1v2::ghczmprim:GHCziTypes.Int) ->
+                           %case ((main:Flite.Pair
+                                   ghczmprim:GHCziTypes.Int
+                                   ghczmprim:GHCziTypes.Int)) x1a1v2
+                           %of (wildaLv::ghczmprim:GHCziTypes.Int)
+                             {ghczmprim:GHCziTypes.Izh (x2aLx::ghczmprim:GHCziPrim.Intzh) ->
+                                %case ((main:Flite.Pair
+                                        ghczmprim:GHCziTypes.Int
+                                        ghczmprim:GHCziTypes.Int)) sa1xy
+                                %of (wild1X3c::(main:Flite.List
+                                                ((main:Flite.Pair
+                                                  ghczmprim:GHCziTypes.Int
+                                                  ghczmprim:GHCziTypes.Int))))
+                                  {main:Flite.Nil ->
+                                     %cast (main:SumPuzz.lvl1)
+                                     (%unsafe
+                                      (%forall ta1Du . ta1Du)
+                                      ((main:Flite.Pair
+                                        ghczmprim:GHCziTypes.Int
+                                        ghczmprim:GHCziTypes.Int)));
+                                   main:Flite.Cons
+                                   (dsd1HT::(main:Flite.Pair
+                                             ghczmprim:GHCziTypes.Int
+                                             ghczmprim:GHCziTypes.Int))
+                                   (resta1vc::(main:Flite.List
+                                               ((main:Flite.Pair
+                                                 ghczmprim:GHCziTypes.Int
+                                                 ghczmprim:GHCziTypes.Int)))) ->
+                                     %case ((main:Flite.Pair
+                                             ghczmprim:GHCziTypes.Int
+                                             ghczmprim:GHCziTypes.Int)) dsd1HT
+                                     %of (wild2X1g::(main:Flite.Pair
+                                                     ghczmprim:GHCziTypes.Int
+                                                     ghczmprim:GHCziTypes.Int))
+                                       {main:Flite.Pair
+                                        (ba1v8::ghczmprim:GHCziTypes.Int)
+                                        (c1a1va::ghczmprim:GHCziTypes.Int) ->
+                                          %case ((main:Flite.Pair
+                                                  ghczmprim:GHCziTypes.Int
+                                                  ghczmprim:GHCziTypes.Int)) ya1xs
+                                          %of (wild3aLP::ghczmprim:GHCziTypes.Int)
+                                            {ghczmprim:GHCziTypes.Izh
+                                             (x3aLR::ghczmprim:GHCziPrim.Intzh) ->
+                                               %case ((main:Flite.Pair
+                                                       ghczmprim:GHCziTypes.Int
+                                                       ghczmprim:GHCziTypes.Int)) ba1v8
+                                               %of (wild11aLT::ghczmprim:GHCziTypes.Int)
+                                                 {ghczmprim:GHCziTypes.Izh
+                                                  (y1aLV::ghczmprim:GHCziPrim.Intzh) ->
+                                                    %case ((main:Flite.Pair
+                                                            ghczmprim:GHCziTypes.Int
+                                                            ghczmprim:GHCziTypes.Int)) (ghczmprim:GHCziPrim.zezezh
+                                                                                        x3aLR y1aLV)
+                                                    %of (wild4X1m::ghczmprim:GHCziBool.Bool)
+                                                      {ghczmprim:GHCziBool.False ->
+                                                         %case ((main:Flite.Pair
+                                                                 ghczmprim:GHCziTypes.Int
+                                                                 ghczmprim:GHCziTypes.Int)) (main:SumPuzz.zdslookup
+                                                                                             @ ghczmprim:GHCziTypes.Int
+                                                                                             resta1vc
+                                                                                             x3aLR)
+                                                         %of (wild5X34::(main:Flite.Maybe
+                                                                         ghczmprim:GHCziTypes.Int))
+                                                           {main:Flite.Nothing ->
+                                                              %cast (main:SumPuzz.lvl1)
+                                                              (%unsafe
+                                                               (%forall ta1Du . ta1Du)
+                                                               ((main:Flite.Pair
+                                                                 ghczmprim:GHCziTypes.Int
+                                                                 ghczmprim:GHCziTypes.Int)));
+                                                            main:Flite.Just
+                                                            (x4X1y6::ghczmprim:GHCziTypes.Int) ->
+                                                              %case ((main:Flite.Pair
+                                                                      ghczmprim:GHCziTypes.Int
+                                                                      ghczmprim:GHCziTypes.Int)) x4X1y6
+                                                              %of (wild12aLzz::ghczmprim:GHCziTypes.Int)
+                                                                {ghczmprim:GHCziTypes.Izh
+                                                                 (y2aLB::ghczmprim:GHCziPrim.Intzh) ->
+                                                                   %case ((main:Flite.Pair
+                                                                           ghczmprim:GHCziTypes.Int
+                                                                           ghczmprim:GHCziTypes.Int)) ca1xo
+                                                                   %of (wild13XNX::ghczmprim:GHCziTypes.Int)
+                                                                     {ghczmprim:GHCziTypes.Izh
+                                                                      (y3XO2::ghczmprim:GHCziPrim.Intzh) ->
+                                                                        %case ((main:Flite.Pair
+                                                                                ghczmprim:GHCziTypes.Int
+                                                                                ghczmprim:GHCziTypes.Int)) (main:SumPuzz.zdwdivMod10
+                                                                                                            (ghczmprim:GHCziPrim.zpzh
+                                                                                                             (ghczmprim:GHCziPrim.zpzh
+                                                                                                              x2aLx
+                                                                                                              y2aLB)
+                                                                                                             y3XO2))
+                                                                        %of (wws1Qg::(ghczmprim:GHCziPrim.Z2H
+                                                                                      ghczmprim:GHCziTypes.Int
+                                                                                      ghczmprim:GHCziTypes.Int))
+                                                                          {ghczmprim:GHCziPrim.Z2H
+                                                                           (ww1s1Qi::ghczmprim:GHCziTypes.Int)
+                                                                           (ww2s1Qj::ghczmprim:GHCziTypes.Int) ->
+                                                                             main:Flite.Pair
+                                                                             @ ghczmprim:GHCziTypes.Int
+                                                                             @ ghczmprim:GHCziTypes.Int
+                                                                             ww1s1Qi ww2s1Qj}}}};
+                                                       ghczmprim:GHCziBool.True ->
+                                                         %case ((main:Flite.Pair
+                                                                 ghczmprim:GHCziTypes.Int
+                                                                 ghczmprim:GHCziTypes.Int)) c1a1va
+                                                         %of (wild12aLzz::ghczmprim:GHCziTypes.Int)
+                                                           {ghczmprim:GHCziTypes.Izh
+                                                            (y2aLB::ghczmprim:GHCziPrim.Intzh) ->
+                                                              %case ((main:Flite.Pair
+                                                                      ghczmprim:GHCziTypes.Int
+                                                                      ghczmprim:GHCziTypes.Int)) ca1xo
+                                                              %of (wild13XNX::ghczmprim:GHCziTypes.Int)
+                                                                {ghczmprim:GHCziTypes.Izh
+                                                                 (y3XO2::ghczmprim:GHCziPrim.Intzh) ->
+                                                                   %case ((main:Flite.Pair
+                                                                           ghczmprim:GHCziTypes.Int
+                                                                           ghczmprim:GHCziTypes.Int)) (main:SumPuzz.zdwdivMod10
+                                                                                                       (ghczmprim:GHCziPrim.zpzh
+                                                                                                        (ghczmprim:GHCziPrim.zpzh
+                                                                                                         x2aLx
+                                                                                                         y2aLB)
+                                                                                                        y3XO2))
+                                                                   %of (wws1Qg::(ghczmprim:GHCziPrim.Z2H
+                                                                                 ghczmprim:GHCziTypes.Int
+                                                                                 ghczmprim:GHCziTypes.Int))
+                                                                     {ghczmprim:GHCziPrim.Z2H
+                                                                      (ww1s1Qi::ghczmprim:GHCziTypes.Int)
+                                                                      (ww2s1Qj::ghczmprim:GHCziTypes.Int) ->
+                                                                        main:Flite.Pair
+                                                                        @ ghczmprim:GHCziTypes.Int
+                                                                        @ ghczmprim:GHCziTypes.Int
+                                                                        ww1s1Qi ww2s1Qj}}}}}}}}}
+                %in %case ((main:Flite.Pair
+                            ghczmprim:GHCziTypes.Int
+                            ghczmprim:GHCziTypes.Int)) sa1xy
+                    %of (wildB1::(main:Flite.List
+                                  ((main:Flite.Pair
+                                    ghczmprim:GHCziTypes.Int
+                                    ghczmprim:GHCziTypes.Int))))
+                      {main:Flite.Nil ->
+                         %cast (main:SumPuzz.lvl1)
+                         (%unsafe
+                          (%forall ta1Du . ta1Du)
+                          ((main:Flite.Pair
+                            ghczmprim:GHCziTypes.Int
+                            ghczmprim:GHCziTypes.Int)));
+                       main:Flite.Cons
+                       (dsd1HT::(main:Flite.Pair
+                                 ghczmprim:GHCziTypes.Int
+                                 ghczmprim:GHCziTypes.Int))
+                       (resta1vc::(main:Flite.List
+                                   ((main:Flite.Pair
+                                     ghczmprim:GHCziTypes.Int
+                                     ghczmprim:GHCziTypes.Int)))) ->
+                         %case ((main:Flite.Pair
+                                 ghczmprim:GHCziTypes.Int
+                                 ghczmprim:GHCziTypes.Int)) dsd1HT
+                         %of (wild1X1g::(main:Flite.Pair
+                                         ghczmprim:GHCziTypes.Int
+                                         ghczmprim:GHCziTypes.Int))
+                           {main:Flite.Pair
+                            (ba1v8::ghczmprim:GHCziTypes.Int)
+                            (c1a1va::ghczmprim:GHCziTypes.Int) ->
+                              %case ((main:Flite.Pair
+                                      ghczmprim:GHCziTypes.Int
+                                      ghczmprim:GHCziTypes.Int)) xa1xq
+                              %of (wild2aLP::ghczmprim:GHCziTypes.Int)
+                                {ghczmprim:GHCziTypes.Izh (x1aLR::ghczmprim:GHCziPrim.Intzh) ->
+                                   %case ((main:Flite.Pair
+                                           ghczmprim:GHCziTypes.Int
+                                           ghczmprim:GHCziTypes.Int)) ba1v8
+                                   %of (wild11aLT::ghczmprim:GHCziTypes.Int)
+                                     {ghczmprim:GHCziTypes.Izh (y1aLV::ghczmprim:GHCziPrim.Intzh) ->
+                                        %case ((main:Flite.Pair
+                                                ghczmprim:GHCziTypes.Int
+                                                ghczmprim:GHCziTypes.Int)) (ghczmprim:GHCziPrim.zezezh
+                                                                            x1aLR y1aLV)
+                                        %of (wild3X1m::ghczmprim:GHCziBool.Bool)
+                                          {ghczmprim:GHCziBool.False ->
+                                             %case ((main:Flite.Pair
+                                                     ghczmprim:GHCziTypes.Int
+                                                     ghczmprim:GHCziTypes.Int)) (main:SumPuzz.zdslookup
+                                                                                 @ ghczmprim:GHCziTypes.Int
+                                                                                 resta1vc x1aLR)
+                                             %of (wild4X3s::(main:Flite.Maybe
+                                                             ghczmprim:GHCziTypes.Int))
+                                               {main:Flite.Nothing ->
+                                                  %cast (main:SumPuzz.lvl1)
+                                                  (%unsafe
+                                                   (%forall ta1Du . ta1Du)
+                                                   ((main:Flite.Pair
+                                                     ghczmprim:GHCziTypes.Int
+                                                     ghczmprim:GHCziTypes.Int)));
+                                                main:Flite.Just
+                                                (x2a1v2::ghczmprim:GHCziTypes.Int) ->
+                                                  zdjs1XC x2a1v2};
+                                           ghczmprim:GHCziBool.True ->
+                                             zdjs1XC c1a1va}}}}}
+         %in main:SumPuzz.ofAll
+             @ ((main:Flite.List
+                 ((main:Flite.Pair
+                   ghczmprim:GHCziTypes.Int
+                   ghczmprim:GHCziTypes.Int))))
+             @ aa1EU
+             (%let x1s1T6 :: ghczmprim:GHCziTypes.Int =
+                     %case ghczmprim:GHCziTypes.Int qrs1T4
+                     %of (wildB1::(main:Flite.Pair
+                                   ghczmprim:GHCziTypes.Int
+                                   ghczmprim:GHCziTypes.Int))
+                       {main:Flite.Pair
+                        (x2a1uQ::ghczmprim:GHCziTypes.Int)
+                        (y1a1uS::ghczmprim:GHCziTypes.Int) ->
+                          x2a1uQ}
+              %in \ (y1a1xm::(main:Flite.List
+                              ((main:Flite.Pair
+                                ghczmprim:GHCziTypes.Int
+                                ghczmprim:GHCziTypes.Int)))) ->
+                      fa1xw
+                      (main:Flite.Pair @ ghczmprim:GHCziTypes.Int
+                       @ ((main:Flite.List
+                           ((main:Flite.Pair
+                             ghczmprim:GHCziTypes.Int
+                             ghczmprim:GHCziTypes.Int))))
+                       x1s1T6 y1a1xm))
+             (main:SumPuzz.bindings zza1xu
+              (main:Flite.Cons @ ghczmprim:GHCziTypes.Int
+               (%case ghczmprim:GHCziTypes.Int qrs1T4
+                %of (wildB1::(main:Flite.Pair
+                              ghczmprim:GHCziTypes.Int
+                              ghczmprim:GHCziTypes.Int))
+                  {main:Flite.Pair
+                   (x1a1uU::ghczmprim:GHCziTypes.Int)
+                   (y1a1uW::ghczmprim:GHCziTypes.Int) ->
+                     y1a1uW})
+               (main:Flite.Nil @ ghczmprim:GHCziTypes.Int))
+              sa1xy);
+   main:SumPuzz.zdwsolutions :: (main:Flite.List
+                                 ghczmprim:GHCziTypes.Int)
+                                ->
+                                (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                                (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                                ghczmprim:GHCziTypes.Int ->
+                                (main:Flite.List
+                                 ((main:Flite.Pair
+                                   ghczmprim:GHCziTypes.Int
+                                   ghczmprim:GHCziTypes.Int)))
+                                ->
+                                (main:Flite.List
+                                 ((main:Flite.List
+                                   ((main:Flite.Pair
+                                     ghczmprim:GHCziTypes.Int
+                                     ghczmprim:GHCziTypes.Int))))) =
+     \ (ws1Q3::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (w1s1Q4::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (w2s1Q5::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (wws1Q8::ghczmprim:GHCziTypes.Int)
+       (ww1s1Q9::(main:Flite.List
+                  ((main:Flite.Pair
+                    ghczmprim:GHCziTypes.Int
+                    ghczmprim:GHCziTypes.Int)))) ->
+         %case ((main:Flite.List
+                 ((main:Flite.List
+                   ((main:Flite.Pair
+                     ghczmprim:GHCziTypes.Int
+                     ghczmprim:GHCziTypes.Int)))))) ws1Q3
+         %of (wildB1::(main:Flite.List ghczmprim:GHCziTypes.Int))
+           {main:Flite.Nil ->
+              %case ((main:Flite.List
+                      ((main:Flite.List
+                        ((main:Flite.Pair
+                          ghczmprim:GHCziTypes.Int
+                          ghczmprim:GHCziTypes.Int)))))) w2s1Q5
+              %of (wild1X1q::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                {main:Flite.Nil ->
+                   %case ((main:Flite.List
+                           ((main:Flite.List
+                             ((main:Flite.Pair
+                               ghczmprim:GHCziTypes.Int
+                               ghczmprim:GHCziTypes.Int)))))) wws1Q8
+                   %of (wild2aLP::ghczmprim:GHCziTypes.Int)
+                     {ghczmprim:GHCziTypes.Izh (xaLR::ghczmprim:GHCziPrim.Intzh) ->
+                        %case ((main:Flite.List
+                                ((main:Flite.List
+                                  ((main:Flite.Pair
+                                    ghczmprim:GHCziTypes.Int
+                                    ghczmprim:GHCziTypes.Int)))))) xaLR
+                        %of (wild3X2K::ghczmprim:GHCziPrim.Intzh)
+                          {%_ ->
+                             main:Flite.Nil
+                             @ ((main:Flite.List
+                                 ((main:Flite.Pair
+                                   ghczmprim:GHCziTypes.Int
+                                   ghczmprim:GHCziTypes.Int))));
+                           (0::ghczmprim:GHCziPrim.Intzh) ->
+                             main:Flite.Cons
+                             @ ((main:Flite.List
+                                 ((main:Flite.Pair
+                                   ghczmprim:GHCziTypes.Int
+                                   ghczmprim:GHCziTypes.Int))))
+                             ww1s1Q9
+                             (main:Flite.Nil
+                              @ ((main:Flite.List
+                                  ((main:Flite.Pair
+                                    ghczmprim:GHCziTypes.Int
+                                    ghczmprim:GHCziTypes.Int)))))}};
+                 main:Flite.Cons
+                 (zza1x2::ghczmprim:GHCziTypes.Int)
+                 (dsd1Ii::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                   %case ((main:Flite.List
+                           ((main:Flite.List
+                             ((main:Flite.Pair
+                               ghczmprim:GHCziTypes.Int
+                               ghczmprim:GHCziTypes.Int)))))) dsd1Ii
+                   %of (wild2X1w::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                     {main:Flite.Nil ->
+                        %case ((main:Flite.List
+                                ((main:Flite.List
+                                  ((main:Flite.Pair
+                                    ghczmprim:GHCziTypes.Int
+                                    ghczmprim:GHCziTypes.Int)))))) wws1Q8
+                        %of (wild3aLP::ghczmprim:GHCziTypes.Int)
+                          {ghczmprim:GHCziTypes.Izh (xaLR::ghczmprim:GHCziPrim.Intzh) ->
+                             %case ((main:Flite.List
+                                     ((main:Flite.List
+                                       ((main:Flite.Pair
+                                         ghczmprim:GHCziTypes.Int
+                                         ghczmprim:GHCziTypes.Int)))))) xaLR
+                             %of (wild4X2Q::ghczmprim:GHCziPrim.Intzh)
+                               {%_ ->
+                                  main:Flite.Nil
+                                  @ ((main:Flite.List
+                                      ((main:Flite.Pair
+                                        ghczmprim:GHCziTypes.Int
+                                        ghczmprim:GHCziTypes.Int))));
+                                (1::ghczmprim:GHCziPrim.Intzh) ->
+                                  main:SumPuzz.bindings zza1x2 lvlr1ZZF ww1s1Q9}};
+                      main:Flite.Cons
+                      (ipvs1Ja::ghczmprim:GHCziTypes.Int)
+                      (ipv1s1Jb::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                        failr1ZZH}};
+            main:Flite.Cons
+            (xa1x6::ghczmprim:GHCziTypes.Int)
+            (xsa1x8::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              %case ((main:Flite.List
+                      ((main:Flite.List
+                        ((main:Flite.Pair
+                          ghczmprim:GHCziTypes.Int
+                          ghczmprim:GHCziTypes.Int)))))) w2s1Q5
+              %of (wild1X1t::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                {main:Flite.Nil ->
+                   failr1ZZH;
+                 main:Flite.Cons
+                 (zza1xc::ghczmprim:GHCziTypes.Int)
+                 (zzsa1xe::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                   main:SumPuzz.ofAll
+                   @ ((main:Flite.List
+                       ((main:Flite.Pair
+                         ghczmprim:GHCziTypes.Int
+                         ghczmprim:GHCziTypes.Int))))
+                   @ ((main:Flite.List
+                       ((main:Flite.Pair
+                         ghczmprim:GHCziTypes.Int
+                         ghczmprim:GHCziTypes.Int))))
+                   (main:SumPuzz.solns
+                    @ ((main:Flite.List
+                        ((main:Flite.Pair
+                          ghczmprim:GHCziTypes.Int
+                          ghczmprim:GHCziTypes.Int))))
+                    wws1Q8 xa1x6 (main:SumPuzz.head @ ghczmprim:GHCziTypes.Int w1s1Q4)
+                    zza1xc
+                    (%let w3s1T8 :: (main:Flite.List ghczmprim:GHCziTypes.Int) =
+                            main:SumPuzz.tail @ ghczmprim:GHCziTypes.Int w1s1Q4
+                     %in \ (w4s1Q6::(main:Flite.Pair
+                                     ghczmprim:GHCziTypes.Int
+                                     ((main:Flite.List
+                                       ((main:Flite.Pair
+                                         ghczmprim:GHCziTypes.Int
+                                         ghczmprim:GHCziTypes.Int)))))) ->
+                             %case ((main:Flite.List
+                                     ((main:Flite.List
+                                       ((main:Flite.Pair
+                                         ghczmprim:GHCziTypes.Int
+                                         ghczmprim:GHCziTypes.Int)))))) w4s1Q6
+                             %of (w5X1SS::(main:Flite.Pair
+                                           ghczmprim:GHCziTypes.Int
+                                           ((main:Flite.List
+                                             ((main:Flite.Pair
+                                               ghczmprim:GHCziTypes.Int
+                                               ghczmprim:GHCziTypes.Int))))))
+                               {main:Flite.Pair
+                                (ww2X1Tk::ghczmprim:GHCziTypes.Int)
+                                (ww3X1Tm::(main:Flite.List
+                                           ((main:Flite.Pair
+                                             ghczmprim:GHCziTypes.Int
+                                             ghczmprim:GHCziTypes.Int)))) ->
+                                  main:SumPuzz.zdwsolutions xsa1x8 w3s1T8 zzsa1xe ww2X1Tk ww3X1Tm}))
+                   (main:SumPuzz.ofAll
+                    @ ((main:Flite.List
+                        ((main:Flite.Pair
+                          ghczmprim:GHCziTypes.Int
+                          ghczmprim:GHCziTypes.Int))))
+                    @ ((main:Flite.List
+                        ((main:Flite.Pair
+                          ghczmprim:GHCziTypes.Int
+                          ghczmprim:GHCziTypes.Int))))
+                    (main:SumPuzz.bindings
+                     (main:SumPuzz.head @ ghczmprim:GHCziTypes.Int w1s1Q4)
+                     (main:Flite.Cons @ ghczmprim:GHCziTypes.Int
+                      (%case ghczmprim:GHCziTypes.Int w1s1Q4
+                       %of (wild2X2B::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                         {main:Flite.Nil ->
+                            %cast (main:SumPuzz.lvl3)
+                            (%unsafe
+                             (%forall ta1AO . (main:Flite.List ta1AO))
+                             ghczmprim:GHCziTypes.Int);
+                          main:Flite.Cons
+                          (x1a1wS::ghczmprim:GHCziTypes.Int)
+                          (xs1a1wU::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                            %case ghczmprim:GHCziTypes.Int xs1a1wU
+                            %of (wild3X5h::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                              {main:Flite.Nil ->
+                                 main:SumPuzz.a1;
+                               main:Flite.Cons
+                               (x2a1wG::ghczmprim:GHCziTypes.Int)
+                               (xs2a1wI::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                                 main:SumPuzz.a}})
+                      (%case ((main:Flite.List ghczmprim:GHCziTypes.Int)) w1s1Q4
+                       %of (wild2X2B::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                         {main:Flite.Nil ->
+                            %cast (main:SumPuzz.lvl3)
+                            (%unsafe
+                             (%forall ta1AO . (main:Flite.List ta1AO))
+                             ((main:Flite.List ghczmprim:GHCziTypes.Int)));
+                          main:Flite.Cons
+                          (x1a1wS::ghczmprim:GHCziTypes.Int)
+                          (xs1a1wU::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                            %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) xs1a1wU
+                            %of (wild3X5h::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                              {main:Flite.Nil ->
+                                 main:SumPuzz.zdsfromTo (9::ghczmprim:GHCziPrim.Intzh)
+                                 (2::ghczmprim:GHCziPrim.Intzh);
+                               main:Flite.Cons
+                               (x2a1wG::ghczmprim:GHCziTypes.Int)
+                               (xs2a1wI::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                                 main:SumPuzz.zdsfromTo (9::ghczmprim:GHCziPrim.Intzh)
+                                 (1::ghczmprim:GHCziPrim.Intzh)}})))
+                    (main:SumPuzz.bindings xa1x6
+                     (main:Flite.Cons @ ghczmprim:GHCziTypes.Int
+                      (%case ghczmprim:GHCziTypes.Int xsa1x8
+                       %of (wild2X2B::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                         {main:Flite.Nil ->
+                            main:SumPuzz.a1;
+                          main:Flite.Cons
+                          (x1a1wG::ghczmprim:GHCziTypes.Int)
+                          (xs1a1wI::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                            main:SumPuzz.a})
+                      (%case ((main:Flite.List ghczmprim:GHCziTypes.Int)) xsa1x8
+                       %of (wild2X2B::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                         {main:Flite.Nil ->
+                            main:SumPuzz.zdsfromTo (9::ghczmprim:GHCziPrim.Intzh)
+                            (2::ghczmprim:GHCziPrim.Intzh);
+                          main:Flite.Cons
+                          (x1a1wG::ghczmprim:GHCziTypes.Int)
+                          (xs1a1wI::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                            main:SumPuzz.zdsfromTo (9::ghczmprim:GHCziPrim.Intzh)
+                            (1::ghczmprim:GHCziPrim.Intzh)}))
+                     ww1s1Q9))}};
+   main:SumPuzz.solutions :: (main:Flite.List
+                              ghczmprim:GHCziTypes.Int)
+                             ->
+                             (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                             (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                             (main:Flite.Pair
+                              ghczmprim:GHCziTypes.Int
+                              ((main:Flite.List
+                                ((main:Flite.Pair
+                                  ghczmprim:GHCziTypes.Int
+                                  ghczmprim:GHCziTypes.Int)))))
+                             ->
+                             (main:Flite.List
+                              ((main:Flite.List
+                                ((main:Flite.Pair
+                                  ghczmprim:GHCziTypes.Int
+                                  ghczmprim:GHCziTypes.Int))))) =
+     %note "InlineMe"
+     \ (ws1Q3::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (w1s1Q4::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (w2s1Q5::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (w3s1Q6::(main:Flite.Pair
+                 ghczmprim:GHCziTypes.Int
+                 ((main:Flite.List
+                   ((main:Flite.Pair
+                     ghczmprim:GHCziTypes.Int
+                     ghczmprim:GHCziTypes.Int)))))) ->
+         %case ((main:Flite.List
+                 ((main:Flite.List
+                   ((main:Flite.Pair
+                     ghczmprim:GHCziTypes.Int
+                     ghczmprim:GHCziTypes.Int)))))) w3s1Q6
+         %of (w4X1SS::(main:Flite.Pair
+                       ghczmprim:GHCziTypes.Int
+                       ((main:Flite.List
+                         ((main:Flite.Pair
+                           ghczmprim:GHCziTypes.Int
+                           ghczmprim:GHCziTypes.Int))))))
+           {main:Flite.Pair
+            (wws1Q8::ghczmprim:GHCziTypes.Int)
+            (ww1s1Q9::(main:Flite.List
+                       ((main:Flite.Pair
+                         ghczmprim:GHCziTypes.Int
+                         ghczmprim:GHCziTypes.Int)))) ->
+              main:SumPuzz.zdwsolutions ws1Q3 w1s1Q4 w2s1Q5 wws1Q8 ww1s1Q9};
+   main:SumPuzz.valid :: (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                         (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                         (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                         ghczmprim:GHCziBool.Bool =
+     \ (xa1xY::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (ya1y0::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (zza1y2::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+         %case ghczmprim:GHCziBool.Bool (main:SumPuzz.zdwlengthAcc
+                                         @ ghczmprim:GHCziTypes.Int (0::ghczmprim:GHCziPrim.Intzh)
+                                         xa1xY)
+         %of (wws1Pr::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              %case ghczmprim:GHCziBool.Bool (main:SumPuzz.zdwlengthAcc
+                                              @ ghczmprim:GHCziTypes.Int
+                                              (0::ghczmprim:GHCziPrim.Intzh) ya1y0)
+              %of (ww1X1Sm::ghczmprim:GHCziPrim.Intzh)
+                {%_ ->
+                   %case ghczmprim:GHCziBool.Bool (ghczmprim:GHCziPrim.zezezh wws1Pr
+                                                   ww1X1Sm)
+                   %of (wildB1::ghczmprim:GHCziBool.Bool)
+                     {ghczmprim:GHCziBool.False ->
+                        ghczmprim:GHCziBool.False;
+                      ghczmprim:GHCziBool.True ->
+                        %case ghczmprim:GHCziBool.Bool (main:SumPuzz.zdwlengthAcc
+                                                        @ ghczmprim:GHCziTypes.Int
+                                                        (0::ghczmprim:GHCziPrim.Intzh) zza1y2)
+                        %of (ww2X1SA::ghczmprim:GHCziPrim.Intzh)
+                          {%_ ->
+                             %case ghczmprim:GHCziBool.Bool (ghczmprim:GHCziPrim.zezezh wws1Pr
+                                                             ww2X1SA)
+                             %of (wild1X2F::ghczmprim:GHCziBool.Bool)
+                               {ghczmprim:GHCziBool.False ->
+                                  ghczmprim:GHCziBool.False;
+                                ghczmprim:GHCziBool.True ->
+                                  %case ghczmprim:GHCziBool.Bool (main:SumPuzz.zdwsolutions xa1xY
+                                                                  ya1y0 zza1y2 main:SumPuzz.a
+                                                                  (main:Flite.Nil
+                                                                   @ ((main:Flite.Pair
+                                                                       ghczmprim:GHCziTypes.Int
+                                                                       ghczmprim:GHCziTypes.Int))))
+                                  %of (wild2X2H::(main:Flite.List
+                                                  ((main:Flite.List
+                                                    ((main:Flite.Pair
+                                                      ghczmprim:GHCziTypes.Int
+                                                      ghczmprim:GHCziTypes.Int))))))
+                                    {main:Flite.Nil ->
+                                       ghczmprim:GHCziBool.False;
+                                     main:Flite.Cons
+                                     (x1a1xM::(main:Flite.List
+                                               ((main:Flite.Pair
+                                                 ghczmprim:GHCziTypes.Int
+                                                 ghczmprim:GHCziTypes.Int))))
+                                     (dsd1GX::(main:Flite.List
+                                               ((main:Flite.List
+                                                 ((main:Flite.Pair
+                                                   ghczmprim:GHCziTypes.Int
+                                                   ghczmprim:GHCziTypes.Int)))))) ->
+                                       %case ghczmprim:GHCziBool.Bool dsd1GX
+                                       %of (wild3XX::(main:Flite.List
+                                                      ((main:Flite.List
+                                                        ((main:Flite.Pair
+                                                          ghczmprim:GHCziTypes.Int
+                                                          ghczmprim:GHCziTypes.Int))))))
+                                         {main:Flite.Nil ->
+                                            ghczmprim:GHCziBool.True;
+                                          main:Flite.Cons
+                                          (y1a1xQ::(main:Flite.List
+                                                    ((main:Flite.Pair
+                                                      ghczmprim:GHCziTypes.Int
+                                                      ghczmprim:GHCziTypes.Int))))
+                                          (ysa1xS::(main:Flite.List
+                                                    ((main:Flite.List
+                                                      ((main:Flite.Pair
+                                                        ghczmprim:GHCziTypes.Int
+                                                        ghczmprim:GHCziTypes.Int)))))) ->
+                                            ghczmprim:GHCziBool.False}}}}}}};
+   main:SumPuzz.fzz :: (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                       (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                       (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                       ghczmprim:GHCziTypes.Int =
+     \ (xa1yC::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (ya1yE::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (zza1yG::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+         %case ghczmprim:GHCziTypes.Int (main:SumPuzz.valid xa1yC ya1yE
+                                         zza1yG)
+         %of (wildB1::ghczmprim:GHCziBool.Bool)
+           {ghczmprim:GHCziBool.False ->
+              main:SumPuzz.a;
+            ghczmprim:GHCziBool.True ->
+              main:SumPuzz.a1};
+   main:SumPuzz.fy :: (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                      (main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))) ->
+                      (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                      ghczmprim:GHCziTypes.Int =
+     \ (xa1yw::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (zzsa1yy::(main:Flite.List
+                  ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+       (ya1yA::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+         %case ghczmprim:GHCziTypes.Int (main:SumPuzz.zdwsumMapAcc
+                                         @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                                         (main:SumPuzz.fzz xa1yw ya1yA) zzsa1yy
+                                         (0::ghczmprim:GHCziPrim.Intzh))
+         %of (wws1PE::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              ghczmprim:GHCziTypes.Izh wws1PE};
+   main:SumPuzz.fx :: (main:Flite.List
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int)))
+                      ->
+                      (main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))) ->
+                      (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                      ghczmprim:GHCziTypes.Int =
+     \ (ysa1yq::(main:Flite.List
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+       (zzsa1ys::(main:Flite.List
+                  ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+       (xa1yu::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+         %case ghczmprim:GHCziTypes.Int (main:SumPuzz.zdwsumMapAcc
+                                         @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                                         (main:SumPuzz.fy xa1yu zzsa1ys) ysa1yq
+                                         (0::ghczmprim:GHCziPrim.Intzh))
+         %of (wws1PE::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              ghczmprim:GHCziTypes.Izh wws1PE};
+   main:SumPuzz.count :: (main:Flite.List
+                          ((main:Flite.List ghczmprim:GHCziTypes.Int)))
+                         ->
+                         (main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))) ->
+                         (main:Flite.List ((main:Flite.List ghczmprim:GHCziTypes.Int))) ->
+                         ghczmprim:GHCziTypes.Int =
+     \ (xsa1yk::(main:Flite.List
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+       (ysa1ym::(main:Flite.List
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+       (zzsa1yo::(main:Flite.List
+                  ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+         %case ghczmprim:GHCziTypes.Int (main:SumPuzz.zdwsumMapAcc
+                                         @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                                         (main:SumPuzz.fx ysa1ym zzsa1yo) xsa1yk
+                                         (0::ghczmprim:GHCziPrim.Intzh))
+         %of (wws1PE::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              ghczmprim:GHCziTypes.Izh wws1PE};
+   main:SumPuzz.words :: (main:Flite.List
+                          ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     main:Flite.Cons @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+     main:SumPuzz.a24 main:SumPuzz.a23;
+   main:SumPuzz.lvl16 :: (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                         ghczmprim:GHCziTypes.Int =
+     \ (xa1yu::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+         %case ghczmprim:GHCziTypes.Int (main:SumPuzz.zdwsumMapAcc
+                                         @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                                         (\ (ya1yA::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                                              %case ghczmprim:GHCziTypes.Int (main:SumPuzz.zdwsumMapAcc
+                                                                              @ ((main:Flite.List
+                                                                                  ghczmprim:GHCziTypes.Int))
+                                                                              (main:SumPuzz.fzz
+                                                                               xa1yu ya1yA)
+                                                                              main:SumPuzz.words
+                                                                              (0::ghczmprim:GHCziPrim.Intzh))
+                                              %of (wws1PE::ghczmprim:GHCziPrim.Intzh)
+                                                {%_ ->
+                                                   ghczmprim:GHCziTypes.Izh wws1PE})
+                                         main:SumPuzz.words (0::ghczmprim:GHCziPrim.Intzh))
+         %of (wws1PE::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              ghczmprim:GHCziTypes.Izh wws1PE};
+   main:SumPuzz.testSumPuzz :: ghczmprim:GHCziTypes.Int =
+     %case ghczmprim:GHCziTypes.Int (main:SumPuzz.zdwsumMapAcc
+                                     @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                                     main:SumPuzz.lvl16 main:SumPuzz.words
+                                     (0::ghczmprim:GHCziPrim.Intzh))
+     %of (wws1PE::ghczmprim:GHCziPrim.Intzh)
+       {%_ ->
+          ghczmprim:GHCziTypes.Izh wws1PE}};

@@ -1,0 +1,247 @@
+%module main:Braun
+  %data main:Braun.Tree aa1ty =
+    {main:Braun.Empty;
+     main:Braun.Branch aa1ty
+                       ((main:Braun.Tree aa1ty))
+                       ((main:Braun.Tree aa1ty))};
+  %rec
+  {main:Braun.lvl :: ghczmprim:GHCziTypes.Int =
+     ghczmprim:GHCziTypes.Izh (1::ghczmprim:GHCziPrim.Intzh);
+   main:Braun.lvl1 :: ghczmprim:GHCziTypes.Int =
+     ghczmprim:GHCziTypes.Izh (0::ghczmprim:GHCziPrim.Intzh);
+   main:Braun.int :: ghczmprim:GHCziBool.Bool ->
+                     ghczmprim:GHCziTypes.Int =
+     \ (dsd1xh::ghczmprim:GHCziBool.Bool) ->
+         %case ghczmprim:GHCziTypes.Int dsd1xh
+         %of (wildB1::ghczmprim:GHCziBool.Bool)
+           {ghczmprim:GHCziBool.False ->
+              main:Braun.lvl1;
+            ghczmprim:GHCziBool.True ->
+              main:Braun.lvl};
+   main:Braun.all :: %forall ta1wG . (ta1wG ->
+                                      ghczmprim:GHCziBool.Bool)
+                                     -> (main:Flite.List ta1wG) -> ghczmprim:GHCziBool.Bool =
+     \ @ ta1wG
+       (pa1uK::ta1wG -> ghczmprim:GHCziBool.Bool)
+       (dsd1xM::(main:Flite.List ta1wG)) ->
+         %case ghczmprim:GHCziBool.Bool dsd1xM
+         %of (wildB1::(main:Flite.List ta1wG))
+           {main:Flite.Nil ->
+              ghczmprim:GHCziBool.True;
+            main:Flite.Cons (xa1uO::ta1wG) (xsa1uQ::(main:Flite.List ta1wG)) ->
+              %case ghczmprim:GHCziBool.Bool (pa1uK xa1uO)
+              %of (wild1XK::ghczmprim:GHCziBool.Bool)
+                {ghczmprim:GHCziBool.False ->
+                   ghczmprim:GHCziBool.False;
+                 ghczmprim:GHCziBool.True ->
+                   main:Braun.all @ ta1wG pa1uK xsa1uQ}};
+   main:Braun.equal :: (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                       (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                       ghczmprim:GHCziBool.Bool =
+     \ (dsd1xn::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (ds1d1xo::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+         %case ghczmprim:GHCziBool.Bool dsd1xn
+         %of (wildB1::(main:Flite.List ghczmprim:GHCziTypes.Int))
+           {main:Flite.Nil ->
+              %case ghczmprim:GHCziBool.Bool ds1d1xo
+              %of (wild1Xzz::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                {main:Flite.Nil ->
+                   ghczmprim:GHCziBool.True;
+                 main:Flite.Cons
+                 (ya1us::ghczmprim:GHCziTypes.Int)
+                 (ysa1uu::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                   ghczmprim:GHCziBool.False};
+            main:Flite.Cons
+            (xa1uw::ghczmprim:GHCziTypes.Int)
+            (xsa1uy::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              %case ghczmprim:GHCziBool.Bool ds1d1xo
+              %of (wild1XB::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                {main:Flite.Nil ->
+                   ghczmprim:GHCziBool.False;
+                 main:Flite.Cons
+                 (ya1uE::ghczmprim:GHCziTypes.Int)
+                 (ysa1uG::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                   %case ghczmprim:GHCziBool.Bool xa1uw
+                   %of (wild2aLP::ghczmprim:GHCziTypes.Int)
+                     {ghczmprim:GHCziTypes.Izh (x1aLR::ghczmprim:GHCziPrim.Intzh) ->
+                        %case ghczmprim:GHCziBool.Bool ya1uE
+                        %of (wild11aLT::ghczmprim:GHCziTypes.Int)
+                          {ghczmprim:GHCziTypes.Izh (y1aLV::ghczmprim:GHCziPrim.Intzh) ->
+                             %case ghczmprim:GHCziBool.Bool (ghczmprim:GHCziPrim.zezezh x1aLR
+                                                             y1aLV)
+                             %of (wild3XH::ghczmprim:GHCziBool.Bool)
+                               {ghczmprim:GHCziBool.False ->
+                                  ghczmprim:GHCziBool.False;
+                                ghczmprim:GHCziBool.True ->
+                                  main:Braun.equal xsa1uy ysa1uG}}}}};
+   main:Braun.repeat :: %forall aa1vE . aa1vE ->
+                                        (main:Flite.List aa1vE) =
+     \ @ aa1vE (xa1uq::aa1vE) ->
+         main:Flite.Cons @ aa1vE xa1uq (main:Braun.repeat @ aa1vE xa1uq);
+   main:Braun.zdwfromTo :: ghczmprim:GHCziPrim.Intzh ->
+                           ghczmprim:GHCziPrim.Intzh ->
+                           (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     \ (wws1Ai::ghczmprim:GHCziPrim.Intzh)
+       (ww1s1Am::ghczmprim:GHCziPrim.Intzh) ->
+         %case ((main:Flite.List
+                 ghczmprim:GHCziTypes.Int)) (ghczmprim:GHCziPrim.zlzezh wws1Ai
+                                             ww1s1Am)
+         %of (wildB1::ghczmprim:GHCziBool.Bool)
+           {ghczmprim:GHCziBool.False ->
+              main:Flite.Nil @ ghczmprim:GHCziTypes.Int;
+            ghczmprim:GHCziBool.True ->
+              main:Flite.Cons @ ghczmprim:GHCziTypes.Int
+              (ghczmprim:GHCziTypes.Izh wws1Ai)
+              (main:Braun.zdwfromTo
+               (ghczmprim:GHCziPrim.zpzh wws1Ai (1::ghczmprim:GHCziPrim.Intzh))
+               ww1s1Am)};
+   main:Braun.fromTo :: ghczmprim:GHCziTypes.Int ->
+                        ghczmprim:GHCziTypes.Int ->
+                        (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     %note "InlineMe"
+     \ (ws1Ag::ghczmprim:GHCziTypes.Int)
+       (w1s1Ak::ghczmprim:GHCziTypes.Int) ->
+         %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) ws1Ag
+         %of (w2X1AM::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1Ai::ghczmprim:GHCziPrim.Intzh) ->
+              %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) w1s1Ak
+              %of (w3X1AV::ghczmprim:GHCziTypes.Int)
+                {ghczmprim:GHCziTypes.Izh (ww1s1Am::ghczmprim:GHCziPrim.Intzh) ->
+                   main:Braun.zdwfromTo wws1Ai ww1s1Am}};
+   main:Braun.zdwreplicate :: %forall aa1vW . ghczmprim:GHCziPrim.Intzh
+                                              -> aa1vW -> (main:Flite.List aa1vW) =
+     \ @ aa1vW (wws1A4::ghczmprim:GHCziPrim.Intzh) (ws1A6::aa1vW) ->
+         %case ((main:Flite.List aa1vW)) wws1A4
+         %of (wildB1::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              main:Flite.Cons @ aa1vW ws1A6
+              (main:Braun.zdwreplicate @ aa1vW
+               (ghczmprim:GHCziPrim.zmzh wildB1 (1::ghczmprim:GHCziPrim.Intzh))
+               ws1A6);
+            (0::ghczmprim:GHCziPrim.Intzh) ->
+              main:Flite.Nil @ aa1vW};
+   main:Braun.replicate :: %forall aa1vW . ghczmprim:GHCziTypes.Int ->
+                                           aa1vW -> (main:Flite.List aa1vW) =
+     %note "InlineMe"
+     \ @ aa1vW (ws1A2::ghczmprim:GHCziTypes.Int) (w1s1A6::aa1vW) ->
+         %case ((main:Flite.List aa1vW)) ws1A2
+         %of (w2X1AB::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1A4::ghczmprim:GHCziPrim.Intzh) ->
+              main:Braun.zdwreplicate @ aa1vW wws1A4 w1s1A6};
+   main:Braun.ilv :: %forall ta1w7 . (main:Flite.List ta1w7) ->
+                                     (main:Flite.List ta1w7) -> (main:Flite.List ta1w7) =
+     \ @ ta1w7
+       (dsd1xy::(main:Flite.List ta1w7))
+       (ysa1u4::(main:Flite.List ta1w7)) ->
+         %case ((main:Flite.List ta1w7)) dsd1xy
+         %of (wildB1::(main:Flite.List ta1w7))
+           {main:Flite.Nil ->
+              ysa1u4;
+            main:Flite.Cons (xa1u6::ta1w7) (xsa1u8::(main:Flite.List ta1w7)) ->
+              %case ((main:Flite.List ta1w7)) ysa1u4
+              %of (wild1Xv::(main:Flite.List ta1w7))
+                {main:Flite.Nil ->
+                   wildB1;
+                 main:Flite.Cons
+                 (ya1ue::ta1w7) (ys1a1ug::(main:Flite.List ta1w7)) ->
+                   main:Flite.Cons @ ta1w7 xa1u6
+                   (main:Flite.Cons @ ta1w7 ya1ue
+                    (main:Braun.ilv @ ta1w7 xsa1u8 ys1a1ug))}};
+   main:Braun.toList :: %forall aa1wi . (main:Braun.Tree aa1wi) ->
+                                        (main:Flite.List aa1wi) =
+     \ @ aa1wi (dsd1xD::(main:Braun.Tree aa1wi)) ->
+         %case ((main:Flite.List aa1wi)) dsd1xD
+         %of (wildB1::(main:Braun.Tree aa1wi))
+           {main:Braun.Empty ->
+              main:Flite.Nil @ aa1wi;
+            main:Braun.Branch
+            (xa1tY::aa1wi)
+            (t0a1u0::(main:Braun.Tree aa1wi))
+            (t1a1u2::(main:Braun.Tree aa1wi)) ->
+              main:Flite.Cons @ aa1wi xa1tY
+              (main:Braun.ilv @ aa1wi (main:Braun.toList @ aa1wi t0a1u0)
+               (main:Braun.toList @ aa1wi t1a1u2))};
+   main:Braun.zdwsizze :: %forall ta1wq . (main:Braun.Tree ta1wq) ->
+                                          ghczmprim:GHCziPrim.Intzh =
+     \ @ ta1wq (ws1A9::(main:Braun.Tree ta1wq)) ->
+         %case ghczmprim:GHCziPrim.Intzh ws1A9
+         %of (wildB1::(main:Braun.Tree ta1wq))
+           {main:Braun.Empty ->
+              (0::ghczmprim:GHCziPrim.Intzh);
+            main:Braun.Branch
+            (xa1tO::ta1wq)
+            (t0a1tQ::(main:Braun.Tree ta1wq))
+            (t1a1tS::(main:Braun.Tree ta1wq)) ->
+              %case ghczmprim:GHCziPrim.Intzh (main:Braun.zdwsizze @ ta1wq
+                                               t0a1tQ)
+              %of (wws1Ac::ghczmprim:GHCziPrim.Intzh)
+                {%_ ->
+                   %case ghczmprim:GHCziPrim.Intzh (main:Braun.zdwsizze @ ta1wq
+                                                    t1a1tS)
+                   %of (ww1X1B0::ghczmprim:GHCziPrim.Intzh)
+                     {%_ ->
+                        ghczmprim:GHCziPrim.zpzh (1::ghczmprim:GHCziPrim.Intzh)
+                        (ghczmprim:GHCziPrim.zpzh wws1Ac ww1X1B0)}}};
+   main:Braun.sizze :: %forall ta1wq . (main:Braun.Tree ta1wq) ->
+                                       ghczmprim:GHCziTypes.Int =
+     %note "InlineMe"
+     \ @ ta1wq (ws1A9::(main:Braun.Tree ta1wq)) ->
+         %case ghczmprim:GHCziTypes.Int (main:Braun.zdwsizze @ ta1wq ws1A9)
+         %of (wws1Ac::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              ghczmprim:GHCziTypes.Izh wws1Ac};
+   main:Braun.and :: ghczmprim:GHCziBool.Bool ->
+                     ghczmprim:GHCziBool.Bool -> ghczmprim:GHCziBool.Bool =
+     \ (dsd1xJ::ghczmprim:GHCziBool.Bool)
+       (ya1tK::ghczmprim:GHCziBool.Bool) ->
+         %case ghczmprim:GHCziBool.Bool dsd1xJ
+         %of (wildB1::ghczmprim:GHCziBool.Bool)
+           {ghczmprim:GHCziBool.False ->
+              ghczmprim:GHCziBool.False;
+            ghczmprim:GHCziBool.True ->
+              ya1tK};
+   main:Braun.insert :: %forall aa1wR . aa1wR ->
+                                        (main:Braun.Tree aa1wR) -> (main:Braun.Tree aa1wR) =
+     \ @ aa1wR (xa1tA::aa1wR) (dsd1xP::(main:Braun.Tree aa1wR)) ->
+         %case ((main:Braun.Tree aa1wR)) dsd1xP
+         %of (wildB1::(main:Braun.Tree aa1wR))
+           {main:Braun.Empty ->
+              main:Braun.Branch @ aa1wR xa1tA (main:Braun.Empty @ aa1wR)
+              (main:Braun.Empty @ aa1wR);
+            main:Braun.Branch
+            (ya1tE::aa1wR)
+            (t0a1tG::(main:Braun.Tree aa1wR))
+            (t1a1tI::(main:Braun.Tree aa1wR)) ->
+              main:Braun.Branch @ aa1wR xa1tA
+              (main:Braun.insert @ aa1wR ya1tE t1a1tI) t0a1tG};
+   main:Braun.fromList :: %forall aa1x1 . (main:Flite.List aa1x1) ->
+                                          (main:Braun.Tree aa1x1) =
+     \ @ aa1x1 (dsd1xS::(main:Flite.List aa1x1)) ->
+         %case ((main:Braun.Tree aa1x1)) dsd1xS
+         %of (wildB1::(main:Flite.List aa1x1))
+           {main:Flite.Nil ->
+              main:Braun.Empty @ aa1x1;
+            main:Flite.Cons (xa1tU::aa1x1) (xsa1tW::(main:Flite.List aa1x1)) ->
+              main:Braun.insert @ aa1x1 xa1tU
+              (main:Braun.fromList @ aa1x1 xsa1tW)};
+   main:Braun.prop :: (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                      ghczmprim:GHCziBool.Bool =
+     \ (xsa1uI::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+         main:Braun.equal xsa1uI
+         (main:Braun.toList @ ghczmprim:GHCziTypes.Int
+          (main:Braun.fromList @ ghczmprim:GHCziTypes.Int xsa1uI));
+   main:Braun.testBraun :: ghczmprim:GHCziTypes.Int ->
+                           ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziBool.Bool =
+     \ (na1uS::ghczmprim:GHCziTypes.Int)
+       (ma1uU::ghczmprim:GHCziTypes.Int) ->
+         %case ghczmprim:GHCziBool.Bool na1uS
+         %of (wX1AB::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1A4::ghczmprim:GHCziPrim.Intzh) ->
+              main:Braun.all @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+              main:Braun.prop
+              (main:Braun.zdwreplicate
+               @ ((main:Flite.List ghczmprim:GHCziTypes.Int)) wws1A4
+               (%case ((main:Flite.List ghczmprim:GHCziTypes.Int)) ma1uU
+                %of (w1X1AV::ghczmprim:GHCziTypes.Int)
+                  {ghczmprim:GHCziTypes.Izh (ww1s1Am::ghczmprim:GHCziPrim.Intzh) ->
+                     main:Braun.zdwfromTo (0::ghczmprim:GHCziPrim.Intzh) ww1s1Am}))}};

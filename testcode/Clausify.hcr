@@ -1,0 +1,865 @@
+%module main:Clausify
+  %data main:Clausify.P =
+    {main:Clausify.Sym ghczmprim:GHCziTypes.Int;
+     main:Clausify.Neg main:Clausify.P;
+     main:Clausify.Con main:Clausify.P main:Clausify.P;
+     main:Clausify.Dis main:Clausify.P main:Clausify.P};
+  %rec
+  {main:Clausify.a :: ghczmprim:GHCziTypes.Int =
+     ghczmprim:GHCziTypes.Izh (0::ghczmprim:GHCziPrim.Intzh);
+   main:Clausify.a1 :: main:Clausify.P =
+     main:Clausify.Sym main:Clausify.a;
+   main:Clausify.a2 :: main:Clausify.P =
+     main:Clausify.Neg main:Clausify.a1;
+   main:Clausify.a3 :: main:Clausify.P =
+     main:Clausify.Dis main:Clausify.a2 main:Clausify.a1;
+   failr1Ud :: (main:Flite.Pair
+                ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     base:ControlziExceptionziBase.patError
+     @ ((main:Flite.Pair
+         ((main:Flite.List ghczmprim:GHCziTypes.Int))
+         ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+     ("Clausify.hs:(14,0)-(16,49)|function clause"::ghczmprim:GHCziPrim.Addrzh);
+   main:Clausify.zdwreplicate :: %forall aa1zzr . ghczmprim:GHCziPrim.Intzh
+                                                  -> aa1zzr -> (main:Flite.List aa1zzr) =
+     \ @ aa1zzr (wws1N1::ghczmprim:GHCziPrim.Intzh) (ws1N3::aa1zzr) ->
+         %case ((main:Flite.List aa1zzr)) wws1N1
+         %of (wildB1::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              main:Flite.Cons @ aa1zzr ws1N3
+              (main:Clausify.zdwreplicate @ aa1zzr
+               (ghczmprim:GHCziPrim.zmzh wildB1 (1::ghczmprim:GHCziPrim.Intzh))
+               ws1N3);
+            (0::ghczmprim:GHCziPrim.Intzh) ->
+              main:Flite.Nil @ aa1zzr};
+   main:Clausify.replicate :: %forall aa1zzr . ghczmprim:GHCziTypes.Int
+                                               -> aa1zzr -> (main:Flite.List aa1zzr) =
+     %note "InlineMe"
+     \ @ aa1zzr (ws1MZZ::ghczmprim:GHCziTypes.Int) (w1s1N3::aa1zzr) ->
+         %case ((main:Flite.List aa1zzr)) ws1MZZ
+         %of (w2X1Pm::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1N1::ghczmprim:GHCziPrim.Intzh) ->
+              main:Clausify.zdwreplicate @ aa1zzr wws1N1 w1s1N3};
+   main:Clausify.eqv :: main:Clausify.P ->
+                        main:Clausify.P -> main:Clausify.P =
+     \ (a4X1Aq::main:Clausify.P) (bX1At::main:Clausify.P) ->
+         main:Clausify.Con
+         (main:Clausify.Dis (main:Clausify.Neg a4X1Aq) bX1At)
+         (main:Clausify.Dis (main:Clausify.Neg bX1At) a4X1Aq);
+   main:Clausify.zdwsum :: (main:Flite.List ghczmprim:GHCziTypes.Int)
+                           -> ghczmprim:GHCziPrim.Intzh =
+     \ (ws1Ng::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+         %case ghczmprim:GHCziPrim.Intzh ws1Ng
+         %of (wildB1::(main:Flite.List ghczmprim:GHCziTypes.Int))
+           {main:Flite.Nil ->
+              (0::ghczmprim:GHCziPrim.Intzh);
+            main:Flite.Cons
+            (xa1yB::ghczmprim:GHCziTypes.Int)
+            (xsa1yD::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              %case ghczmprim:GHCziPrim.Intzh xa1yB
+              %of (wild1aLv::ghczmprim:GHCziTypes.Int)
+                {ghczmprim:GHCziTypes.Izh (x1aLx::ghczmprim:GHCziPrim.Intzh) ->
+                   %case ghczmprim:GHCziPrim.Intzh (main:Clausify.zdwsum xsa1yD)
+                   %of (wws1Nj::ghczmprim:GHCziPrim.Intzh)
+                     {%_ ->
+                        ghczmprim:GHCziPrim.zpzh x1aLx wws1Nj}}};
+   main:Clausify.sum :: (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                        ghczmprim:GHCziTypes.Int =
+     %note "InlineMe"
+     \ (ws1Ng::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+         %case ghczmprim:GHCziTypes.Int (main:Clausify.zdwsum ws1Ng)
+         %of (wws1Nj::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              ghczmprim:GHCziTypes.Izh wws1Nj};
+   main:Clausify.emitClause :: (main:Flite.Pair
+                                ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                                ((main:Flite.List ghczmprim:GHCziTypes.Int)))
+                               -> ghczmprim:GHCziTypes.Int =
+     \ (dsd1Fd::(main:Flite.Pair
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+         %case ghczmprim:GHCziTypes.Int dsd1Fd
+         %of (wildB1::(main:Flite.Pair
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+           {main:Flite.Pair
+            (ca1yx::(main:Flite.List ghczmprim:GHCziTypes.Int))
+            (a4a1yzz::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              %case ghczmprim:GHCziTypes.Int (main:Clausify.zdwsum ca1yx)
+              %of (wws1Nj::ghczmprim:GHCziPrim.Intzh)
+                {%_ ->
+                   %case ghczmprim:GHCziTypes.Int (main:Clausify.zdwsum a4a1yzz)
+                   %of (ww1X1PT::ghczmprim:GHCziPrim.Intzh)
+                     {%_ ->
+                        ghczmprim:GHCziTypes.Izh
+                        (ghczmprim:GHCziPrim.zpzh wws1Nj ww1X1PT)}}};
+   main:Clausify.zdwdisplay :: (main:Flite.List
+                                ((main:Flite.Pair
+                                  ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                                  ((main:Flite.List ghczmprim:GHCziTypes.Int)))))
+                               -> ghczmprim:GHCziPrim.Intzh =
+     \ (ws1Nm::(main:Flite.List
+                ((main:Flite.Pair
+                  ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                  ((main:Flite.List ghczmprim:GHCziTypes.Int)))))) ->
+         %case ghczmprim:GHCziPrim.Intzh ws1Nm
+         %of (wildB1::(main:Flite.List
+                       ((main:Flite.Pair
+                         ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                         ((main:Flite.List ghczmprim:GHCziTypes.Int))))))
+           {main:Flite.Nil ->
+              (0::ghczmprim:GHCziPrim.Intzh);
+            main:Flite.Cons
+            (ca1yt::(main:Flite.Pair
+                     ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                     ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+            (csa1yv::(main:Flite.List
+                      ((main:Flite.Pair
+                        ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                        ((main:Flite.List ghczmprim:GHCziTypes.Int)))))) ->
+              %case ghczmprim:GHCziPrim.Intzh ca1yt
+              %of (wild1X1x::(main:Flite.Pair
+                              ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                              ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+                {main:Flite.Pair
+                 (c1a1yx::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                 (a4a1yzz::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                   %case ghczmprim:GHCziPrim.Intzh (main:Clausify.zdwsum c1a1yx)
+                   %of (wws1Nj::ghczmprim:GHCziPrim.Intzh)
+                     {%_ ->
+                        %case ghczmprim:GHCziPrim.Intzh (main:Clausify.zdwsum a4a1yzz)
+                        %of (ww1X1Q1::ghczmprim:GHCziPrim.Intzh)
+                          {%_ ->
+                             %case ghczmprim:GHCziPrim.Intzh (main:Clausify.zdwdisplay csa1yv)
+                             %of (ww2s1Np::ghczmprim:GHCziPrim.Intzh)
+                               {%_ ->
+                                  ghczmprim:GHCziPrim.zpzh (ghczmprim:GHCziPrim.zpzh wws1Nj ww1X1Q1)
+                                  ww2s1Np}}}}};
+   main:Clausify.display :: (main:Flite.List
+                             ((main:Flite.Pair
+                               ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                               ((main:Flite.List ghczmprim:GHCziTypes.Int)))))
+                            -> ghczmprim:GHCziTypes.Int =
+     %note "InlineMe"
+     \ (ws1Nm::(main:Flite.List
+                ((main:Flite.Pair
+                  ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                  ((main:Flite.List ghczmprim:GHCziTypes.Int)))))) ->
+         %case ghczmprim:GHCziTypes.Int (main:Clausify.zdwdisplay ws1Nm)
+         %of (wws1Np::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              ghczmprim:GHCziTypes.Izh wws1Np};
+   main:Clausify.not :: ghczmprim:GHCziBool.Bool ->
+                        ghczmprim:GHCziBool.Bool =
+     \ (dsd1Fl::ghczmprim:GHCziBool.Bool) ->
+         %case ghczmprim:GHCziBool.Bool dsd1Fl
+         %of (wildB1::ghczmprim:GHCziBool.Bool)
+           {ghczmprim:GHCziBool.False ->
+              ghczmprim:GHCziBool.True;
+            ghczmprim:GHCziBool.True ->
+              ghczmprim:GHCziBool.False};
+   main:Clausify.comp :: %forall ta1AD t1a1AG t2a1AH . (t1a1AG ->
+                                                        t2a1AH)
+                                                       -> (ta1AD -> t1a1AG) -> ta1AD -> t2a1AH =
+     \ @ ta1AD
+       @ t1a1AG
+       @ t2a1AH
+       (fa1y1::t1a1AG -> t2a1AH)
+       (ga1y3::ta1AD -> t1a1AG)
+       (xa1y5::ta1AD) ->
+         fa1y1 (ga1y3 xa1y5);
+   main:Clausify.null :: %forall ta1Be . (main:Flite.List ta1Be) ->
+                                         ghczmprim:GHCziBool.Bool =
+     \ @ ta1Be (dsd1Fw::(main:Flite.List ta1Be)) ->
+         %case ghczmprim:GHCziBool.Bool dsd1Fw
+         %of (wildB1::(main:Flite.List ta1Be))
+           {main:Flite.Nil ->
+              ghczmprim:GHCziBool.True;
+            main:Flite.Cons (xa1xn::ta1Be) (xsa1xp::(main:Flite.List ta1Be)) ->
+              ghczmprim:GHCziBool.False};
+   main:Clausify.and :: ghczmprim:GHCziBool.Bool ->
+                        ghczmprim:GHCziBool.Bool -> ghczmprim:GHCziBool.Bool =
+     \ (dsd1Fzz::ghczmprim:GHCziBool.Bool)
+       (xa1wN::ghczmprim:GHCziBool.Bool) ->
+         %case ghczmprim:GHCziBool.Bool dsd1Fzz
+         %of (wildB1::ghczmprim:GHCziBool.Bool)
+           {ghczmprim:GHCziBool.False ->
+              ghczmprim:GHCziBool.False;
+            ghczmprim:GHCziBool.True ->
+              xa1wN};
+   main:Clausify.or :: ghczmprim:GHCziBool.Bool ->
+                       ghczmprim:GHCziBool.Bool -> ghczmprim:GHCziBool.Bool =
+     \ (dsd1Gs::ghczmprim:GHCziBool.Bool)
+       (xa1uX::ghczmprim:GHCziBool.Bool) ->
+         %case ghczmprim:GHCziBool.Bool dsd1Gs
+         %of (wildB1::ghczmprim:GHCziBool.Bool)
+           {ghczmprim:GHCziBool.False ->
+              xa1uX;
+            ghczmprim:GHCziBool.True ->
+              ghczmprim:GHCziBool.True};
+   main:Clausify.foldr :: %forall ta1Ad t1a1Af . (t1a1Af ->
+                                                  ta1Ad -> ta1Ad)
+                                                 -> ta1Ad -> (main:Flite.List t1a1Af) -> ta1Ad =
+     \ @ ta1Ad
+       @ t1a1Af
+       (fa1yf::t1a1Af -> ta1Ad -> ta1Ad)
+       (zza1yh::ta1Ad)
+       (dsd1Fi::(main:Flite.List t1a1Af)) ->
+         %case ta1Ad dsd1Fi %of (wildB1::(main:Flite.List t1a1Af))
+           {main:Flite.Nil ->
+              zza1yh;
+            main:Flite.Cons
+            (xa1yn::t1a1Af) (xsa1yp::(main:Flite.List t1a1Af)) ->
+              fa1yf xa1yn
+              (main:Clausify.foldr @ ta1Ad @ t1a1Af fa1yf zza1yh xsa1yp)};
+   main:Clausify.map :: %forall ta1EA aa1EC . (ta1EA -> aa1EC) ->
+                                              (main:Flite.List ta1EA) -> (main:Flite.List aa1EC) =
+     \ @ ta1EA
+       @ aa1EC
+       (fa1ut::ta1EA -> aa1EC)
+       (dsd1GJ::(main:Flite.List ta1EA)) ->
+         %case ((main:Flite.List aa1EC)) dsd1GJ
+         %of (wildB1::(main:Flite.List ta1EA))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ aa1EC;
+            main:Flite.Cons
+            (xa1ux::ta1EA) (xsa1uzz::(main:Flite.List ta1EA)) ->
+              main:Flite.Cons @ aa1EC (fa1ut xa1ux)
+              (main:Clausify.map @ ta1EA @ aa1EC fa1ut xsa1uzz)};
+   main:Clausify.filter :: %forall aa1Ca . (aa1Ca ->
+                                            ghczmprim:GHCziBool.Bool)
+                                           -> (main:Flite.List aa1Ca) -> (main:Flite.List aa1Ca) =
+     \ @ aa1Ca
+       (pa1wb::aa1Ca -> ghczmprim:GHCziBool.Bool)
+       (dsd1G1::(main:Flite.List aa1Ca)) ->
+         %case ((main:Flite.List aa1Ca)) dsd1G1
+         %of (wildB1::(main:Flite.List aa1Ca))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ aa1Ca;
+            main:Flite.Cons (xa1wf::aa1Ca) (xsa1wh::(main:Flite.List aa1Ca)) ->
+              %case ((main:Flite.List aa1Ca)) (pa1wb xa1wf)
+              %of (wild1X13::ghczmprim:GHCziBool.Bool)
+                {ghczmprim:GHCziBool.False ->
+                   main:Clausify.filter @ aa1Ca pa1wb xsa1wh;
+                 ghczmprim:GHCziBool.True ->
+                   main:Flite.Cons @ aa1Ca xa1wf
+                   (main:Clausify.filter @ aa1Ca pa1wb xsa1wh)}};
+   main:Clausify.spl :: (main:Flite.List main:Clausify.P) ->
+                        main:Clausify.P -> (main:Flite.List main:Clausify.P) =
+     \ (a4a1xzz::(main:Flite.List main:Clausify.P))
+       (dsd1Fr::main:Clausify.P) ->
+         %case ((main:Flite.List main:Clausify.P)) dsd1Fr
+         %of (wildB1::main:Clausify.P)
+           {%_ ->
+              main:Flite.Cons @ main:Clausify.P wildB1 a4a1xzz;
+            main:Clausify.Con
+            (pa1xB::main:Clausify.P) (qa1xD::main:Clausify.P) ->
+              main:Clausify.spl (main:Clausify.spl a4a1xzz pa1xB) qa1xD};
+   main:Clausify.split :: main:Clausify.P ->
+                          (main:Flite.List main:Clausify.P) =
+     \ (pa1xx::main:Clausify.P) ->
+         main:Clausify.spl (main:Flite.Nil @ main:Clausify.P) pa1xx;
+   main:Clausify.zdsnegin :: main:Clausify.P -> main:Clausify.P =
+     \ (scs1RT::main:Clausify.P) ->
+         %case main:Clausify.P scs1RT %of (wildX1f::main:Clausify.P)
+           {main:Clausify.Sym (sa1wzz::ghczmprim:GHCziTypes.Int) ->
+              main:Clausify.Neg wildX1f;
+            main:Clausify.Neg (pa1wx::main:Clausify.P) ->
+              main:Clausify.negin pa1wx;
+            main:Clausify.Con
+            (pa1wp::main:Clausify.P) (qa1wr::main:Clausify.P) ->
+              main:Clausify.Dis (main:Clausify.zdsnegin pa1wp)
+              (main:Clausify.zdsnegin qa1wr);
+            main:Clausify.Dis
+            (pa1wt::main:Clausify.P) (qa1wv::main:Clausify.P) ->
+              main:Clausify.Con (main:Clausify.zdsnegin pa1wt)
+              (main:Clausify.zdsnegin qa1wv)};
+   main:Clausify.negin :: main:Clausify.P -> main:Clausify.P =
+     \ (dsd1FO::main:Clausify.P) ->
+         %case main:Clausify.P dsd1FO %of (wildB1::main:Clausify.P)
+           {main:Clausify.Sym (sa1wJ::ghczmprim:GHCziTypes.Int) ->
+              wildB1;
+            main:Clausify.Neg (ds1d1FP::main:Clausify.P) ->
+              %case main:Clausify.P ds1d1FP %of (wild1X1f::main:Clausify.P)
+                {main:Clausify.Sym (sa1wzz::ghczmprim:GHCziTypes.Int) ->
+                   wildB1;
+                 main:Clausify.Neg (pa1wx::main:Clausify.P) ->
+                   main:Clausify.negin pa1wx;
+                 main:Clausify.Con
+                 (pa1wp::main:Clausify.P) (qa1wr::main:Clausify.P) ->
+                   main:Clausify.Dis (main:Clausify.zdsnegin pa1wp)
+                   (main:Clausify.zdsnegin qa1wr);
+                 main:Clausify.Dis
+                 (pa1wt::main:Clausify.P) (qa1wv::main:Clausify.P) ->
+                   main:Clausify.Con (main:Clausify.zdsnegin pa1wt)
+                   (main:Clausify.zdsnegin qa1wv)};
+            main:Clausify.Con
+            (pa1wF::main:Clausify.P) (qa1wH::main:Clausify.P) ->
+              main:Clausify.Con (main:Clausify.negin pa1wF)
+              (main:Clausify.negin qa1wH);
+            main:Clausify.Dis
+            (pa1wB::main:Clausify.P) (qa1wD::main:Clausify.P) ->
+              main:Clausify.Dis (main:Clausify.negin pa1wB)
+              (main:Clausify.negin qa1wD)};
+   main:Clausify.din :: main:Clausify.P ->
+                        main:Clausify.P -> main:Clausify.P =
+     \ (dsd1Gd::main:Clausify.P) (ra1vt::main:Clausify.P) ->
+         %case main:Clausify.P dsd1Gd %of (wildB1::main:Clausify.P)
+           {%_ ->
+              %case main:Clausify.P ra1vt %of (wild1X1u::main:Clausify.P)
+                {%_ ->
+                   main:Clausify.Dis wildB1 wild1X1u;
+                 main:Clausify.Con
+                 (qa1vL::main:Clausify.P) (r1a1vN::main:Clausify.P) ->
+                   main:Clausify.Con (main:Clausify.din wildB1 qa1vL)
+                   (main:Clausify.din wildB1 r1a1vN)};
+            main:Clausify.Con
+            (pa1vp::main:Clausify.P) (qa1vr::main:Clausify.P) ->
+              main:Clausify.Con (main:Clausify.din pa1vp ra1vt)
+              (main:Clausify.din qa1vr ra1vt)};
+   main:Clausify.din2 :: main:Clausify.P ->
+                         main:Clausify.P -> main:Clausify.P =
+     \ (pa1vJ::main:Clausify.P) (dsd1Gi::main:Clausify.P) ->
+         %case main:Clausify.P dsd1Gi %of (wildB1::main:Clausify.P)
+           {%_ ->
+              main:Clausify.Dis pa1vJ wildB1;
+            main:Clausify.Con
+            (qa1vL::main:Clausify.P) (ra1vN::main:Clausify.P) ->
+              main:Clausify.Con (main:Clausify.din pa1vJ qa1vL)
+              (main:Clausify.din pa1vJ ra1vN)};
+   main:Clausify.disin :: main:Clausify.P -> main:Clausify.P =
+     \ (dsd1Gn::main:Clausify.P) ->
+         %case main:Clausify.P dsd1Gn %of (wildB1::main:Clausify.P)
+           {%_ ->
+              wildB1;
+            main:Clausify.Con
+            (pa1vh::main:Clausify.P) (qa1vj::main:Clausify.P) ->
+              main:Clausify.Con (main:Clausify.disin pa1vh)
+              (main:Clausify.disin qa1vj);
+            main:Clausify.Dis
+            (pa1vl::main:Clausify.P) (qa1vn::main:Clausify.P) ->
+              main:Clausify.din (main:Clausify.disin pa1vl)
+              (main:Clausify.disin qa1vn)};
+   main:Clausify.eqList :: %forall ta1Bs t1a1Bt . (ta1Bs ->
+                                                   t1a1Bt -> ghczmprim:GHCziBool.Bool)
+                                                  ->
+                                                  (main:Flite.List ta1Bs) ->
+                                                  (main:Flite.List t1a1Bt) ->
+                                                  ghczmprim:GHCziBool.Bool =
+     \ @ ta1Bs
+       @ t1a1Bt
+       (fa1wR::ta1Bs -> t1a1Bt -> ghczmprim:GHCziBool.Bool)
+       (dsd1FC::(main:Flite.List ta1Bs))
+       (ds1d1FD::(main:Flite.List t1a1Bt)) ->
+         %case ghczmprim:GHCziBool.Bool dsd1FC
+         %of (wildB1::(main:Flite.List ta1Bs))
+           {main:Flite.Nil ->
+              %case ghczmprim:GHCziBool.Bool ds1d1FD
+              %of (wild1X14::(main:Flite.List t1a1Bt))
+                {main:Flite.Nil ->
+                   ghczmprim:GHCziBool.True;
+                 main:Flite.Cons
+                 (ya1wV::t1a1Bt) (ysa1wX::(main:Flite.List t1a1Bt)) ->
+                   ghczmprim:GHCziBool.False};
+            main:Flite.Cons (xa1x1::ta1Bs) (xsa1x3::(main:Flite.List ta1Bs)) ->
+              %case ghczmprim:GHCziBool.Bool ds1d1FD
+              %of (wild1X16::(main:Flite.List t1a1Bt))
+                {main:Flite.Nil ->
+                   ghczmprim:GHCziBool.False;
+                 main:Flite.Cons
+                 (ya1xb::t1a1Bt) (ysa1xd::(main:Flite.List t1a1Bt)) ->
+                   %case ghczmprim:GHCziBool.Bool (fa1wR xa1x1 ya1xb)
+                   %of (wild2X1f::ghczmprim:GHCziBool.Bool)
+                     {ghczmprim:GHCziBool.False ->
+                        ghczmprim:GHCziBool.False;
+                      ghczmprim:GHCziBool.True ->
+                        main:Clausify.eqList @ ta1Bs @ t1a1Bt fa1wR xsa1x3 ysa1xd}}};
+   main:Clausify.contains :: %forall ta1Dc t1a1Dd . (t1a1Dd ->
+                                                     ta1Dc -> ghczmprim:GHCziBool.Bool)
+                                                    ->
+                                                    (main:Flite.List t1a1Dd) ->
+                                                    ta1Dc -> ghczmprim:GHCziBool.Bool =
+     \ @ ta1Dc
+       @ t1a1Dd
+       (eqa1v1::t1a1Dd -> ta1Dc -> ghczmprim:GHCziBool.Bool)
+       (dsd1Gv::(main:Flite.List t1a1Dd))
+       (ya1v3::ta1Dc) ->
+         %case ghczmprim:GHCziBool.Bool dsd1Gv
+         %of (wildB1::(main:Flite.List t1a1Dd))
+           {main:Flite.Nil ->
+              ghczmprim:GHCziBool.False;
+            main:Flite.Cons
+            (xa1v7::t1a1Dd) (xsa1v9::(main:Flite.List t1a1Dd)) ->
+              %case ghczmprim:GHCziBool.Bool (eqa1v1 xa1v7 ya1v3)
+              %of (wild1X1a::ghczmprim:GHCziBool.Bool)
+                {ghczmprim:GHCziBool.False ->
+                   main:Clausify.contains @ ta1Dc @ t1a1Dd eqa1v1 xsa1v9 ya1v3;
+                 ghczmprim:GHCziBool.True ->
+                   ghczmprim:GHCziBool.True}};
+   main:Clausify.notTaut :: (main:Flite.Pair
+                             ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                             ((main:Flite.List ghczmprim:GHCziTypes.Int)))
+                            -> ghczmprim:GHCziBool.Bool =
+     \ (dsd1Gy::(main:Flite.Pair
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+         %case ghczmprim:GHCziBool.Bool dsd1Gy
+         %of (wildB1::(main:Flite.Pair
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+           {main:Flite.Pair
+            (ca1xr::(main:Flite.List ghczmprim:GHCziTypes.Int))
+            (a4a1xt::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              %case ghczmprim:GHCziBool.Bool (main:Clausify.filter
+                                              @ ghczmprim:GHCziTypes.Int
+                                              (main:Clausify.contains @ ghczmprim:GHCziTypes.Int
+                                               @ ghczmprim:GHCziTypes.Int base:GHCziBase.eqInt
+                                               ca1xr)
+                                              a4a1xt)
+              %of (wild1X18::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                {main:Flite.Nil ->
+                   ghczmprim:GHCziBool.True;
+                 main:Flite.Cons
+                 (xa1xn::ghczmprim:GHCziTypes.Int)
+                 (xsa1xp::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                   ghczmprim:GHCziBool.False}};
+   main:Clausify.nonTaut :: (main:Flite.List
+                             ((main:Flite.Pair
+                               ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                               ((main:Flite.List ghczmprim:GHCziTypes.Int)))))
+                            ->
+                            (main:Flite.List
+                             ((main:Flite.Pair
+                               ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                               ((main:Flite.List ghczmprim:GHCziTypes.Int))))) =
+     \ (csa1wL::(main:Flite.List
+                 ((main:Flite.Pair
+                   ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                   ((main:Flite.List ghczmprim:GHCziTypes.Int)))))) ->
+         main:Clausify.filter
+         @ ((main:Flite.Pair
+             ((main:Flite.List ghczmprim:GHCziTypes.Int))
+             ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+         main:Clausify.notTaut csa1wL;
+   main:Clausify.inter :: %forall ta1Dt aa1Du . (ta1Dt ->
+                                                 aa1Du -> ghczmprim:GHCziBool.Bool)
+                                                ->
+                                                (main:Flite.List ta1Dt) ->
+                                                (main:Flite.List aa1Du) -> (main:Flite.List aa1Du) =
+     \ @ ta1Dt
+       @ aa1Du
+       (eqa1wj::ta1Dt -> aa1Du -> ghczmprim:GHCziBool.Bool)
+       (xsa1wl::(main:Flite.List ta1Dt))
+       (ysa1wn::(main:Flite.List aa1Du)) ->
+         main:Clausify.filter @ aa1Du
+         (main:Clausify.contains @ aa1Du @ ta1Dt eqa1wj xsa1wl) ysa1wn;
+   main:Clausify.eqClause :: (main:Flite.Pair
+                              ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                              ((main:Flite.List ghczmprim:GHCziTypes.Int)))
+                             ->
+                             (main:Flite.Pair
+                              ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                              ((main:Flite.List ghczmprim:GHCziTypes.Int)))
+                             -> ghczmprim:GHCziBool.Bool =
+     \ (dsd1FK::(main:Flite.Pair
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+       (ds1d1FL::(main:Flite.Pair
+                  ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                  ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+         %case ghczmprim:GHCziBool.Bool dsd1FK
+         %of (wildB1::(main:Flite.Pair
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+           {main:Flite.Pair
+            (a4a1xf::(main:Flite.List ghczmprim:GHCziTypes.Int))
+            (ba1xh::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              %case ghczmprim:GHCziBool.Bool ds1d1FL
+              %of (wild1X16::(main:Flite.Pair
+                              ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                              ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+                {main:Flite.Pair
+                 (ca1xj::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                 (da1xl::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                   %case ghczmprim:GHCziBool.Bool (main:Clausify.eqList
+                                                   @ ghczmprim:GHCziTypes.Int
+                                                   @ ghczmprim:GHCziTypes.Int base:GHCziBase.eqInt
+                                                   a4a1xf ca1xj)
+                   %of (wild2X1h::ghczmprim:GHCziBool.Bool)
+                     {ghczmprim:GHCziBool.False ->
+                        ghczmprim:GHCziBool.False;
+                      ghczmprim:GHCziBool.True ->
+                        main:Clausify.eqList @ ghczmprim:GHCziTypes.Int
+                        @ ghczmprim:GHCziTypes.Int base:GHCziBase.eqInt ba1xh da1xl}}};
+   main:Clausify.singleton :: %forall aa1Aq . aa1Aq ->
+                                              (main:Flite.List aa1Aq) =
+     \ @ aa1Aq (xa1yd::aa1Aq) ->
+         main:Flite.Cons @ aa1Aq xa1yd (main:Flite.Nil @ aa1Aq);
+   main:Clausify.append :: %forall ta1AO . (main:Flite.List ta1AO) ->
+                                           (main:Flite.List ta1AO) -> (main:Flite.List ta1AO) =
+     \ @ ta1AO
+       (dsd1Fo::(main:Flite.List ta1AO))
+       (ysa1xT::(main:Flite.List ta1AO)) ->
+         %case ((main:Flite.List ta1AO)) dsd1Fo
+         %of (wildB1::(main:Flite.List ta1AO))
+           {main:Flite.Nil ->
+              ysa1xT;
+            main:Flite.Cons (xa1xV::ta1AO) (xsa1xX::(main:Flite.List ta1AO)) ->
+              main:Flite.Cons @ ta1AO xa1xV
+              (main:Clausify.append @ ta1AO xsa1xX ysa1xT)};
+   main:Clausify.union :: %forall ta1DZZ . (ta1DZZ ->
+                                            ta1DZZ -> ghczmprim:GHCziBool.Bool)
+                                           ->
+                                           (main:Flite.List ta1DZZ) ->
+                                           (main:Flite.List ta1DZZ) -> (main:Flite.List ta1DZZ) =
+     \ @ ta1DZZ
+       (eqa1y7::ta1DZZ -> ta1DZZ -> ghczmprim:GHCziBool.Bool)
+       (xsa1y9::(main:Flite.List ta1DZZ))
+       (ysa1yb::(main:Flite.List ta1DZZ)) ->
+         main:Clausify.append @ ta1DZZ xsa1y9
+         (main:Clausify.filter @ ta1DZZ
+          (\ (xa1y5::ta1DZZ) ->
+               %case ghczmprim:GHCziBool.Bool (main:Clausify.contains @ ta1DZZ
+                                               @ ta1DZZ eqa1y7 xsa1y9 xa1y5)
+               %of (wildB1::ghczmprim:GHCziBool.Bool)
+                 {ghczmprim:GHCziBool.False ->
+                    ghczmprim:GHCziBool.True;
+                  ghczmprim:GHCziBool.True ->
+                    ghczmprim:GHCziBool.False})
+          ysa1yb);
+   main:Clausify.lvl :: (main:Flite.Pair
+                         ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                         ((main:Flite.List ghczmprim:GHCziTypes.Int)))
+                        ->
+                        (main:Flite.List
+                         ((main:Flite.Pair
+                           ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                           ((main:Flite.List ghczmprim:GHCziTypes.Int)))))
+                        ->
+                        (main:Flite.List
+                         ((main:Flite.Pair
+                           ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                           ((main:Flite.List ghczmprim:GHCziTypes.Int))))) =
+     \ (xa1y5::(main:Flite.Pair
+                ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+         main:Clausify.union
+         @ ((main:Flite.Pair
+             ((main:Flite.List ghczmprim:GHCziTypes.Int))
+             ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+         main:Clausify.eqClause
+         (main:Clausify.singleton
+          @ ((main:Flite.Pair
+              ((main:Flite.List ghczmprim:GHCziTypes.Int))
+              ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+          xa1y5);
+   main:Clausify.uniq :: (main:Flite.List
+                          ((main:Flite.Pair
+                            ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                            ((main:Flite.List ghczmprim:GHCziTypes.Int)))))
+                         ->
+                         (main:Flite.List
+                          ((main:Flite.Pair
+                            ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                            ((main:Flite.List ghczmprim:GHCziTypes.Int))))) =
+     \ (xsa1yr::(main:Flite.List
+                 ((main:Flite.Pair
+                   ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                   ((main:Flite.List ghczmprim:GHCziTypes.Int)))))) ->
+         main:Clausify.foldr
+         @ ((main:Flite.List
+             ((main:Flite.Pair
+               ((main:Flite.List ghczmprim:GHCziTypes.Int))
+               ((main:Flite.List ghczmprim:GHCziTypes.Int))))))
+         @ ((main:Flite.Pair
+             ((main:Flite.List ghczmprim:GHCziTypes.Int))
+             ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+         main:Clausify.lvl
+         (main:Flite.Nil
+          @ ((main:Flite.Pair
+              ((main:Flite.List ghczmprim:GHCziTypes.Int))
+              ((main:Flite.List ghczmprim:GHCziTypes.Int)))))
+         xsa1yr;
+   main:Clausify.zdsins :: (main:Flite.List ghczmprim:GHCziTypes.Int)
+                           ->
+                           ghczmprim:GHCziPrim.Intzh ->
+                           (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     \ (scs1Ss::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (sc1s1St::ghczmprim:GHCziPrim.Intzh) ->
+         %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) scs1Ss
+         %of (wildB1::(main:Flite.List ghczmprim:GHCziTypes.Int))
+           {main:Flite.Nil ->
+              main:Flite.Cons @ ghczmprim:GHCziTypes.Int
+              (ghczmprim:GHCziTypes.Izh sc1s1St)
+              (main:Flite.Nil @ ghczmprim:GHCziTypes.Int);
+            main:Flite.Cons
+            (ya1w7::ghczmprim:GHCziTypes.Int)
+            (ysa1w9::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) ya1w7
+              %of (wild1aLT::ghczmprim:GHCziTypes.Int)
+                {ghczmprim:GHCziTypes.Izh (y1aLV::ghczmprim:GHCziPrim.Intzh) ->
+                   %case ((main:Flite.List
+                           ghczmprim:GHCziTypes.Int)) (ghczmprim:GHCziPrim.zezezh sc1s1St
+                                                       y1aLV)
+                   %of (wild11X1f::ghczmprim:GHCziBool.Bool)
+                     {ghczmprim:GHCziBool.False ->
+                        %case ((main:Flite.List
+                                ghczmprim:GHCziTypes.Int)) (ghczmprim:GHCziPrim.zlzezh sc1s1St
+                                                            y1aLV)
+                        %of (wild2X1h::ghczmprim:GHCziBool.Bool)
+                          {ghczmprim:GHCziBool.False ->
+                             main:Flite.Cons @ ghczmprim:GHCziTypes.Int wild1aLT
+                             (main:Clausify.zdsins ysa1w9 sc1s1St);
+                           ghczmprim:GHCziBool.True ->
+                             main:Flite.Cons @ ghczmprim:GHCziTypes.Int
+                             (ghczmprim:GHCziTypes.Izh sc1s1St) wildB1};
+                      ghczmprim:GHCziBool.True ->
+                        wildB1}}};
+   main:Clausify.ins :: ghczmprim:GHCziTypes.Int ->
+                        (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                        (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     \ (xa1w3::ghczmprim:GHCziTypes.Int)
+       (dsd1Ga::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+         %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) dsd1Ga
+         %of (wildB1::(main:Flite.List ghczmprim:GHCziTypes.Int))
+           {main:Flite.Nil ->
+              main:Flite.Cons @ ghczmprim:GHCziTypes.Int xa1w3
+              (main:Flite.Nil @ ghczmprim:GHCziTypes.Int);
+            main:Flite.Cons
+            (ya1w7::ghczmprim:GHCziTypes.Int)
+            (ysa1w9::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) xa1w3
+              %of (wild1aLP::ghczmprim:GHCziTypes.Int)
+                {ghczmprim:GHCziTypes.Izh (x1aLR::ghczmprim:GHCziPrim.Intzh) ->
+                   %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) ya1w7
+                   %of (wild11aLT::ghczmprim:GHCziTypes.Int)
+                     {ghczmprim:GHCziTypes.Izh (y1aLV::ghczmprim:GHCziPrim.Intzh) ->
+                        %case ((main:Flite.List
+                                ghczmprim:GHCziTypes.Int)) (ghczmprim:GHCziPrim.zezezh x1aLR y1aLV)
+                        %of (wild2X1f::ghczmprim:GHCziBool.Bool)
+                          {ghczmprim:GHCziBool.False ->
+                             %case ((main:Flite.List
+                                     ghczmprim:GHCziTypes.Int)) (ghczmprim:GHCziPrim.zlzezh x1aLR
+                                                                 y1aLV)
+                             %of (wild3X1h::ghczmprim:GHCziBool.Bool)
+                               {ghczmprim:GHCziBool.False ->
+                                  main:Flite.Cons @ ghczmprim:GHCziTypes.Int wild11aLT
+                                  (main:Clausify.zdsins ysa1w9 x1aLR);
+                                ghczmprim:GHCziBool.True ->
+                                  main:Flite.Cons @ ghczmprim:GHCziTypes.Int wild1aLP wildB1};
+                           ghczmprim:GHCziBool.True ->
+                             wildB1}}}};
+   main:Clausify.zdwclause :: (main:Flite.List
+                               ghczmprim:GHCziTypes.Int)
+                              ->
+                              (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                              main:Clausify.P ->
+                              (ghczmprim:GHCziPrim.Z2H
+                               ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                               ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     \ (wws1N9::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (ww1s1Na::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (ws1Nc::main:Clausify.P) ->
+         %case ((ghczmprim:GHCziPrim.Z2H
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ws1Nc
+         %of (wildX1h::main:Clausify.P)
+           {main:Clausify.Sym (sa1uP::ghczmprim:GHCziTypes.Int) ->
+              ghczmprim:GHCziPrim.Z2H
+              @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+              @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+              (main:Clausify.ins sa1uP wws1N9) ww1s1Na;
+            main:Clausify.Neg (dsd1GC::main:Clausify.P) ->
+              %case ((ghczmprim:GHCziPrim.Z2H
+                      ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                      ((main:Flite.List ghczmprim:GHCziTypes.Int)))) dsd1GC
+              %of (wild1X1m::main:Clausify.P)
+                {%_ ->
+                   %cast (failr1Ud)
+                   (%unsafe
+                    ((main:Flite.Pair
+                      ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                      ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+                    ((ghczmprim:GHCziPrim.Z2H
+                      ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                      ((main:Flite.List ghczmprim:GHCziTypes.Int)))));
+                 main:Clausify.Sym (sa1uV::ghczmprim:GHCziTypes.Int) ->
+                   ghczmprim:GHCziPrim.Z2H
+                   @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                   @ ((main:Flite.List ghczmprim:GHCziTypes.Int)) wws1N9
+                   (main:Clausify.ins sa1uV ww1s1Na)};
+            main:Clausify.Con
+            (ipvs1Hg::main:Clausify.P) (ipv1s1Hh::main:Clausify.P) ->
+              %cast (failr1Ud)
+              (%unsafe
+               ((main:Flite.Pair
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+               ((ghczmprim:GHCziPrim.Z2H
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int)))));
+            main:Clausify.Dis
+            (pa1uH::main:Clausify.P) (qa1uJ::main:Clausify.P) ->
+              %case ((ghczmprim:GHCziPrim.Z2H
+                      ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                      ((main:Flite.List
+                        ghczmprim:GHCziTypes.Int)))) (main:Clausify.zdwclause wws1N9
+                                                      ww1s1Na pa1uH)
+              %of (ww2s1NE::(ghczmprim:GHCziPrim.Z2H
+                             ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                             ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+                {ghczmprim:GHCziPrim.Z2H
+                 (ww3s1NG::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                 (ww4s1NH::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                   main:Clausify.zdwclause ww3s1NG ww4s1NH qa1uJ}};
+   main:Clausify.clause :: (main:Flite.Pair
+                            ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                            ((main:Flite.List ghczmprim:GHCziTypes.Int)))
+                           ->
+                           main:Clausify.P ->
+                           (main:Flite.Pair
+                            ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                            ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     %note "InlineMe"
+     \ (ws1N7::(main:Flite.Pair
+                ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+       (w1s1Nc::main:Clausify.P) ->
+         %case ((main:Flite.Pair
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ws1N7
+         %of (w2X1Q1::(main:Flite.Pair
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+           {main:Flite.Pair
+            (wws1N9::(main:Flite.List ghczmprim:GHCziTypes.Int))
+            (ww1s1Na::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              %case ((main:Flite.Pair
+                      ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                      ((main:Flite.List
+                        ghczmprim:GHCziTypes.Int)))) (main:Clausify.zdwclause wws1N9
+                                                      ww1s1Na w1s1Nc)
+              %of (ww2s1NE::(ghczmprim:GHCziPrim.Z2H
+                             ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                             ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+                {ghczmprim:GHCziPrim.Z2H
+                 (ww3s1NG::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                 (ww4s1NH::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                   main:Flite.Pair @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                   @ ((main:Flite.List ghczmprim:GHCziTypes.Int)) ww3s1NG ww4s1NH}};
+   main:Clausify.lvl1 :: main:Clausify.P ->
+                         (main:Flite.Pair
+                          ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                          ((main:Flite.List ghczmprim:GHCziTypes.Int))) =
+     \ (ws1Nc::main:Clausify.P) ->
+         %case ((main:Flite.Pair
+                 ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                 ((main:Flite.List
+                   ghczmprim:GHCziTypes.Int)))) (main:Clausify.zdwclause
+                                                 (main:Flite.Nil @ ghczmprim:GHCziTypes.Int)
+                                                 (main:Flite.Nil @ ghczmprim:GHCziTypes.Int) ws1Nc)
+         %of (wws1NE::(ghczmprim:GHCziPrim.Z2H
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+           {ghczmprim:GHCziPrim.Z2H
+            (ww1s1NG::(main:Flite.List ghczmprim:GHCziTypes.Int))
+            (ww2s1NH::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              main:Flite.Pair @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+              @ ((main:Flite.List ghczmprim:GHCziTypes.Int)) ww1s1NG ww2s1NH};
+   main:Clausify.clausify :: main:Clausify.P ->
+                             (main:Flite.List
+                              ((main:Flite.Pair
+                                ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                                ((main:Flite.List ghczmprim:GHCziTypes.Int))))) =
+     \ (pa1xv::main:Clausify.P) ->
+         main:Clausify.foldr
+         @ ((main:Flite.List
+             ((main:Flite.Pair
+               ((main:Flite.List ghczmprim:GHCziTypes.Int))
+               ((main:Flite.List ghczmprim:GHCziTypes.Int))))))
+         @ ((main:Flite.Pair
+             ((main:Flite.List ghczmprim:GHCziTypes.Int))
+             ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+         main:Clausify.lvl
+         (main:Flite.Nil
+          @ ((main:Flite.Pair
+              ((main:Flite.List ghczmprim:GHCziTypes.Int))
+              ((main:Flite.List ghczmprim:GHCziTypes.Int)))))
+         (main:Clausify.filter
+          @ ((main:Flite.Pair
+              ((main:Flite.List ghczmprim:GHCziTypes.Int))
+              ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+          main:Clausify.notTaut
+          (main:Clausify.map @ main:Clausify.P
+           @ ((main:Flite.Pair
+               ((main:Flite.List ghczmprim:GHCziTypes.Int))
+               ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+           main:Clausify.lvl1
+           (main:Clausify.spl (main:Flite.Nil @ main:Clausify.P)
+            (main:Clausify.disin (main:Clausify.negin pa1xv)))));
+   main:Clausify.clauses :: (main:Flite.List main:Clausify.P) ->
+                            (main:Flite.List
+                             ((main:Flite.Pair
+                               ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                               ((main:Flite.List ghczmprim:GHCziTypes.Int))))) =
+     \ (psa1uB::(main:Flite.List main:Clausify.P)) ->
+         main:Clausify.map @ main:Clausify.P
+         @ ((main:Flite.Pair
+             ((main:Flite.List ghczmprim:GHCziTypes.Int))
+             ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+         main:Clausify.lvl1 psa1uB;
+   main:Clausify.b :: main:Clausify.P =
+     main:Clausify.Con main:Clausify.a3 main:Clausify.a3;
+   main:Clausify.a4 :: main:Clausify.P =
+     main:Clausify.Dis main:Clausify.a2 main:Clausify.b;
+   main:Clausify.a5 :: main:Clausify.P =
+     main:Clausify.Neg main:Clausify.b;
+   main:Clausify.a6 :: main:Clausify.P =
+     main:Clausify.Dis main:Clausify.a5 main:Clausify.a1;
+   main:Clausify.a7 :: main:Clausify.P =
+     main:Clausify.Con main:Clausify.a4 main:Clausify.a6;
+   main:Clausify.a8 :: main:Clausify.P =
+     main:Clausify.Neg main:Clausify.a7;
+   main:Clausify.a9 :: main:Clausify.P =
+     main:Clausify.Dis main:Clausify.a8 main:Clausify.a7;
+   main:Clausify.lvl2 :: main:Clausify.P =
+     main:Clausify.Con main:Clausify.a9 main:Clausify.a9;
+   main:Clausify.a10 :: main:Clausify.P =
+     main:Clausify.Dis main:Clausify.a8 main:Clausify.lvl2;
+   main:Clausify.a11 :: main:Clausify.P =
+     main:Clausify.Neg main:Clausify.lvl2;
+   main:Clausify.a12 :: main:Clausify.P =
+     main:Clausify.Dis main:Clausify.a11 main:Clausify.a7;
+   main:Clausify.lvl3 :: main:Clausify.P =
+     main:Clausify.Con main:Clausify.a10 main:Clausify.a12;
+   main:Clausify.zdwtestClausify :: ghczmprim:GHCziPrim.Intzh ->
+                                    ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziPrim.Intzh =
+     \ (wws1Nv::ghczmprim:GHCziPrim.Intzh)
+       (ws1Nx::ghczmprim:GHCziTypes.Int) ->
+         main:Clausify.zdwdisplay
+         (main:Clausify.clausify
+          (main:Clausify.foldr @ main:Clausify.P @ main:Clausify.P
+           main:Clausify.Con main:Clausify.a1
+           (main:Clausify.zdwreplicate @ main:Clausify.P wws1Nv
+            (%case main:Clausify.P ws1Nx
+             %of (wildaLP::ghczmprim:GHCziTypes.Int)
+               {ghczmprim:GHCziTypes.Izh (xaLR::ghczmprim:GHCziPrim.Intzh) ->
+                  %case main:Clausify.P xaLR %of (wild1B1::ghczmprim:GHCziPrim.Intzh)
+                    {%_ ->
+                       main:Clausify.lvl3;
+                     (0::ghczmprim:GHCziPrim.Intzh) ->
+                       main:Clausify.lvl2}}))));
+   main:Clausify.testClausify :: ghczmprim:GHCziTypes.Int ->
+                                 ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int =
+     %note "InlineMe"
+     \ (ws1Nt::ghczmprim:GHCziTypes.Int)
+       (w1s1Nx::ghczmprim:GHCziTypes.Int) ->
+         %case ghczmprim:GHCziTypes.Int ws1Nt
+         %of (w2X1R7::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1Nv::ghczmprim:GHCziPrim.Intzh) ->
+              %case ghczmprim:GHCziTypes.Int (main:Clausify.zdwtestClausify
+                                              wws1Nv w1s1Nx)
+              %of (ww1s1NA::ghczmprim:GHCziPrim.Intzh)
+                {%_ ->
+                   ghczmprim:GHCziTypes.Izh ww1s1NA}}};

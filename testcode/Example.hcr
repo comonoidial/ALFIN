@@ -1,0 +1,104 @@
+%module main:Example
+  main:Example.zdwodd :: ghczmprim:GHCziPrim.Intzh ->
+                         ghczmprim:GHCziBool.Bool =
+    \ (wwsyS::ghczmprim:GHCziPrim.Intzh) ->
+        %case ghczmprim:GHCziBool.Bool wwsyS
+        %of (wild1iy3::ghczmprim:GHCziPrim.Intzh)
+          {%_ ->
+             %case ghczmprim:GHCziBool.Bool (base:GHCziBase.modIntzh wild1iy3
+                                             (2::ghczmprim:GHCziPrim.Intzh))
+             %of (ww1ixZZ::ghczmprim:GHCziPrim.Intzh)
+               {%_ ->
+                  ghczmprim:GHCziBool.False;
+                (1::ghczmprim:GHCziPrim.Intzh) ->
+                  ghczmprim:GHCziBool.True};
+           (-2147483648::ghczmprim:GHCziPrim.Intzh) ->
+             %case ghczmprim:GHCziBool.Bool (base:GHCziBase.modIntzh
+                                             (-2147483648::ghczmprim:GHCziPrim.Intzh)
+                                             (2::ghczmprim:GHCziPrim.Intzh))
+             %of (ww1ixZZ::ghczmprim:GHCziPrim.Intzh)
+               {%_ ->
+                  ghczmprim:GHCziBool.False;
+                (1::ghczmprim:GHCziPrim.Intzh) ->
+                  ghczmprim:GHCziBool.True}};
+  main:Example.sumNOddSquares1 :: ghczmprim:GHCziTypes.Int =
+    ghczmprim:GHCziTypes.Izh (0::ghczmprim:GHCziPrim.Intzh);
+  main:Example.sumNOddSquares2 :: ghczmprim:GHCziTypes.Int ->
+                                  ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int =
+    \ (aavo::ghczmprim:GHCziTypes.Int) ->
+        base:GHCziBase.plusInt (base:GHCziBase.timesInt aavo aavo);
+  main:Example.odd :: ghczmprim:GHCziTypes.Int ->
+                      ghczmprim:GHCziBool.Bool =
+    \ (wsyQ::ghczmprim:GHCziTypes.Int) ->
+        %case ghczmprim:GHCziBool.Bool wsyQ
+        %of (w1Xzz7::ghczmprim:GHCziTypes.Int)
+          {ghczmprim:GHCziTypes.Izh (wwsyS::ghczmprim:GHCziPrim.Intzh) ->
+             main:Example.zdwodd wwsyS};
+  %rec
+  {main:Example.zdwenumFromTo :: ghczmprim:GHCziPrim.Intzh ->
+                                 ghczmprim:GHCziPrim.Intzh ->
+                                 (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     \ (wwsyZZ::ghczmprim:GHCziPrim.Intzh)
+       (ww1szz3::ghczmprim:GHCziPrim.Intzh) ->
+         %case ((main:Flite.List
+                 ghczmprim:GHCziTypes.Int)) (ghczmprim:GHCziPrim.zlzh ww1szz3
+                                             wwsyZZ)
+         %of (wildB1::ghczmprim:GHCziBool.Bool)
+           {ghczmprim:GHCziBool.False ->
+              main:Flite.Cons @ ghczmprim:GHCziTypes.Int
+              (ghczmprim:GHCziTypes.Izh wwsyZZ)
+              (main:Example.zdwenumFromTo
+               (ghczmprim:GHCziPrim.zpzh wwsyZZ (1::ghczmprim:GHCziPrim.Intzh))
+               ww1szz3);
+            ghczmprim:GHCziBool.True ->
+              main:Flite.Nil @ ghczmprim:GHCziTypes.Int}};
+  %rec
+  {main:Example.filter :: %forall aavj . (aavj ->
+                                          ghczmprim:GHCziBool.Bool)
+                                         -> (main:Flite.List aavj) -> (main:Flite.List aavj) =
+     \ @ aaw5
+       (pavv::aaw5 -> ghczmprim:GHCziBool.Bool)
+       (dsdwl::(main:Flite.List aaw5)) ->
+         %case ((main:Flite.List aaw5)) dsdwl
+         %of (wildB1::(main:Flite.List aaw5))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ aaw5;
+            main:Flite.Cons (xavx::aaw5) (xsavy::(main:Flite.List aaw5)) ->
+              %case ((main:Flite.List aaw5)) (pavv xavx)
+              %of (wild1Xb::ghczmprim:GHCziBool.Bool)
+                {ghczmprim:GHCziBool.False ->
+                   main:Example.filter @ aaw5 pavv xsavy;
+                 ghczmprim:GHCziBool.True ->
+                   main:Flite.Cons @ aaw5 xavx
+                   (main:Example.filter @ aaw5 pavv xsavy)}}};
+  %rec
+  {main:Example.foldr :: %forall aavk bavl . (aavk -> bavl -> bavl)
+                                             -> bavl -> (main:Flite.List aavk) -> bavl =
+     \ @ aaw7
+       @ baw8
+       (favp::aaw7 -> baw8 -> baw8)
+       (zzavq::baw8)
+       (dsdws::(main:Flite.List aaw7)) ->
+         %case baw8 dsdws %of (wildB1::(main:Flite.List aaw7))
+           {main:Flite.Nil ->
+              zzavq;
+            main:Flite.Cons (xavt::aaw7) (xsavu::(main:Flite.List aaw7)) ->
+              favp xavt (main:Example.foldr @ aaw7 @ baw8 favp zzavq xsavu)}};
+  main:Example.zdwsumNOddSquares :: ghczmprim:GHCziPrim.Intzh ->
+                                    ghczmprim:GHCziTypes.Int =
+    \ (wwszz9::ghczmprim:GHCziPrim.Intzh) ->
+        main:Example.foldr @ ghczmprim:GHCziTypes.Int
+        @ ghczmprim:GHCziTypes.Int main:Example.sumNOddSquares2
+        main:Example.sumNOddSquares1
+        (main:Example.filter @ ghczmprim:GHCziTypes.Int main:Example.odd
+         (main:Example.zdwenumFromTo (1::ghczmprim:GHCziPrim.Intzh)
+          (ghczmprim:GHCziPrim.zmzh
+           (ghczmprim:GHCziPrim.ztzh wwszz9 (2::ghczmprim:GHCziPrim.Intzh))
+           (1::ghczmprim:GHCziPrim.Intzh))));
+  main:Example.sumNOddSquares :: ghczmprim:GHCziTypes.Int ->
+                                 ghczmprim:GHCziTypes.Int =
+    \ (wszz7::ghczmprim:GHCziTypes.Int) ->
+        %case ghczmprim:GHCziTypes.Int wszz7
+        %of (w1Xzzu::ghczmprim:GHCziTypes.Int)
+          {ghczmprim:GHCziTypes.Izh (wwszz9::ghczmprim:GHCziPrim.Intzh) ->
+             main:Example.zdwsumNOddSquares wwszz9};

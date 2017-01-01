@@ -1,0 +1,238 @@
+%module main:PermSort
+  %rec
+  {main:PermSort.lvl :: %forall ta1wc . ta1wc =
+     \ @ ta1wc ->
+         base:ControlziExceptionziBase.patError @ ta1wc
+         ("PermSort.hs:10:0-19|function head"::ghczmprim:GHCziPrim.Addrzh);
+   lvl1r1Bi :: %forall aa1w3 . (main:Flite.List
+                                ((main:Flite.List aa1w3))) =
+     \ @ aa1w3 ->
+         main:Flite.Cons @ ((main:Flite.List aa1w3))
+         (main:Flite.Nil @ aa1w3)
+         (main:Flite.Nil @ ((main:Flite.List aa1w3)));
+   main:PermSort.zdwdownFrom :: ghczmprim:GHCziPrim.Intzh ->
+                                (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     \ (wws1yW::ghczmprim:GHCziPrim.Intzh) ->
+         %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) wws1yW
+         %of (wildB1::ghczmprim:GHCziPrim.Intzh)
+           {%_ ->
+              main:Flite.Cons @ ghczmprim:GHCziTypes.Int
+              (ghczmprim:GHCziTypes.Izh wildB1)
+              (main:PermSort.zdwdownFrom
+               (ghczmprim:GHCziPrim.zmzh wildB1 (1::ghczmprim:GHCziPrim.Intzh)));
+            (0::ghczmprim:GHCziPrim.Intzh) ->
+              main:Flite.Nil @ ghczmprim:GHCziTypes.Int};
+   main:PermSort.downFrom :: ghczmprim:GHCziTypes.Int ->
+                             (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     %note "InlineMe"
+     \ (ws1yU::ghczmprim:GHCziTypes.Int) ->
+         %case ((main:Flite.List ghczmprim:GHCziTypes.Int)) ws1yU
+         %of (w1X1zze::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1yW::ghczmprim:GHCziPrim.Intzh) ->
+              main:PermSort.zdwdownFrom wws1yW};
+   main:PermSort.zdsord :: (main:Flite.List ghczmprim:GHCziTypes.Int)
+                           -> ghczmprim:GHCziPrim.Intzh -> ghczmprim:GHCziBool.Bool =
+     \ (scs1Al::(main:Flite.List ghczmprim:GHCziTypes.Int))
+       (sc1s1Am::ghczmprim:GHCziPrim.Intzh) ->
+         %case ghczmprim:GHCziBool.Bool scs1Al
+         %of (wildXv::(main:Flite.List ghczmprim:GHCziTypes.Int))
+           {main:Flite.Nil ->
+              ghczmprim:GHCziBool.True;
+            main:Flite.Cons
+            (ya1ug::ghczmprim:GHCziTypes.Int)
+            (ysa1ui::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              %case ghczmprim:GHCziBool.Bool ya1ug
+              %of (wild1aLk::ghczmprim:GHCziTypes.Int)
+                {ghczmprim:GHCziTypes.Izh (y1aLm::ghczmprim:GHCziPrim.Intzh) ->
+                   %case ghczmprim:GHCziBool.Bool (ghczmprim:GHCziPrim.zlzezh sc1s1Am
+                                                   y1aLm)
+                   %of (wild11XP::ghczmprim:GHCziBool.Bool)
+                     {ghczmprim:GHCziBool.False ->
+                        ghczmprim:GHCziBool.False;
+                      ghczmprim:GHCziBool.True ->
+                        main:PermSort.zdsord ysa1ui y1aLm}}};
+   main:PermSort.ord :: (main:Flite.List ghczmprim:GHCziTypes.Int) ->
+                        ghczmprim:GHCziBool.Bool =
+     \ (dsd1x4::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+         %case ghczmprim:GHCziBool.Bool dsd1x4
+         %of (wildB1::(main:Flite.List ghczmprim:GHCziTypes.Int))
+           {main:Flite.Nil ->
+              ghczmprim:GHCziBool.True;
+            main:Flite.Cons
+            (xa1uc::ghczmprim:GHCziTypes.Int)
+            (ds1d1x5::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+              %case ghczmprim:GHCziBool.Bool ds1d1x5
+              %of (wild1Xv::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                {main:Flite.Nil ->
+                   ghczmprim:GHCziBool.True;
+                 main:Flite.Cons
+                 (ya1ug::ghczmprim:GHCziTypes.Int)
+                 (ysa1ui::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                   %case ghczmprim:GHCziBool.Bool xa1uc
+                   %of (wild2aLg::ghczmprim:GHCziTypes.Int)
+                     {ghczmprim:GHCziTypes.Izh (x1aLi::ghczmprim:GHCziPrim.Intzh) ->
+                        %case ghczmprim:GHCziBool.Bool ya1ug
+                        %of (wild11aLk::ghczmprim:GHCziTypes.Int)
+                          {ghczmprim:GHCziTypes.Izh (y1aLm::ghczmprim:GHCziPrim.Intzh) ->
+                             %case ghczmprim:GHCziBool.Bool (ghczmprim:GHCziPrim.zlzezh x1aLi
+                                                             y1aLm)
+                             %of (wild3XP::ghczmprim:GHCziBool.Bool)
+                               {ghczmprim:GHCziBool.False ->
+                                  ghczmprim:GHCziBool.False;
+                                ghczmprim:GHCziBool.True ->
+                                  main:PermSort.zdsord ysa1ui y1aLm}}}}};
+   main:PermSort.filter :: %forall aa1v0 . (aa1v0 ->
+                                            ghczmprim:GHCziBool.Bool)
+                                           -> (main:Flite.List aa1v0) -> (main:Flite.List aa1v0) =
+     \ @ aa1v0
+       (pa1tS::aa1v0 -> ghczmprim:GHCziBool.Bool)
+       (dsd1wG::(main:Flite.List aa1v0)) ->
+         %case ((main:Flite.List aa1v0)) dsd1wG
+         %of (wildB1::(main:Flite.List aa1v0))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ aa1v0;
+            main:Flite.Cons (xa1tW::aa1v0) (xsa1tY::(main:Flite.List aa1v0)) ->
+              %case ((main:Flite.List aa1v0)) (pa1tS xa1tW)
+              %of (wild1Xr::ghczmprim:GHCziBool.Bool)
+                {ghczmprim:GHCziBool.False ->
+                   main:PermSort.filter @ aa1v0 pa1tS xsa1tY;
+                 ghczmprim:GHCziBool.True ->
+                   main:Flite.Cons @ aa1v0 xa1tW
+                   (main:PermSort.filter @ aa1v0 pa1tS xsa1tY)}};
+   main:PermSort.append :: %forall ta1ve . (main:Flite.List ta1ve) ->
+                                           (main:Flite.List ta1ve) -> (main:Flite.List ta1ve) =
+     \ @ ta1ve
+       (dsd1wJ::(main:Flite.List ta1ve))
+       (ysa1tC::(main:Flite.List ta1ve)) ->
+         %case ((main:Flite.List ta1ve)) dsd1wJ
+         %of (wildB1::(main:Flite.List ta1ve))
+           {main:Flite.Nil ->
+              ysa1tC;
+            main:Flite.Cons (xa1tE::ta1ve) (xsa1tG::(main:Flite.List ta1ve)) ->
+              main:Flite.Cons @ ta1ve xa1tE
+              (main:PermSort.append @ ta1ve xsa1tG ysa1tC)};
+   main:PermSort.concatMap :: %forall ta1vn aa1vp . (ta1vn ->
+                                                     (main:Flite.List aa1vp))
+                                                    ->
+                                                    (main:Flite.List ta1vn) ->
+                                                    (main:Flite.List aa1vp) =
+     \ @ ta1vn
+       @ aa1vp
+       (fa1tK::ta1vn -> (main:Flite.List aa1vp))
+       (dsd1wM::(main:Flite.List ta1vn)) ->
+         %case ((main:Flite.List aa1vp)) dsd1wM
+         %of (wildB1::(main:Flite.List ta1vn))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ aa1vp;
+            main:Flite.Cons (xa1tO::ta1vn) (xsa1tQ::(main:Flite.List ta1vn)) ->
+              main:PermSort.append @ aa1vp (fa1tK xa1tO)
+              (main:PermSort.concatMap @ ta1vn @ aa1vp fa1tK xsa1tQ)};
+   main:PermSort.map :: %forall ta1vA aa1vC . (ta1vA -> aa1vC) ->
+                                              (main:Flite.List ta1vA) -> (main:Flite.List aa1vC) =
+     \ @ ta1vA
+       @ aa1vC
+       (fa1tu::ta1vA -> aa1vC)
+       (dsd1wP::(main:Flite.List ta1vA)) ->
+         %case ((main:Flite.List aa1vC)) dsd1wP
+         %of (wildB1::(main:Flite.List ta1vA))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ aa1vC;
+            main:Flite.Cons (xa1ty::ta1vA) (xsa1tA::(main:Flite.List ta1vA)) ->
+              main:Flite.Cons @ aa1vC (fa1tu xa1ty)
+              (main:PermSort.map @ ta1vA @ aa1vC fa1tu xsa1tA)};
+   main:PermSort.place :: %forall aa1vQ . aa1vQ ->
+                                          (main:Flite.List aa1vQ) ->
+                                          (main:Flite.List ((main:Flite.List aa1vQ))) =
+     \ @ aa1vQ (xa1u0::aa1vQ) (dsd1wS::(main:Flite.List aa1vQ)) ->
+         %case ((main:Flite.List ((main:Flite.List aa1vQ)))) dsd1wS
+         %of (wildB1::(main:Flite.List aa1vQ))
+           {main:Flite.Nil ->
+              main:Flite.Cons @ ((main:Flite.List aa1vQ))
+              (main:Flite.Cons @ aa1vQ xa1u0 (main:Flite.Nil @ aa1vQ))
+              (main:Flite.Nil @ ((main:Flite.List aa1vQ)));
+            main:Flite.Cons (ya1u4::aa1vQ) (ysa1u6::(main:Flite.List aa1vQ)) ->
+              main:Flite.Cons @ ((main:Flite.List aa1vQ))
+              (main:Flite.Cons @ aa1vQ xa1u0 wildB1)
+              (main:PermSort.map @ ((main:Flite.List aa1vQ))
+               @ ((main:Flite.List aa1vQ)) (main:Flite.Cons @ aa1vQ ya1u4)
+               (main:PermSort.place @ aa1vQ xa1u0 ysa1u6))};
+   main:PermSort.perm :: %forall aa1w3 . (main:Flite.List aa1w3) ->
+                                         (main:Flite.List ((main:Flite.List aa1w3))) =
+     \ @ aa1w3 (dsd1wV::(main:Flite.List aa1w3)) ->
+         %case ((main:Flite.List ((main:Flite.List aa1w3)))) dsd1wV
+         %of (wildB1::(main:Flite.List aa1w3))
+           {main:Flite.Nil ->
+              lvl1r1Bi @ aa1w3;
+            main:Flite.Cons (xa1u8::aa1w3) (xsa1ua::(main:Flite.List aa1w3)) ->
+              main:PermSort.concatMap @ ((main:Flite.List aa1w3))
+              @ ((main:Flite.List aa1w3)) (main:PermSort.place @ aa1w3 xa1u8)
+              (main:PermSort.perm @ aa1w3 xsa1ua)};
+   main:PermSort.permSort :: (main:Flite.List
+                              ghczmprim:GHCziTypes.Int)
+                             -> (main:Flite.List ghczmprim:GHCziTypes.Int) =
+     \ (xsa1uk::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+         %case ((main:Flite.List
+                 ghczmprim:GHCziTypes.Int)) (main:PermSort.filter
+                                             @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                                             main:PermSort.ord
+                                             (main:PermSort.perm @ ghczmprim:GHCziTypes.Int xsa1uk))
+         %of (wildB1::(main:Flite.List
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+           {main:Flite.Nil ->
+              main:PermSort.lvl @ ((main:Flite.List ghczmprim:GHCziTypes.Int));
+            main:Flite.Cons
+            (xa1tq::(main:Flite.List ghczmprim:GHCziTypes.Int))
+            (xs1a1ts::(main:Flite.List
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+              xa1tq};
+   main:PermSort.zdwtestPermSort :: ghczmprim:GHCziPrim.Intzh ->
+                                    ghczmprim:GHCziTypes.Int =
+     \ (wws1zz2::ghczmprim:GHCziPrim.Intzh) ->
+         %case ghczmprim:GHCziTypes.Int (main:PermSort.filter
+                                         @ ((main:Flite.List ghczmprim:GHCziTypes.Int))
+                                         main:PermSort.ord
+                                         (main:PermSort.perm @ ghczmprim:GHCziTypes.Int
+                                          (main:PermSort.zdwdownFrom wws1zz2)))
+         %of (wildB1::(main:Flite.List
+                       ((main:Flite.List ghczmprim:GHCziTypes.Int))))
+           {main:Flite.Nil ->
+              %cast (main:PermSort.lvl)
+              (%unsafe (%forall ta1wc . ta1wc) ghczmprim:GHCziTypes.Int);
+            main:Flite.Cons
+            (xa1tq::(main:Flite.List ghczmprim:GHCziTypes.Int))
+            (xsa1ts::(main:Flite.List
+                      ((main:Flite.List ghczmprim:GHCziTypes.Int)))) ->
+              %case ghczmprim:GHCziTypes.Int xa1tq
+              %of (wild1XC::(main:Flite.List ghczmprim:GHCziTypes.Int))
+                {main:Flite.Nil ->
+                   main:PermSort.lvl @ ghczmprim:GHCziTypes.Int;
+                 main:Flite.Cons
+                 (x1X1u4::ghczmprim:GHCziTypes.Int)
+                 (xs1X1u7::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+                   x1X1u4}};
+   main:PermSort.testPermSort :: ghczmprim:GHCziTypes.Int ->
+                                 ghczmprim:GHCziTypes.Int =
+     %note "InlineMe"
+     \ (ws1zz0::ghczmprim:GHCziTypes.Int) ->
+         %case ghczmprim:GHCziTypes.Int ws1zz0
+         %of (w1X1zzv::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1zz2::ghczmprim:GHCziPrim.Intzh) ->
+              main:PermSort.zdwtestPermSort wws1zz2};
+   main:PermSort.head :: %forall ta1wc . (main:Flite.List ta1wc) ->
+                                         ta1wc =
+     \ @ ta1wc (dsd1wY::(main:Flite.List ta1wc)) ->
+         %case ta1wc dsd1wY %of (wildB1::(main:Flite.List ta1wc))
+           {main:Flite.Nil ->
+              main:PermSort.lvl @ ta1wc;
+            main:Flite.Cons (xa1tq::ta1wc) (xsa1ts::(main:Flite.List ta1wc)) ->
+              xa1tq};
+   main:PermSort.and :: ghczmprim:GHCziBool.Bool ->
+                        ghczmprim:GHCziBool.Bool -> ghczmprim:GHCziBool.Bool =
+     \ (dsd1x1::ghczmprim:GHCziBool.Bool)
+       (xa1tm::ghczmprim:GHCziBool.Bool) ->
+         %case ghczmprim:GHCziBool.Bool dsd1x1
+         %of (wildB1::ghczmprim:GHCziBool.Bool)
+           {ghczmprim:GHCziBool.False ->
+              ghczmprim:GHCziBool.False;
+            ghczmprim:GHCziBool.True ->
+              xa1tm}};

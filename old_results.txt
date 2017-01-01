@@ -1,0 +1,54 @@
+testFib   program size: 10 instructions
+total steps: 74414 +0   iRDs: 60882  ccHits: 0  ccMiss: 3 goodPreds: 0 good2Preds: 0  noPreds: 0
+result: Nothing @ B_GHCziTypes.Izh :  []  :-  6765 __ __ __
+heap: 1 deallocs: 0 loadDelays: 0 mem: 0
+
+testQueens   program size: 77 instructions
+total steps: 49335 +0   iRDs: 34939  ccHits: 14188  ccMiss: 20 goodPreds: 11845 good2Preds: 10153  noPreds: 4035
+result: Nothing @ B_GHCziTypes.Izh :  []  :-  4 __ __ __
+heap: 50 deallocs: 3291 loadDelays: 0 mem: 0
+
+testOrdList   program size: 85 instructions
+total steps: 41556 +0   iRDs: 28317  ccHits: 7064  ccMiss: 22 goodPreds: 6194 good2Preds: 5648  noPreds: 1416
+result: Just (CVRef C_GHCziBool.True) @ C_GHCziBool.True :  []  :-  __ __ __ __
+heap: 45 deallocs: 6152 loadDelays: 0 mem: 0
+
+testPermSort   program size: 69 instructions
+total steps: 39498 +153   iRDs: 27202  ccHits: 8588  ccMiss: 18 goodPreds: 7922 good2Preds: 7159  noPreds: 1429
+result: Just (CVRef GHCziTypes.Izh #1) @ B_GHCziTypes.Izh :  [#1]  :-  1 __ __ __
+heap: 62 deallocs: 4842 loadDelays: 0 mem: 0
+
+testBraun   program size: 62 instructions
+total steps: 41912 +515   iRDs: 29834  ccHits: 2333  ccMiss: 16 goodPreds: 2216 good2Preds: 2179  noPreds: 154
+result: Just (CVRef C_GHCziBool.True) @ C_GHCziBool.True :  []  :-  __ __ __ __
+heap: 6021 deallocs: 7233 loadDelays: 1760 mem: 8
+
+testQueens2   program size: 107 instructions
+total steps: 85385 +570   iRDs: 55488  ccHits: 11667  ccMiss: 27 goodPreds: 9105 good2Preds: 7889  noPreds: 3778
+result: Nothing @ B_GHCziTypes.Izh :  []  :-  4 __ __ __
+heap: 3448 deallocs: 10407 loadDelays: 2136 mem: 1
+
+testParts   program size: 68 instructions
+total steps: 59874 +0   iRDs: 41413  ccHits: 15204  ccMiss: 17 goodPreds: 14552 good2Preds: 13705  noPreds: 1499
+result: Nothing @ B_GHCziTypes.Izh :  []  :-  231 __ __ __
+heap: 415 deallocs: 5669 loadDelays: 0 mem: 0
+
+testMSS   program size: 98 instructions
+total steps: 58483 +160   iRDs: 38254  ccHits: 4294  ccMiss: 25 goodPreds: 3847 good2Preds: 3594  noPreds: 700
+result: Nothing @ B_GHCziTypes.Izh :  []  :-  20 __ __ __
+heap: 34 deallocs: 3900 loadDelays: 0 mem: 0
+
+testTaut   program size: 191 instructions
+total steps: 72149 +0   iRDs: 48566  ccHits: 13812  ccMiss: 48 goodPreds: 10755 good2Preds: 9482  noPreds: 4330
+result: Just (CVRef C_GHCziBool.True) @ C_GHCziBool.True :  []  :-  __ __ __ __
+heap: 125 deallocs: 5537 loadDelays: 0 mem: 0
+
+testClausify   program size: 233 instructions
+total steps: 63416 +488   iRDs: 43081  ccHits: 9924  ccMiss: 55 goodPreds: 7036 good2Preds: 6435  noPreds: 3489
+result: Nothing @ B_GHCziTypes.Izh :  []  :-  0 __ __ __
+heap: 127 deallocs: 3837 loadDelays: 0 mem: 0
+
+testWhile   program size: 258 instructions
+total steps: 95999 +0   iRDs: 64862  ccHits: 15756  ccMiss: 65 goodPreds: 12676 good2Preds: 11097  noPreds: 4659
+result: Just (CVRef GHCziTypes.Izh #4) @ B_GHCziTypes.Izh :  [#4]  :-  4 __ __ __
+heap: 59 deallocs: 7534 loadDelays: 0 mem: 0

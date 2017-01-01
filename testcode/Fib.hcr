@@ -1,0 +1,33 @@
+%module main:Fib
+  %rec
+  {main:Fib.zdwtestFib :: ghczmprim:GHCziPrim.Intzh ->
+                          ghczmprim:GHCziPrim.Intzh =
+     \ (wws1u6::ghczmprim:GHCziPrim.Intzh) ->
+         %case ghczmprim:GHCziPrim.Intzh (ghczmprim:GHCziPrim.zlzezh wws1u6
+                                          (1::ghczmprim:GHCziPrim.Intzh))
+         %of (wildB1::ghczmprim:GHCziBool.Bool)
+           {ghczmprim:GHCziBool.False ->
+              %case ghczmprim:GHCziPrim.Intzh (main:Fib.zdwtestFib
+                                               (ghczmprim:GHCziPrim.zmzh wws1u6
+                                                (2::ghczmprim:GHCziPrim.Intzh)))
+              %of (ww1s1ua::ghczmprim:GHCziPrim.Intzh)
+                {%_ ->
+                   %case ghczmprim:GHCziPrim.Intzh (main:Fib.zdwtestFib
+                                                    (ghczmprim:GHCziPrim.zmzh wws1u6
+                                                     (1::ghczmprim:GHCziPrim.Intzh)))
+                   %of (ww2X1uv::ghczmprim:GHCziPrim.Intzh)
+                     {%_ ->
+                        ghczmprim:GHCziPrim.zpzh ww1s1ua ww2X1uv}};
+            ghczmprim:GHCziBool.True ->
+              (1::ghczmprim:GHCziPrim.Intzh)};
+   main:Fib.testFib :: ghczmprim:GHCziTypes.Int ->
+                       ghczmprim:GHCziTypes.Int =
+     %note "InlineMe"
+     \ (ws1u4::ghczmprim:GHCziTypes.Int) ->
+         %case ghczmprim:GHCziTypes.Int ws1u4
+         %of (w1X1ua::ghczmprim:GHCziTypes.Int)
+           {ghczmprim:GHCziTypes.Izh (wws1u6::ghczmprim:GHCziPrim.Intzh) ->
+              %case ghczmprim:GHCziTypes.Int (main:Fib.zdwtestFib wws1u6)
+              %of (ww1s1ua::ghczmprim:GHCziPrim.Intzh)
+                {%_ ->
+                   ghczmprim:GHCziTypes.Izh ww1s1ua}}};

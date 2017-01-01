@@ -1,0 +1,333 @@
+%module main:Selectors2
+  %data main:Selectors2.Tuple aad0 bad1 =
+    {main:Selectors2.Tuple aad0 bad1};
+  %data main:Selectors2.Quad aacW bacX cacY dacZZ =
+    {main:Selectors2.Quad aacW bacX cacY dacZZ};
+  main:Selectors2.generate3 :: ghczmprim:GHCziTypes.Int =
+    ghczmprim:GHCziTypes.Izh (0::ghczmprim:GHCziPrim.Intzh);
+  main:Selectors2.generate1 :: ghczmprim:GHCziTypes.Int =
+    ghczmprim:GHCziTypes.Izh (3::ghczmprim:GHCziPrim.Intzh);
+  main:Selectors2.bar1 :: ghczmprim:GHCziTypes.Int =
+    ghczmprim:GHCziTypes.Izh (11::ghczmprim:GHCziPrim.Intzh);
+  main:Selectors2.generate2 :: ghczmprim:GHCziTypes.Int =
+    ghczmprim:GHCziTypes.Izh (2::ghczmprim:GHCziPrim.Intzh);
+  main:Selectors2.snd :: %forall aad0 bad1 . (main:Selectors2.Tuple
+                                              aad0
+                                              bad1)
+                                             -> bad1 =
+    \ @ aamT @ bamU (dsdo1::(main:Selectors2.Tuple aamT bamU)) ->
+        %case bamU dsdo1 %of (wildB1::(main:Selectors2.Tuple aamT bamU))
+          {main:Selectors2.Tuple (ds1do2::aamT) (ds2do3::bamU) ->
+             ds2do3};
+  main:Selectors2.fst :: %forall aad0 bad1 . (main:Selectors2.Tuple
+                                              aad0
+                                              bad1)
+                                             -> aad0 =
+    \ @ aamQ @ bamR (dsdnX::(main:Selectors2.Tuple aamQ bamR)) ->
+        %case aamQ dsdnX %of (wildB1::(main:Selectors2.Tuple aamQ bamR))
+          {main:Selectors2.Tuple (ds1dnY::aamQ) (ds2dnZZ::bamR) ->
+             ds1dnY};
+  main:Selectors2.elemD :: %forall aacW bacX cacY dacZZ . (main:Selectors2.Quad
+                                                           aacW
+                                                           bacX
+                                                           cacY
+                                                           dacZZ)
+                                                          -> dacZZ =
+    \ @ aamL
+      @ bamM
+      @ camN
+      @ damO
+      (dsdnR::(main:Selectors2.Quad aamL bamM camN damO)) ->
+        %case damO dsdnR
+        %of (wildB1::(main:Selectors2.Quad aamL bamM camN damO))
+          {main:Selectors2.Quad
+           (ds1dnS::aamL) (ds2dnT::bamM) (ds3dnU::camN) (ds4dnV::damO) ->
+             ds4dnV};
+  main:Selectors2.elemC :: %forall aacW bacX cacY dacZZ . (main:Selectors2.Quad
+                                                           aacW
+                                                           bacX
+                                                           cacY
+                                                           dacZZ)
+                                                          -> cacY =
+    \ @ aamG
+      @ bamH
+      @ camI
+      @ damJ
+      (dsdnL::(main:Selectors2.Quad aamG bamH camI damJ)) ->
+        %case camI dsdnL
+        %of (wildB1::(main:Selectors2.Quad aamG bamH camI damJ))
+          {main:Selectors2.Quad
+           (ds1dnM::aamG) (ds2dnN::bamH) (ds3dnO::camI) (ds4dnP::damJ) ->
+             ds3dnO};
+  main:Selectors2.elemB :: %forall aacW bacX cacY dacZZ . (main:Selectors2.Quad
+                                                           aacW
+                                                           bacX
+                                                           cacY
+                                                           dacZZ)
+                                                          -> bacX =
+    \ @ aamB
+      @ bamC
+      @ camD
+      @ damE
+      (dsdnF::(main:Selectors2.Quad aamB bamC camD damE)) ->
+        %case bamC dsdnF
+        %of (wildB1::(main:Selectors2.Quad aamB bamC camD damE))
+          {main:Selectors2.Quad
+           (ds1dnG::aamB) (ds2dnH::bamC) (ds3dnI::camD) (ds4dnJ::damE) ->
+             ds2dnH};
+  main:Selectors2.elemA :: %forall aacW bacX cacY dacZZ . (main:Selectors2.Quad
+                                                           aacW
+                                                           bacX
+                                                           cacY
+                                                           dacZZ)
+                                                          -> aacW =
+    \ @ aamw
+      @ bamx
+      @ camy
+      @ damzz
+      (dsdnzz::(main:Selectors2.Quad aamw bamx camy damzz)) ->
+        %case aamw dsdnzz
+        %of (wildB1::(main:Selectors2.Quad aamw bamx camy damzz))
+          {main:Selectors2.Quad
+           (ds1dnA::aamw) (ds2dnB::bamx) (ds3dnC::camy) (ds4dnD::damzz) ->
+             ds1dnA};
+  main:Selectors2.succ :: ghczmprim:GHCziTypes.Int ->
+                          ghczmprim:GHCziTypes.Int =
+    \ (xad6::ghczmprim:GHCziTypes.Int) ->
+        %case ghczmprim:GHCziTypes.Int xad6
+        %of (wildaoB::ghczmprim:GHCziTypes.Int)
+          {ghczmprim:GHCziTypes.Izh (x1aoD::ghczmprim:GHCziPrim.Intzh) ->
+             ghczmprim:GHCziTypes.Izh
+             (ghczmprim:GHCziPrim.zpzh x1aoD (1::ghczmprim:GHCziPrim.Intzh))};
+  %rec
+  {main:Selectors2.map :: %forall tank aanl . (tank -> aanl) ->
+                                              (main:Flite.List tank) -> (main:Flite.List aanl) =
+     \ @ tank
+       @ aanl
+       (fad2::tank -> aanl)
+       (dsdns::(main:Flite.List tank)) ->
+         %case ((main:Flite.List aanl)) dsdns
+         %of (wildB1::(main:Flite.List tank))
+           {main:Flite.Nil ->
+              main:Flite.Nil @ aanl;
+            main:Flite.Cons (xad4::tank) (xsad5::(main:Flite.List tank)) ->
+              main:Flite.Cons @ aanl (fad2 xad4)
+              (main:Selectors2.map @ tank @ aanl fad2 xsad5)}};
+  main:Selectors2.withFirstzq :: %forall tamX t1amY t2amZZ . (main:Selectors2.Tuple
+                                                              ((main:Selectors2.Tuple
+                                                                (t2amZZ -> t1amY -> tamX)
+                                                                t2amZZ))
+                                                              t1amY)
+                                                             -> tamX =
+    \ @ tamX
+      @ t1amY
+      @ t2amZZ
+      (dsdno::(main:Selectors2.Tuple
+               ((main:Selectors2.Tuple (t2amZZ -> t1amY -> tamX) t2amZZ))
+               t1amY)) ->
+        %case tamX dsdno
+        %of (wildB1::(main:Selectors2.Tuple
+                      ((main:Selectors2.Tuple (t2amZZ -> t1amY -> tamX) t2amZZ))
+                      t1amY))
+          {main:Selectors2.Tuple
+           (ds1dnp::(main:Selectors2.Tuple (t2amZZ -> t1amY -> tamX) t2amZZ))
+           (yadc::t1amY) ->
+             %case tamX ds1dnp
+             %of (wild1Xh::(main:Selectors2.Tuple
+                            (t2amZZ -> t1amY -> tamX)
+                            t2amZZ))
+               {main:Selectors2.Tuple
+                (fada::t2amZZ -> t1amY -> tamX) (xadb::t2amZZ) ->
+                  fada xadb yadc}};
+  main:Selectors2.bar :: %forall ban1 aan2 b1an3 can4 dan5 b2an6 c1an7 d1an8 . (main:Selectors2.Quad
+                                                                                ban1
+                                                                                b2an6
+                                                                                c1an7
+                                                                                d1an8)
+                                                                               ->
+                                                                               (main:Selectors2.Tuple
+                                                                                ((main:Selectors2.Tuple
+                                                                                  ((main:Selectors2.Quad
+                                                                                    aan2
+                                                                                    b1an3
+                                                                                    can4
+                                                                                    dan5)
+                                                                                   -> aan2)
+                                                                                  ban1))
+                                                                                ghczmprim:GHCziTypes.Int) =
+    \ @ ban1
+      @ aan2
+      @ b1an3
+      @ can4
+      @ dan5
+      @ b2an6
+      @ c1an7
+      @ d1an8
+      (xad9::(main:Selectors2.Quad ban1 b2an6 c1an7 d1an8)) ->
+        main:Selectors2.Tuple
+        @ ((main:Selectors2.Tuple
+            ((main:Selectors2.Quad aan2 b1an3 can4 dan5) -> aan2)
+            ban1))
+        @ ghczmprim:GHCziTypes.Int
+        (main:Selectors2.Tuple
+         @ ((main:Selectors2.Quad aan2 b1an3 can4 dan5) -> aan2) @ ban1
+         (main:Selectors2.elemA @ aan2 @ b1an3 @ can4 @ dan5)
+         (%case ban1 xad9
+          %of (wildB1::(main:Selectors2.Quad ban1 b2an6 c1an7 d1an8))
+            {main:Selectors2.Quad
+             (dsdnA::ban1) (ds1dnB::b2an6) (ds2dnC::c1an7) (ds3dnD::d1an8) ->
+               dsdnA}))
+        main:Selectors2.bar1;
+  main:Selectors2.generate :: ghczmprim:GHCziTypes.Int ->
+                              (main:Flite.List
+                               ((main:Selectors2.Quad
+                                 ((main:Selectors2.Quad
+                                   (ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int)
+                                   ghczmprim:GHCziTypes.Int
+                                   ghczmprim:GHCziTypes.Int
+                                   ghczmprim:GHCziTypes.Int))
+                                 ((main:Selectors2.Quad
+                                   (ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int)
+                                   ghczmprim:GHCziTypes.Int
+                                   ghczmprim:GHCziTypes.Int
+                                   ghczmprim:GHCziTypes.Int))
+                                 ghczmprim:GHCziTypes.Int
+                                 ghczmprim:GHCziTypes.Int))) =
+    \ (nad7::ghczmprim:GHCziTypes.Int) ->
+        main:Flite.Cons
+        @ ((main:Selectors2.Quad
+            ((main:Selectors2.Quad
+              (ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int)
+              ghczmprim:GHCziTypes.Int
+              ghczmprim:GHCziTypes.Int
+              ghczmprim:GHCziTypes.Int))
+            ((main:Selectors2.Quad
+              (ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int)
+              ghczmprim:GHCziTypes.Int
+              ghczmprim:GHCziTypes.Int
+              ghczmprim:GHCziTypes.Int))
+            ghczmprim:GHCziTypes.Int
+            ghczmprim:GHCziTypes.Int))
+        (%let sqsoU :: (main:Selectors2.Quad
+                        (ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int)
+                        ghczmprim:GHCziTypes.Int
+                        ghczmprim:GHCziTypes.Int
+                        ghczmprim:GHCziTypes.Int) =
+                main:Selectors2.Quad
+                @ (ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int)
+                @ ghczmprim:GHCziTypes.Int @ ghczmprim:GHCziTypes.Int
+                @ ghczmprim:GHCziTypes.Int main:Selectors2.succ
+                main:Selectors2.generate3 main:Selectors2.generate2 nad7
+         %in main:Selectors2.Quad
+             @ ((main:Selectors2.Quad
+                 (ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int)
+                 ghczmprim:GHCziTypes.Int
+                 ghczmprim:GHCziTypes.Int
+                 ghczmprim:GHCziTypes.Int))
+             @ ((main:Selectors2.Quad
+                 (ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int)
+                 ghczmprim:GHCziTypes.Int
+                 ghczmprim:GHCziTypes.Int
+                 ghczmprim:GHCziTypes.Int))
+             @ ghczmprim:GHCziTypes.Int @ ghczmprim:GHCziTypes.Int sqsoU sqsoU
+             main:Selectors2.generate1 nad7)
+        (main:Flite.Nil
+         @ ((main:Selectors2.Quad
+             ((main:Selectors2.Quad
+               (ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int)
+               ghczmprim:GHCziTypes.Int
+               ghczmprim:GHCziTypes.Int
+               ghczmprim:GHCziTypes.Int))
+             ((main:Selectors2.Quad
+               (ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int)
+               ghczmprim:GHCziTypes.Int
+               ghczmprim:GHCziTypes.Int
+               ghczmprim:GHCziTypes.Int))
+             ghczmprim:GHCziTypes.Int
+             ghczmprim:GHCziTypes.Int)));
+  main:Selectors2.testSel :: ghczmprim:GHCziTypes.Int ->
+                             ghczmprim:GHCziTypes.Int =
+    \ (nadd::ghczmprim:GHCziTypes.Int) ->
+        %case ghczmprim:GHCziTypes.Int (main:Selectors2.map
+                                        @ ((main:Selectors2.Tuple
+                                            ((main:Selectors2.Tuple
+                                              ((main:Selectors2.Quad
+                                                (ghczmprim:GHCziTypes.Int ->
+                                                 ghczmprim:GHCziTypes.Int)
+                                                ghczmprim:GHCziTypes.Int
+                                                ghczmprim:GHCziTypes.Int
+                                                ghczmprim:GHCziTypes.Int)
+                                               ->
+                                               ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int)
+                                              ((main:Selectors2.Quad
+                                                (ghczmprim:GHCziTypes.Int ->
+                                                 ghczmprim:GHCziTypes.Int)
+                                                ghczmprim:GHCziTypes.Int
+                                                ghczmprim:GHCziTypes.Int
+                                                ghczmprim:GHCziTypes.Int))))
+                                            ghczmprim:GHCziTypes.Int))
+                                        @ ghczmprim:GHCziTypes.Int
+                                        (main:Selectors2.withFirstzq @ ghczmprim:GHCziTypes.Int
+                                         @ ghczmprim:GHCziTypes.Int
+                                         @ ((main:Selectors2.Quad
+                                             (ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int)
+                                             ghczmprim:GHCziTypes.Int
+                                             ghczmprim:GHCziTypes.Int
+                                             ghczmprim:GHCziTypes.Int)))
+                                        (main:Selectors2.map
+                                         @ ((main:Selectors2.Quad
+                                             ((main:Selectors2.Quad
+                                               (ghczmprim:GHCziTypes.Int ->
+                                                ghczmprim:GHCziTypes.Int)
+                                               ghczmprim:GHCziTypes.Int
+                                               ghczmprim:GHCziTypes.Int
+                                               ghczmprim:GHCziTypes.Int))
+                                             ((main:Selectors2.Quad
+                                               (ghczmprim:GHCziTypes.Int ->
+                                                ghczmprim:GHCziTypes.Int)
+                                               ghczmprim:GHCziTypes.Int
+                                               ghczmprim:GHCziTypes.Int
+                                               ghczmprim:GHCziTypes.Int))
+                                             ghczmprim:GHCziTypes.Int
+                                             ghczmprim:GHCziTypes.Int))
+                                         @ ((main:Selectors2.Tuple
+                                             ((main:Selectors2.Tuple
+                                               ((main:Selectors2.Quad
+                                                 (ghczmprim:GHCziTypes.Int ->
+                                                  ghczmprim:GHCziTypes.Int)
+                                                 ghczmprim:GHCziTypes.Int
+                                                 ghczmprim:GHCziTypes.Int
+                                                 ghczmprim:GHCziTypes.Int)
+                                                ->
+                                                ghczmprim:GHCziTypes.Int ->
+                                                ghczmprim:GHCziTypes.Int)
+                                               ((main:Selectors2.Quad
+                                                 (ghczmprim:GHCziTypes.Int ->
+                                                  ghczmprim:GHCziTypes.Int)
+                                                 ghczmprim:GHCziTypes.Int
+                                                 ghczmprim:GHCziTypes.Int
+                                                 ghczmprim:GHCziTypes.Int))))
+                                             ghczmprim:GHCziTypes.Int))
+                                         (main:Selectors2.bar
+                                          @ ((main:Selectors2.Quad
+                                              (ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int)
+                                              ghczmprim:GHCziTypes.Int
+                                              ghczmprim:GHCziTypes.Int
+                                              ghczmprim:GHCziTypes.Int))
+                                          @ (ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int)
+                                          @ ghczmprim:GHCziTypes.Int @ ghczmprim:GHCziTypes.Int
+                                          @ ghczmprim:GHCziTypes.Int
+                                          @ ((main:Selectors2.Quad
+                                              (ghczmprim:GHCziTypes.Int -> ghczmprim:GHCziTypes.Int)
+                                              ghczmprim:GHCziTypes.Int
+                                              ghczmprim:GHCziTypes.Int
+                                              ghczmprim:GHCziTypes.Int))
+                                          @ ghczmprim:GHCziTypes.Int @ ghczmprim:GHCziTypes.Int)
+                                         (main:Selectors2.generate nadd)))
+        %of (wildB1::(main:Flite.List ghczmprim:GHCziTypes.Int))
+          {main:Flite.Nil ->
+             main:Selectors2.generate3;
+           main:Flite.Cons
+           (xade::ghczmprim:GHCziTypes.Int)
+           (dsdnw::(main:Flite.List ghczmprim:GHCziTypes.Int)) ->
+             xade};
