@@ -74,59 +74,59 @@ boxIntResult x = (dummyResultRef, Just (boxIntTag, [pp x], Nothing))
 builtinPrimOps :: [((FunName, ([ShapeType], FunKind)), Function)]
 builtinPrimOps =
   [((("GHCziBase","unpackCStringzh"), ([RefType], RealFun RefType)),
-    Function (FName "GHCziBase.unpackCStringzh") Nothing (Just 0) [rp "x"] (Block [] (TailCall (EvalRef (rv "x")) [])))
+    Function (FName "GHCziBase.unpackCStringzh") Nothing (Just 0) [rp "x"] (AsmBlock [] (TailCall (EvalRef (rv "x")) [])))
   ,((("Flite","str"), ([RefType], RealFun RefType)),
-    Function (FName "Flite.str") Nothing (Just 0) [rp "ys"] (Block [] (CaseOf (EvalRef (rv "ys")) [] (dummyResultRef) Nothing
-    [((CName "GHCziTypes.ZMZN"), [], Nothing, Block [] (NodeReturn (ConTag (CName "Flite.Nil")) []))
-    ,((CName "GHCziTypes.ZC"), [rp "x", rp "xs"], Nothing, Block 
+    Function (FName "Flite.str") Nothing (Just 0) [rp "ys"] (AsmBlock [] (CaseOf (EvalRef (rv "ys")) [] (dummyResultRef) Nothing
+    [((CName "GHCziTypes.ZMZN"), [], Nothing, AsmBlock [] (NodeReturn (ConTag (CName "Flite.Nil")) []))
+    ,((CName "GHCziTypes.ZC"), [rp "x", rp "xs"], Nothing, AsmBlock 
       [(dummyResultRef, Just (BoxCon (CName "GHCziTypes.Czh"), [pp "c"], Nothing)) :<=: (EvalRef (rv "x"), [])
       ,"z" :<-: StoreNode (boxIntTag) [pa "c"]
       ,"zs" :<-: StoreNode (FunTag $ FName "Flite.str") [ra "xs"]
       ] (NodeReturn (ConTag (CName "Flite.Cons")) [ra "z", ra "zs"]))
     ])))
   ,((("Flite","emit"), ([RefType, RefType], RealFun RefType)),
-   Function (FName "Flite.emit") Nothing (Just 0) [rp "i", rp "k"] (Block
+   Function (FName "Flite.emit") Nothing (Just 0) [rp "i", rp "k"] (AsmBlock
      [boxIntResult "x" :<=: (EvalRef (rv "i"), [])
      ,Put_IO (ConTag (CName "GHCziTypes.Czh")) [pa "x"]]
      (TailCall (EvalRef (rv "k")) [])
     ))
   ,((("GHCziBase","plusInt"), ([RefType, RefType], RealFun RefType)),
-    Function (FName "GHCziBase.plusInt") Nothing (Just 0) [rp "a", rp "b"] (Block
+    Function (FName "GHCziBase.plusInt") Nothing (Just 0) [rp "a", rp "b"] (AsmBlock
       [boxIntResult "x" :<=: (EvalRef (rv "a"), [])
       ,boxIntResult "y" :<=: (EvalRef (rv "b"), [])
       ,"z" :<~: RunPrimOp (OpName "zpzh") (pv "x") (Just $ pv "y")]
       (NodeReturn boxIntTag [pa "z"]))
     )
   ,((("GHCziBase","minusInt"), ([RefType, RefType], RealFun RefType)),
-    Function (FName "GHCziBase.minusInt") Nothing (Just 0) [rp "a", rp "b"] (Block
+    Function (FName "GHCziBase.minusInt") Nothing (Just 0) [rp "a", rp "b"] (AsmBlock
       [boxIntResult "x" :<=: (EvalRef (rv "a"), [])
       ,boxIntResult "y" :<=: (EvalRef (rv "b"), [])
       ,"z" :<~: RunPrimOp (OpName "zmzh") (pv "x") (Just $ pv "y")]
       (NodeReturn boxIntTag [pa "z"]))
     )
   ,((("GHCziBase","timesInt"), ([RefType, RefType], RealFun RefType)),
-    Function (FName "GHCziBase.timesInt") Nothing (Just 0) [rp "a", rp "b"] (Block
+    Function (FName "GHCziBase.timesInt") Nothing (Just 0) [rp "a", rp "b"] (AsmBlock
       [boxIntResult "x" :<=: (EvalRef (rv "a"), [])
       ,boxIntResult "y" :<=: (EvalRef (rv "b"), [])
       ,"z" :<~: RunPrimOp (OpName "ztzh") (pv "x") (Just $ pv "y")]
       (NodeReturn boxIntTag [pa "z"]))
     )
   ,((("GHCziBase","eqInt"), ([RefType, RefType], RealFun RefType)),
-    Function (FName "GHCziBase.eqInt") Nothing (Just 0) [rp "a", rp "b"] (Block
+    Function (FName "GHCziBase.eqInt") Nothing (Just 0) [rp "a", rp "b"] (AsmBlock
       [boxIntResult "x" :<=: (EvalRef (rv "a"), [])
       ,boxIntResult "y" :<=: (EvalRef (rv "b"), [])
       ,"z" :<-?: RunCmpOp (OpName "zezezh") (pv "x") (pv "y")]
       (BoolReturn "z" (ConTag (CName "GHCziBool.True")) (ConTag (CName "GHCziBool.False"))))
     )
   ,((("GHCziBase","neInt"), ([RefType, RefType], RealFun RefType)),
-    Function (FName "GHCziBase.neInt") Nothing (Just 0) [rp "a", rp "b"] (Block
+    Function (FName "GHCziBase.neInt") Nothing (Just 0) [rp "a", rp "b"] (AsmBlock
       [boxIntResult "x" :<=: (EvalRef (rv "a"), [])
       ,boxIntResult "y" :<=: (EvalRef (rv "b"), [])
       ,"z" :<-?: RunCmpOp (OpName "zszezh") (pv "x") (pv "y")]
       (BoolReturn "z" (ConTag (CName "GHCziBool.True")) (ConTag (CName "GHCziBool.False"))))
     )
   ,((("GHCziBase","leInt"), ([RefType, RefType], RealFun RefType)),
-    Function (FName "GHCziBase.leInt") Nothing (Just 0) [rp "a", rp "b"] (Block
+    Function (FName "GHCziBase.leInt") Nothing (Just 0) [rp "a", rp "b"] (AsmBlock
       [boxIntResult "x" :<=: (EvalRef (rv "a"), [])
       ,boxIntResult "y" :<=: (EvalRef (rv "b"), [])
       ,"z" :<-?: RunCmpOp (OpName "zlzezh") (pv "x") (pv "y")]

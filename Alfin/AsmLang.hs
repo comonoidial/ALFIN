@@ -8,9 +8,9 @@ type Constructor = (CName, [ArgKind])
 
 data ArgKind = RefArg | PrimArg deriving (Show, Eq)
 
-data Function = Function {fName :: FName, resultRef :: Maybe RefVar, fetchHint :: FetchHint, params :: [Parameter], body :: Block}
+data Function = Function {fName :: FName, resultRef :: Maybe RefVar, fetchHint :: FetchHint, params :: [Parameter], body :: AsmBlock}
 
-data Block = Block [Stmt] TermStmt deriving Eq
+data AsmBlock = AsmBlock [Stmt] TermStmt deriving Eq
 
 data Stmt
   = RefVar :<-: RefExp
@@ -25,12 +25,12 @@ data TermStmt
   | TopReturn                            -- only used for optimizations
   | BoolReturn BoolVar AsmTag AsmTag     -- returning a boolean as constructors
   | TailCall CallExp [PostCall]          -- aka Jump
-  | IfThenElse BoolVar Block Block       -- if then else statement
-  | CaseOf CallExp [PostCall] CallResultRef (Maybe Block) [CaseAlt]  -- case statement
+  | IfThenElse BoolVar AsmBlock AsmBlock -- if then else statement
+  | CaseOf CallExp [PostCall] CallResultRef (Maybe AsmBlock) [CaseAlt]  -- case statement
   | Error RefVal                         -- error throwing statement
   deriving Eq
   
-type CaseAlt = (CName, [Parameter], FetchHint, Block)
+type CaseAlt = (CName, [Parameter], FetchHint, AsmBlock)
 
 data RefExp 
   = StoreNode AsmTag [Argument]          -- storing a node on the heap, producing a reference
@@ -126,8 +126,8 @@ instance Show Function where
   show (Function f Nothing Nothing [] c) = "%CAF " ++ show f ++ " =" ++ showBlock "   " c
   show (Function f mr      me      xs c) = "%FUN " ++ show f ++ maybe "" ("%fix " ++) mr ++ showParams xs ++ " =" ++ maybe "" (("   -- E:" ++) . show) me ++ showBlock "   " c
 
-showBlock :: String -> Block -> String
-showBlock is (Block xs y) = concatMap (("\n" ++) . (is ++) . show) xs ++ "\n" ++ is ++ showTerm is y
+showBlock :: String -> AsmBlock -> String
+showBlock is (AsmBlock xs y) = concatMap (("\n" ++) . (is ++) . show) xs ++ "\n" ++ is ++ showTerm is y
 
 instance Show AsmTag where
   show (ConTag n)    = "C:" ++ show n
@@ -176,7 +176,7 @@ showTerm is (CaseOf c cc ms md xs) = "%CASE " ++ either (++ " <- ") (const "") m
   maybe "" (\b -> "\n   " ++ is ++ "default -> " ++ showBlock (is ++ "      ") b) md ++ concatMap (showAlt is) xs
 showTerm _  (Error x)            = "%THROW " ++ show x  
 
-showAlt :: String -> (CName, [Parameter], FetchHint, Block) -> String
+showAlt :: String -> (CName, [Parameter], FetchHint, AsmBlock) -> String
 showAlt is (t, vs, me, b) = "\n   " ++ is ++ "C:" ++ show t ++ showParams vs ++ " ->"  ++ maybe "" (("   -- E:" ++) . show) me ++ showBlock (is ++ "      ") b
 
 instance Show RefExp where

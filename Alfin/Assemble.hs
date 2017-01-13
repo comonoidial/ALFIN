@@ -43,8 +43,8 @@ asmMod (fps, AsmModule _ ds fs) = (ft, is) where
 buildCTable :: DataType -> ConTable
 buildCTable (DataType d cs) = zip cs' $ zipWith (\c i -> ((d, fromIntegral $ length cs), (show c,i))) cs' [0..] where cs' = map fst cs
 
-valueCAF :: Block -> Bool
-valueCAF (Block xs (NodeReturn t _)) = whnfTag t && all isValueStmt xs
+valueCAF :: AsmBlock -> Bool
+valueCAF (AsmBlock xs (NodeReturn t _)) = whnfTag t && all isValueStmt xs
 valueCAF _ = False
 
 isValueStmt :: Stmt -> Bool
@@ -53,7 +53,7 @@ isValueStmt (_ :<~:  _) = True
 isValueStmt (_ :<-?: _) = True
 isValueStmt _           = False
 
-filterCAFs :: [Function] -> ([Function], [(FName, Block)], [(FName, Block)])
+filterCAFs :: [Function] -> ([Function], [(FName, AsmBlock)], [(FName, AsmBlock)])
 filterCAFs = fcs [] [] []
   where fcs fs cs vs [] = (reverse fs, reverse cs, reverse vs)
         fcs fs cs vs ((Function n Nothing Nothing [] b):xs)
@@ -161,8 +161,8 @@ asmFunCAF f = do   -- TODO all static fun node should be double size unless the 
   incrSCount SingleNode
   return (Store t (listToBody []) (DropRQ, popNone), (f, (node2PtrTag t, (GlobalRef, SingleNode, hi))))
 
-asmValueCAF :: FName -> Block -> AsmGen ([Instruction], (FName, (PtrTag, HeapRef)))
-asmValueCAF f b@(Block xs (NodeReturn t n)) = do
+asmValueCAF :: FName -> AsmBlock -> AsmGen ([Instruction], (FName, (PtrTag, HeapRef)))
+asmValueCAF f b@(AsmBlock xs (NodeReturn t n)) = do
   clearScope
   setUsedVars (readVarsB b)
   as <- mapM asmVCStmt xs
@@ -215,9 +215,9 @@ asmFun (Function f mr e n b) = do
   let fixupNF = \i -> toEnum (i - if isp then length (rights $ take i n) else 0) -- fixup next fetch for procs
   return ((f, fmap fixupNF e), is)
 
-asmBlock :: Block -> AsmGen [Instruction]
-asmBlock (Block xs t) = do
-  setUsedVars (readVarsB $ Block xs t)
+asmBlock :: AsmBlock -> AsmGen [Instruction]
+asmBlock (AsmBlock xs t) = do
+  setUsedVars (readVarsB $ AsmBlock xs t)
   ps <- avoidOverSizedPops      -- workaround for when a datatype is pushed onto the stack as fifth element
   cs <- eliminateDeadNodeRefs   -- required to make lazy node ref creation work if node body is read in different instructions
   as <- mapM asmStmt xs
@@ -321,19 +321,19 @@ asmTerm (CaseOf c cc ms md xs) = do
   return (ps ++ pcs ++ (Case sp c' cc' is pm : concat (snd adb : map snd as)))
 
 -- TODO actual usage of variables instead of presence
-isNoDeconstructCase :: [(CName, [Parameter], Maybe Int, Block)] -> Bool
+isNoDeconstructCase :: [(CName, [Parameter], Maybe Int, AsmBlock)] -> Bool
 isNoDeconstructCase = all (\(_,xs,_,_) -> null xs)  -- FIXME return False for BigCase with TopReturn's
 
-asmDefAlt :: CallResultRef -> StackPops -> Maybe Block -> AsmGen (Either (NextFetch, RelCodeAddr) StackPops, [Instruction])
+asmDefAlt :: CallResultRef -> StackPops -> Maybe AsmBlock -> AsmGen (Either (NextFetch, RelCodeAddr) StackPops, [Instruction])
 asmDefAlt _  _  Nothing = return (error "no default alt", [])
-asmDefAlt mr ps (Just (Block [] TopReturn)) = return (Right ps, [])
+asmDefAlt mr ps (Just (AsmBlock [] TopReturn)) = return (Right ps, [])
 asmDefAlt mr _  (Just b) = do
   pushNode mr []
   is <- asmBlock b
   return (Left (Nothing, RelCodeAddr 0), is)
 
-asmAlt :: (Queues, StackVals) -> CallResultRef -> (CName, [Parameter], Maybe Int, Block) -> AsmGen ((Word32, (NextFetch, Bool)), [Instruction])
-asmAlt s _ (c, _, _, Block [] TopReturn) = do
+asmAlt :: (Queues, StackVals) -> CallResultRef -> (CName, [Parameter], Maybe Int, AsmBlock) -> AsmGen ((Word32, (NextFetch, Bool)), [Instruction])
+asmAlt s _ (c, _, _, AsmBlock [] TopReturn) = do
   setScope s
   a <- getAlt c
   return ((snd a, (Nothing, False)), [])

@@ -93,7 +93,7 @@ getPapStmts :: FName -> [Argument] -> ReduceArityState ([Stmt], AsmTag, [Argumen
 getPapStmts f args = do
     st <- get
     let oFun = origFun f (origFunctions st)
-    let realfun = Function {fName=f, params=take ((+)1 $ argsMainNode $ length $ params oFun) $ repeat (Left "a"), resultRef=Nothing, fetchHint=Nothing, body=Block [] $ Error $ RefVar "5" } -- some dummy function
+    let realfun = Function {fName=f, params=take ((+)1 $ argsMainNode $ length $ params oFun) $ repeat (Left "a"), resultRef=Nothing, fetchHint=Nothing, body=AsmBlock [] $ Error $ RefVar "5" } -- some dummy function
     case lookup f (addedPapFunctions st) of
         Just pfuns -> buildPapStmts (pfuns++[realfun]) args -- Functions were already created.
         Nothing -> do -- Functions need to be created
@@ -124,7 +124,7 @@ createPartialDecFuns prefix index ((CName cname), args) = Function name Nothing 
     ptag = case index of
             1 -> PapTag (FName cname) (argsMainNode $ length args)
             _ -> PapTag (FName (prefix ++ cname ++ show (index-1))) (maxArity-1)
-    body' = Block ["z" :<-: StoreNode (calctag params) (para2arg params)] $ NodeReturn ptag [Left $ RefVar "z"]
+    body' = AsmBlock ["z" :<-: StoreNode (calctag params) (para2arg params)] $ NodeReturn ptag [Left $ RefVar "z"]
 
 -- Small helper function that creates simple names for the arguments of a constructor.
 argkinds2parameters :: [ArgKind] -> [Parameter]
@@ -142,7 +142,7 @@ createPartialPapFuns prefix index f = Function name Nothing Nothing poppedArgs b
     ptag = case index of
             1 -> PapTag (fName f) (argsMainNode $ length $ params f)
             _ -> PapTag (FName $ prefix ++ show (fName f) ++ "*" ++ show (index-1)) (maxArity-1)
-    body' = Block ["z" :<-: StoreNode (calctag poppedArgs) (para2arg poppedArgs)] $ NodeReturn ptag [Left $ RefVar "z"]
+    body' = AsmBlock ["z" :<-: StoreNode (calctag poppedArgs) (para2arg poppedArgs)] $ NodeReturn ptag [Left $ RefVar "z"]
 
 -- Returns (and creates if needed) a new function that can replace a partially applied Sel-node.
 getPSelFun :: (CName, Int) -> ReduceArityState FName
@@ -154,7 +154,7 @@ getPSelFun key@((CName name), index) = do
             funName <- fmap FName $ uniqueName $ "**" ++ name ++ "**" ++ show index -- The name for the new function
             postcalls <- reducePostCall $ Selecting (CName name) index
             let term = TailCall (EvalRef (RefVar "obj")) postcalls -- the terminator statement of the new function
-            let newfun = Function funName Nothing Nothing [Left "obj"] $ Block [] term -- the function to create
+            let newfun = Function funName Nothing Nothing [Left "obj"] $ AsmBlock [] term -- the function to create
             modify (\st -> st {addedPSelFunctions=(key, newfun) : pselfuns}) -- adding new pselfun to state
             return funName -- return the name of the newly created pselfun
 
@@ -238,17 +238,17 @@ reduceFunction f
         return $ f {body = newbody}
     | otherwise = do
         let (poppedargs, otherargs) = splitAt maxArity $ params f
-        let (Block stmts terminator) = body f
+        let (AsmBlock stmts terminator) = body f
         newName <- uniqueName $ concatMap parameterName poppedargs
         let newstmt = (dummyResultRef, Just (calctag poppedargs, poppedargs, Nothing)) :<=: (LoadRef $ RefVar newName, [])
-        reduceFunction $ f {params = Left newName : otherargs, body = Block (newstmt : stmts) terminator}
+        reduceFunction $ f {params = Left newName : otherargs, body = AsmBlock (newstmt : stmts) terminator}
 
 -- Transforms the code in a block
-reduceBlock :: Block -> ReduceArityState Block
-reduceBlock (Block stmts term) = do
+reduceBlock :: AsmBlock -> ReduceArityState AsmBlock
+reduceBlock (AsmBlock stmts term) = do
     newstmts <- liftM concat $ mapM reduceStatement stmts
     (stmts', term') <- reduceTerminator term
-    return $ Block (newstmts++stmts') term'
+    return $ AsmBlock (newstmts++stmts') term'
 
 -- Reduce a terminator
 reduceTerminator :: TermStmt -> ReduceArityState ([Stmt], TermStmt)
@@ -282,15 +282,15 @@ reduceTerminator (IfThenElse boolvar b1 b2) = do -- Handling the IfThenElse term
 reduceTerminator term = return ([],term) -- Ignore other terminators
 
 reduceAlternative :: CaseAlt -> ReduceArityState CaseAlt
-reduceAlternative (name, params, fetchnext, Block bstmts bterm)
+reduceAlternative (name, params, fetchnext, AsmBlock bstmts bterm)
     | length params <= maxArity = do
-        blk' <- reduceBlock $ Block bstmts bterm
+        blk' <- reduceBlock $ AsmBlock bstmts bterm
         return (name, params, fetchnext, blk')
     | otherwise = do
         let poppedArgs = take maxArity params
         newName <- uniqueName $ concatMap parameterName poppedArgs
         let newParams = Left newName : drop maxArity params
-        let newBlk = Block (((dummyResultRef, Just (calctag poppedArgs, poppedArgs, Nothing)) :<=: (LoadRef (RefVar newName), [])):bstmts) bterm
+        let newBlk = AsmBlock (((dummyResultRef, Just (calctag poppedArgs, poppedArgs, Nothing)) :<=: (LoadRef (RefVar newName), [])):bstmts) bterm
         reduceAlternative (name, newParams , fetchnext, newBlk)
 
 -- Transform Statements

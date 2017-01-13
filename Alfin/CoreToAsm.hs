@@ -72,53 +72,53 @@ c2aFix f r xs rt e = do
   (fs, b) <- withLocalVars ((r,rt):xs) (c2aTopExp [] RefType e)
   return (Function (FName (fst f ++ "." ++ snd f)) (Just r) Nothing (buildParams xs) b : fs)
 
-c2aTopExp :: [Stmt] -> ShapeType -> TopExp -> Context ([Function], Block)
-c2aTopExp xs (PType pt) (SimpleExp (Var x)         ) = return ([], Block xs (NodeReturn (BoxCon $ defaultPrimBox pt) [Right $ pv x]))
+c2aTopExp :: [Stmt] -> ShapeType -> TopExp -> Context ([Function], AsmBlock)
+c2aTopExp xs (PType pt) (SimpleExp (Var x)         ) = return ([], AsmBlock xs (NodeReturn (BoxCon $ defaultPrimBox pt) [Right $ pv x]))
 c2aTopExp xs (PType pt) (SimpleExp (Lit (IntLit i))) = do
   x <- newName "i"
-  return ([], Block (xs ++ [x :<~: Constant i]) (NodeReturn (BoxCon $ defaultPrimBox pt) [Right $ pv x]))
+  return ([], AsmBlock (xs ++ [x :<~: Constant i]) (NodeReturn (BoxCon $ defaultPrimBox pt) [Right $ pv x]))
 c2aTopExp xs (PType pt) (SimpleExp (FunVal f ys)) = do
   fk <- gets (fromMaybe (error ("lookup Fun " ++ show f)) . lookup f . (\(fs,_,_,_) -> fs))
   case (snd fk) of
     ErrFun e -> do
       x <- newName "n"
       y <- newName "e"
-      return ([], Block (xs ++ [x :<~: Constant e, y :<-: StoreNode (BoxCon (CName ".ErrorCode")) [pa x]]) (Error (rv y)))
+      return ([], AsmBlock (xs ++ [x :<~: Constant e, y :<-: StoreNode (BoxCon (CName ".ErrorCode")) [pa x]]) (Error (rv y)))
     PrimOp (PType _) -> do
       ys' <- mapM c2aArgument ys
       let as = buildArgs (map snd ys')
       case as of
         [Right n] -> do
           x <- newName "y"
-          return ([], Block (xs ++ concatMap fst ys' ++ [x :<~: RunPrimOp (OpName (snd f)) n Nothing]) (NodeReturn (BoxCon $ defaultPrimBox pt) [Right $ pv x]))
+          return ([], AsmBlock (xs ++ concatMap fst ys' ++ [x :<~: RunPrimOp (OpName (snd f)) n Nothing]) (NodeReturn (BoxCon $ defaultPrimBox pt) [Right $ pv x]))
         [Right n, Right m] -> do
           x <- newName "y"
-          return ([], Block (xs ++ concatMap fst ys' ++ [x :<~: RunPrimOp (OpName (snd f)) n (Just m)]) (NodeReturn (BoxCon $ defaultPrimBox pt) [Right $ pv x]))
+          return ([], AsmBlock (xs ++ concatMap fst ys' ++ [x :<~: RunPrimOp (OpName (snd f)) n (Just m)]) (NodeReturn (BoxCon $ defaultPrimBox pt) [Right $ pv x]))
         _ -> error ("todo IntK c2aTopExp" ++ show as)
     PrimFun _ -> do
       ys' <- mapM c2aArgument ys
       let as = buildArgs $ map snd ys'
-      return ([], Block (xs ++ concatMap fst ys') (TailCall (Run_Fun (FName (fst f ++ "." ++ snd f)) as) []))
-    RealFun _ | null ys -> return ([], Block xs (TailCall (Run_Fun (FName (fst f ++ "." ++snd f)) []) [])) -- could be an error throwing CAF
+      return ([], AsmBlock (xs ++ concatMap fst ys') (TailCall (Run_Fun (FName (fst f ++ "." ++ snd f)) as) []))
+    RealFun _ | null ys -> return ([], AsmBlock xs (TailCall (Run_Fun (FName (fst f ++ "." ++snd f)) []) [])) -- could be an error throwing CAF
     _ -> error $ show fk
-c2aTopExp xs RefType (SimpleExp (Var x)         ) = return ([], Block xs (TailCall (EvalRef (rv x)) [])                          )
+c2aTopExp xs RefType (SimpleExp (Var x)         ) = return ([], AsmBlock xs (TailCall (EvalRef (rv x)) [])                          )
 c2aTopExp xs RefType (SimpleExp (Con c ys)) = do
   ys' <- mapM c2aArgument ys
   (t, as) <- buildConNodeArg c (map snd ys')
-  return ([], Block (xs ++ concatMap fst ys') (NodeReturn t as))
+  return ([], AsmBlock (xs ++ concatMap fst ys') (NodeReturn t as))
 c2aTopExp xs RefType (SimpleExp (FunVal f ys)) = do
   fk <- gets (fromMaybe (error ("lookup Fun " ++ show f)) . lookup f . (\(fs,_,_,_) -> fs))
   case (snd fk) of
     ErrFun e -> do
       x <- newName "n"
       y <- newName "e"
-      return ([], Block (xs ++ [x :<~: Constant e, y :<-: StoreNode (BoxCon (CName ".ErrorCode")) [pa x]]) (Error (rv y)))
+      return ([], AsmBlock (xs ++ [x :<~: Constant e, y :<-: StoreNode (BoxCon (CName ".ErrorCode")) [pa x]]) (Error (rv y)))
     SelFun c i -> do
       case ys of
-        []  -> return ([], Block xs (NodeReturn (PSelTag (CName (fst c ++ "." ++ snd c)) i) []))
+        []  -> return ([], AsmBlock xs (NodeReturn (PSelTag (CName (fst c ++ "." ++ snd c)) i) []))
         [y] -> do
           (zs,ce,pcs) <- c2aCallingExp y
-          return ([], Block (xs ++ zs) (TailCall ce (pcs ++ [Selecting (CName (fst c ++ "." ++ snd c)) i])))
+          return ([], AsmBlock (xs ++ zs) (TailCall ce (pcs ++ [Selecting (CName (fst c ++ "." ++ snd c)) i])))
         _   -> error "TODO over applying SelFun in c2aTopExp"
     _ -> do
       let na = length (fst fk)
@@ -127,26 +127,26 @@ c2aTopExp xs RefType (SimpleExp (FunVal f ys)) = do
       case (snd fk) of
         RealFun _ -> do
           case compare (length as) na of
-            LT -> return ([], Block (xs ++ concatMap fst ys') (NodeReturn (PapTag (FName (fst f ++ "." ++ snd f)) (na - length as)) as                     ))
-            EQ -> return ([], Block (xs ++ concatMap fst ys') (TailCall (Run_Fun  (FName (fst f ++ "." ++ snd f)) as              ) []                     ))
-            GT -> return ([], Block (xs ++ concatMap fst ys') (TailCall (Run_Fun  (FName (fst f ++ "." ++ snd f)) (take na as)    ) [Applying (drop na as)]))
+            LT -> return ([], AsmBlock (xs ++ concatMap fst ys') (NodeReturn (PapTag (FName (fst f ++ "." ++ snd f)) (na - length as)) as                     ))
+            EQ -> return ([], AsmBlock (xs ++ concatMap fst ys') (TailCall (Run_Fun  (FName (fst f ++ "." ++ snd f)) as              ) []                     ))
+            GT -> return ([], AsmBlock (xs ++ concatMap fst ys') (TailCall (Run_Fun  (FName (fst f ++ "." ++ snd f)) (take na as)    ) [Applying (drop na as)]))
         FixFun _ -> do
           case compare (length as) na of
-            EQ -> return ([], Block (xs ++ concatMap fst ys') (TailCall (Run_Fix (FName (fst f ++ "." ++ snd f)) as) []))
+            EQ -> return ([], AsmBlock (xs ++ concatMap fst ys') (TailCall (Run_Fix (FName (fst f ++ "." ++ snd f)) as) []))
             _ -> error "FixFun with wrong number of arguments"
         CmpFun -> case as of
           [Right n, Right m] -> do
             b <- newName "b"
-            return ([], Block (xs ++ concatMap fst ys' ++ [b :<-?: RunCmpOp (OpName (snd f)) n m]) (BoolReturn b (ConTag (CName "GHCziBool.True")) (ConTag (CName "GHCziBool.False"))))
+            return ([], AsmBlock (xs ++ concatMap fst ys' ++ [b :<-?: RunCmpOp (OpName (snd f)) n m]) (BoolReturn b (ConTag (CName "GHCziBool.True")) (ConTag (CName "GHCziBool.False"))))
           _ -> error ("todo CmpFun c2aTopExp" ++ show as)
         x -> error ("c2aTopExp NodeRes" ++ show f ++ " " ++ show x)
 c2aTopExp xs RefType (SimpleExp (Apply f ys)) = do
   (zs, c, cc) <- c2aCallingExp f
   ys' <- mapM c2aArgument ys
-  return ([], Block (xs ++ zs ++ concatMap fst ys') (TailCall c (cc ++ [Applying (buildArgs (map snd ys'))])))
+  return ([], AsmBlock (xs ++ zs ++ concatMap fst ys') (TailCall c (cc ++ [Applying (buildArgs (map snd ys'))])))
 c2aTopExp xs RefType (SimpleExp (Selector d i y)) = do
   (ys, c, cc) <- c2aCallingExp y
-  return ([], Block (xs ++ ys) (TailCall c (cc ++ [Selecting (CName (fst d++"."++snd d)) i])))
+  return ([], AsmBlock (xs ++ ys) (TailCall c (cc ++ [Selecting (CName (fst d++"."++snd d)) i])))
 c2aTopExp xs rt (SLet (n,t@(PType _)) x e) = do
   ys <- c2aPrimExp n x
   withLocalVars [(n,t)] (c2aTopExp (xs ++ ys) rt e)
@@ -170,35 +170,35 @@ c2aTopExp xs rt (Case sr e t@(PType _) [DefAlt d, IntAlt i x]) = do
   d' <- withLocalVars lv $ c2aTopExp [] rt d
   x' <- withLocalVars lv $ c2aTopExp [] rt x
   n <- newName "i"
-  return (fst d' ++ fst x', Block (xs ++ ys ++ [n :<~: Constant i, c :<-?: RunCmpOp (OpName "zezezh") (PrimVar $ fst v) (PrimVar n)]) (IfThenElse c (substBlock s $ snd x') (substBlock s $ snd d')))
+  return (fst d' ++ fst x', AsmBlock (xs ++ ys ++ [n :<~: Constant i, c :<-?: RunCmpOp (OpName "zezezh") (PrimVar $ fst v) (PrimVar n)]) (IfThenElse c (substBlock s $ snd x') (substBlock s $ snd d')))
 c2aTopExp xs rt (Case sr x t [ConAlt cn vs e]) = do
   (ys,c,cc) <- c2aCallingExp x
-  (fs, Block zs z) <- withLocalVars ((sr,t) : vs) $ c2aTopExp [] rt e
+  (fs, AsmBlock zs z) <- withLocalVars ((sr,t) : vs) $ c2aTopExp [] rt e
   (nt, ns) <- buildConNode cn vs
-  return (fs, Block (xs ++ ys ++ [(Left sr, Just (nt,ns,Nothing)) :<=: (c,cc)] ++ zs) z)
+  return (fs, AsmBlock (xs ++ ys ++ [(Left sr, Just (nt,ns,Nothing)) :<=: (c,cc)] ++ zs) z)
 c2aTopExp xs rt (Case _ (FunVal f [a,b]) _ [ConAlt _ [] e, ConAlt _ [] t]) | f `elem` compareFuns = do
   a' <- c2aArgument a
   b' <- c2aArgument b
   c <- newName "c"
   e' <- c2aTopExp [] rt e
   t' <- c2aTopExp [] rt t
-  return (fst e' ++ fst t', Block (xs ++ fst a' ++ fst b' ++ [c :<-?: RunCmpOp (OpName (snd f)) (PrimVar $ fst $ snd a') (PrimVar $ fst $ snd b')]) (IfThenElse c (snd t') (snd e')))
+  return (fst e' ++ fst t', AsmBlock (xs ++ fst a' ++ fst b' ++ [c :<-?: RunCmpOp (OpName (snd f)) (PrimVar $ fst $ snd a') (PrimVar $ fst $ snd b')]) (IfThenElse c (snd t') (snd e')))
 c2aTopExp xs rt (Case sr e t [DefAlt d]) = do
   (ys, c, cc) <- c2aCallingExp e
-  (fs, Block zs z) <- withLocalVars [(sr,t)] $ c2aTopExp [] rt d
-  return (fs, Block (xs ++ ys ++ [(Left sr, Nothing) :<=: (c,cc)] ++ zs) z)
+  (fs, AsmBlock zs z) <- withLocalVars [(sr,t)] $ c2aTopExp [] rt d
+  return (fs, AsmBlock (xs ++ ys ++ [(Left sr, Nothing) :<=: (c,cc)] ++ zs) z)
 c2aTopExp xs rt (Case sr e t ((DefAlt d) : as)) = do
   (ys, c, cc) <- c2aCallingExp e
   d' <- withLocalVars [(sr,t)] $ c2aTopExp [] rt d
   bs <- mapM (withLocalVars [(sr,t)] . c2aAlt rt) as
-  return (fst d' ++ concatMap fst bs, Block (xs ++ ys) (CaseOf c cc (Left sr) (Just $ snd d') (map snd bs)))
+  return (fst d' ++ concatMap fst bs, AsmBlock (xs ++ ys) (CaseOf c cc (Left sr) (Just $ snd d') (map snd bs)))
 c2aTopExp xs rt (Case sr e t as) = do
   (ys, c, cc) <- c2aCallingExp e
   bs <- mapM (withLocalVars [(sr,t)] . c2aAlt rt) as
-  return (concatMap fst bs, Block (xs ++ ys) (CaseOf c cc (Left sr) Nothing (map snd bs)))
+  return (concatMap fst bs, AsmBlock (xs ++ ys) (CaseOf c cc (Left sr) Nothing (map snd bs)))
 c2aTopExp _ rt x = error ("c2aTopExp " ++ show rt ++ " " ++ show x)
 
-c2aAlt :: ShapeType -> Alternative -> Context ([Function], (CName, [Parameter], Maybe Int, Block))
+c2aAlt :: ShapeType -> Alternative -> Context ([Function], (CName, [Parameter], Maybe Int, AsmBlock))
 c2aAlt rt (ConAlt c xs e) = do
   (fs,b) <- withLocalVars xs (c2aTopExp [] rt e)
   (ConTag d, ys) <- buildConNode c xs

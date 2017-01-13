@@ -23,8 +23,8 @@ transReachFun fs rfm = trf [] fs where
 reachableFuns :: Function -> (FName, [FName])
 reachableFuns f = (fName f, reachFunB (body f))
 
-reachFunB :: Block -> [FName]
-reachFunB (Block xs t) = concatMap reachFunS xs ++ reachFunT t
+reachFunB :: AsmBlock -> [FName]
+reachFunB (AsmBlock xs t) = concatMap reachFunS xs ++ reachFunT t
 
 reachFunT :: TermStmt -> [FName]
 reachFunT (NodeReturn t _     ) = fmap snd $ getHeapFunTag t
@@ -64,8 +64,8 @@ newProc _  _                 = Nothing
 getHeapFuns :: Function -> [(FunUse, FName)]
 getHeapFuns (Function  _ _ _ _ c) = getHeapFunsB c
 
-getHeapFunsB :: Block -> [(FunUse, FName)]
-getHeapFunsB (Block xs t) = concatMap getHeapFunS xs ++ getHeapFunsTerm t
+getHeapFunsB :: AsmBlock -> [(FunUse, FName)]
+getHeapFunsB (AsmBlock xs t) = concatMap getHeapFunS xs ++ getHeapFunsTerm t
 
 getHeapFunsTerm :: TermStmt -> [(FunUse, FName)]
 getHeapFunsTerm (NodeReturn t _    ) = getHeapFunTag t
@@ -91,8 +91,8 @@ inlineTrivCafs fs = filter isUsed fs'' where
   isUsed _                                           = True
 
 splitTrivCaf :: Function -> Either Function (FName, RefExp)
-splitTrivCaf (Function f Nothing Nothing [] (Block [_ :<~: Constant n] (NodeReturn (BoxCon b) [_]))) = Right (f, StoreNode (BoxCon b) [Right $ BigImm $ fromIntegral n])
-splitTrivCaf (Function f Nothing Nothing [] (Block [] (NodeReturn t []))) | whnfTag t = Right (f, StoreNode t [])
+splitTrivCaf (Function f Nothing Nothing [] (AsmBlock [_ :<~: Constant n] (NodeReturn (BoxCon b) [_]))) = Right (f, StoreNode (BoxCon b) [Right $ BigImm $ fromIntegral n])
+splitTrivCaf (Function f Nothing Nothing [] (AsmBlock [] (NodeReturn t []))) | whnfTag t = Right (f, StoreNode t [])
 splitTrivCaf f = Left f
 
 optimFun :: Function -> Function
@@ -110,10 +110,10 @@ setFirstEvalFun fes (Function f r       _       xs c) = let (c', e) = setFirstEv
            where Left fx = xs!!i
     _                                                    -> Function f r Nothing xs c' 
 
-setFirstEval :: [(FName, Int)] -> [Parameter] -> Block -> (Block, Maybe Int)
-setFirstEval fes vs (Block xs t) = case (dropWhile (not . withCtrlStmt) xs) of
-  []    -> let (t',e) = setFirstEvalTerm fes vs t in (Block xs t', e)
-  (x:_) -> let (t',_) = setFirstEvalTerm fes vs t in (Block xs t', firstEvalStmt fes vs x)
+setFirstEval :: [(FName, Int)] -> [Parameter] -> AsmBlock -> (AsmBlock, Maybe Int)
+setFirstEval fes vs (AsmBlock xs t) = case (dropWhile (not . withCtrlStmt) xs) of
+  []    -> let (t',e) = setFirstEvalTerm fes vs t in (AsmBlock xs t', e)
+  (x:_) -> let (t',_) = setFirstEvalTerm fes vs t in (AsmBlock xs t', firstEvalStmt fes vs x)
 
 setFirstEvalTerm :: [(FName, Int)] -> [Parameter] -> TermStmt -> (TermStmt, Maybe Int)
 setFirstEvalTerm fes vs t@(TailCall c _)       = (t, indexOfEval fes vs c)
@@ -121,7 +121,7 @@ setFirstEvalTerm fes vs (CaseOf c cc ms md xs) = (CaseOf c cc ms (fmap (setFirst
 setFirstEvalTerm fes _  (IfThenElse c x y)     = (IfThenElse c (setFirstEvalBlock fes x) (setFirstEvalBlock fes y), Nothing)
 setFirstEvalTerm _   _  t                      = (t, Nothing)
 
-setFirstEvalAlt :: [(FName, Int)] -> (CName, [Parameter], Maybe Int, Block) -> (CName, [Parameter], Maybe Int, Block)
+setFirstEvalAlt :: [(FName, Int)] -> (CName, [Parameter], Maybe Int, AsmBlock) -> (CName, [Parameter], Maybe Int, AsmBlock)
 setFirstEvalAlt fes (c, xs, _, b) =  let (b', e) = setFirstEval fes xs b in
   case e of   -- restrict next fetch ref index to single use variables
     Just i | length (filter (== fx) $ readVarsB b') == 1 -> (c, xs, e      , b')
@@ -129,8 +129,8 @@ setFirstEvalAlt fes (c, xs, _, b) =  let (b', e) = setFirstEval fes xs b in
            where Left fx = xs!!i
     _                                                    -> (c, xs, Nothing, b')
 
-setFirstEvalBlock :: [(FName, Int)] -> Block -> Block
-setFirstEvalBlock fes (Block xs t) = Block xs (fst $ setFirstEvalTerm fes [] t)
+setFirstEvalBlock :: [(FName, Int)] -> AsmBlock -> AsmBlock
+setFirstEvalBlock fes (AsmBlock xs t) = AsmBlock xs (fst $ setFirstEvalTerm fes [] t)
 
 firstEvalStmt :: [(FName, Int)] -> [Parameter] -> Stmt -> Maybe Int
 firstEvalStmt fes vs (_ :<=: (c, _)) = indexOfEval fes vs c
@@ -155,8 +155,8 @@ type ValueName = (Either RefExp PrimExp, String)
 type KnownNode = (RefVar, (AsmTag, [Argument]))
 
 
-preOptimBlock :: [KnownNode] -> [ValueName] -> Block -> Block
-preOptimBlock ns vs (Block xs t) = remDeadExpsBlock $ Block (reverse rxs') t' where
+preOptimBlock :: [KnownNode] -> [ValueName] -> AsmBlock -> AsmBlock
+preOptimBlock ns vs (AsmBlock xs t) = remDeadExpsBlock $ AsmBlock (reverse rxs') t' where
   (rxs', ns', vs', s) = preOptimSequence ns vs [] [] xs
   t'                  = preOptimTerm ns' vs' $ substTerm s t
   
@@ -168,7 +168,7 @@ preOptimTerm ns _  (CaseOf c cc ms md xs) = uncurry CaseOf (optimCE ns (c,cc)) m
 preOptimTerm ns vs (IfThenElse c x y)     = IfThenElse c (preOptimBlock ns vs x) (preOptimBlock ns vs y)
 preOptimTerm _  _  t                      = t
 
-preOptimAlt :: CallResultRef -> [KnownNode] -> (CName, [Parameter], Maybe Int, Block) -> (CName, [Parameter], Maybe Int, Block)
+preOptimAlt :: CallResultRef -> [KnownNode] -> (CName, [Parameter], Maybe Int, AsmBlock) -> (CName, [Parameter], Maybe Int, AsmBlock)
 preOptimAlt (Left s ) ns (t, xs, me, a) = (t, xs, me, preOptimBlock ((s, (ConTag t, map (either (Left . RefVar) (Right . PrimVar)) xs)) : ns) [] a)  -- known constructor
 preOptimAlt (Right _) ns (t, xs, me, a) = (t, xs, me, preOptimBlock ns [] a)
 
@@ -192,8 +192,8 @@ preOptimSequence ns _  s rs ((x :<=: (c,cc)) : ys) = preOptimSequence ns [] s ((
 preOptimSequence ns _  s rs ((Put_IO t n)    : ys) = preOptimSequence ns [] s ((Put_IO t n              ) : rs) ys
 
   
-optimBlock :: [KnownNode] -> [ValueName] -> Block -> Block
-optimBlock ns vs (Block xs t) = tryUsePrefetchBlock [] $ remDeadExpsBlock $ Block xs'' t'' where
+optimBlock :: [KnownNode] -> [ValueName] -> AsmBlock -> AsmBlock
+optimBlock ns vs (AsmBlock xs t) = tryUsePrefetchBlock [] $ remDeadExpsBlock $ AsmBlock xs'' t'' where
   (rxs', ns', vs', s) = optimSequence ns vs [] [] (pullUpCalls [] $ reverse $ optimCallExps (readVarsT t) $ reverse xs)
   (ys', t')           = optimTerm ns' vs' $ substTerm s t
   (xs'', t'')         = case (optimCallExps (readVarsT t') (reverse ys' ++ rxs'), t') of
@@ -264,35 +264,35 @@ optimTerm ns _  (CaseOf c cc ms md xs) = optimCase ns ms (c,cc) md xs
 optimTerm _  _  (Error x)              = ([], Error x)
 optimTerm ns vs (IfThenElse c x y)     = optimIfThenElse c (optimBlock ns vs x) (optimBlock ns vs y)
 
-optimCase :: [KnownNode] -> CallResultRef -> (CallExp, [PostCall]) -> (Maybe Block) -> [(CName, [Parameter], Maybe Int, Block)] -> ([Stmt], TermStmt)
+optimCase :: [KnownNode] -> CallResultRef -> (CallExp, [PostCall]) -> (Maybe AsmBlock) -> [(CName, [Parameter], Maybe Int, AsmBlock)] -> ([Stmt], TermStmt)
 optimCase ns (Right s)  ccc md xs = ([], uncurry CaseOf (optimCE ns ccc) (Right s) (fmap (optimDefAlt Nothing ns ccc) md) (map (optimAlt Nothing ns) xs))
 optimCase ns (Left s) ccc md xs = ([], uncurry CaseOf (optimCE ns ccc) (if s `elem` vs then Left s else Right s) md' xs') where
   md' = fmap (optimDefAlt (Just s) ns ccc) md
   xs' = map (optimAlt (Just s) ns) xs
   vs  = maybe [] readVarsB md' ++ concatMap (\(_,_,_,a) -> readVarsB a) xs' -- FIXME only want refVars here
 
-optimDefAlt :: Maybe RefVar -> [KnownNode] -> (CallExp, [PostCall]) -> Block -> Block
-optimDefAlt (Just s) _ _ (Block [] (TailCall (EvalRef (RefVar x)) []))
-  | s == x        = Block [] TopReturn
-optimDefAlt _ _ ccc (Block [] (TailCall c cc))
-  | ccc == (c,cc) = Block [] TopReturn
+optimDefAlt :: Maybe RefVar -> [KnownNode] -> (CallExp, [PostCall]) -> AsmBlock -> AsmBlock
+optimDefAlt (Just s) _ _ (AsmBlock [] (TailCall (EvalRef (RefVar x)) []))
+  | s == x        = AsmBlock [] TopReturn
+optimDefAlt _ _ ccc (AsmBlock [] (TailCall c cc))
+  | ccc == (c,cc) = AsmBlock [] TopReturn
 optimDefAlt _ ns _ b = optimBlock ns [] b
 
-optimAlt :: Maybe RefVar -> [KnownNode] -> (CName, [Parameter], Maybe Int, Block) -> (CName, [Parameter], Maybe Int, Block)
-optimAlt (Just s) _ (t, xs, me, (Block [] (TailCall (EvalRef (RefVar x)) [])))
-   | s == x = (t, xs, me, Block [] TopReturn)
-optimAlt _ _ (t, xs, me, (Block [] (NodeReturn (ConTag c) ys)))
-   | t == c && (map rv $ lefts xs) == lefts ys && (map pv $ rights xs) == rights ys = (t, xs, me, Block [] TopReturn)
+optimAlt :: Maybe RefVar -> [KnownNode] -> (CName, [Parameter], Maybe Int, AsmBlock) -> (CName, [Parameter], Maybe Int, AsmBlock)
+optimAlt (Just s) _ (t, xs, me, (AsmBlock [] (TailCall (EvalRef (RefVar x)) [])))
+   | s == x = (t, xs, me, AsmBlock [] TopReturn)
+optimAlt _ _ (t, xs, me, (AsmBlock [] (NodeReturn (ConTag c) ys)))
+   | t == c && (map rv $ lefts xs) == lefts ys && (map pv $ rights xs) == rights ys = (t, xs, me, AsmBlock [] TopReturn)
 optimAlt (Just s) ns (t, xs, me, a) = (t, xs, me, optimBlock ((s, (ConTag t, map (either (Left . RefVar) (Right . PrimVar)) xs)) : ns) [] a)  -- known constructor
 optimAlt Nothing  ns (t, xs, me, a) = (t, xs, me, optimBlock ns [] a)
 
-optimIfThenElse :: BoolVar -> Block -> Block -> ([Stmt], TermStmt)
--- optimIfThenElse c (Block xs (IfThenElse c2 t2 e2)) e
+optimIfThenElse :: BoolVar -> AsmBlock -> AsmBlock -> ([Stmt], TermStmt)
+-- optimIfThenElse c (AsmBlock xs (IfThenElse c2 t2 e2)) e
 --   | length xs <= 5 && all isSimplePrimStmt xs && e == e2 = (xs ++ [(c++c2) :<-?: (RunLogicOp (QName "" "and") c c2)], IfThenElse (c++c2) t2 e)
--- optimIfThenElse c t (Block xs (IfThenElse c2 t2 e2))
+-- optimIfThenElse c t (AsmBlock xs (IfThenElse c2 t2 e2))
 --   | length xs <= 5 && all isSimplePrimStmt xs && t == t2 = (xs ++ [(c++c2) :<-?: (RunLogicOp (QName "" "or") c c2)], IfThenElse (c++c2) t e2)
 -- -- TODO add variations involving negation
---optimIfThenElse c (Block [] (NodeReturn x@(ConTag (_, i)) [])) (Block [] (NodeReturn y@(ConTag (_, j)) []))
+--optimIfThenElse c (AsmBlock [] (NodeReturn x@(ConTag (_, i)) [])) (AsmBlock [] (NodeReturn y@(ConTag (_, j)) []))
 --  | abs (i-j) == 1 = ([], BoolReturn c x y)
 optimIfThenElse c t e = ([], IfThenElse c t e)
 
@@ -308,28 +308,28 @@ optimCE ns (EvalRef (RefVar x), [Applying as]) = case (lookup x ns) of
   Just _ -> (EvalRef (RefVar x)          , [Applying as])
 optimCE _ e = e
 
-tryUsePrefetchBlock :: [Stmt] -> Block -> Block
-tryUsePrefetchBlock rs (Block [] (CaseOf c [] ms Nothing xs)) = case unzip (map tryPreNextA xs) of   -- TODO make it work for case with default alternative
-  (pf:pfs, xs') | all (== pf) pfs -> Block (reverse rs) (CaseOf c pf ms Nothing $ map (\(cn,ns,mi,b) -> (cn,ns,mi, tryUsePrefetchBlock [] b)) xs')
-  _                               -> Block (reverse rs) (CaseOf c [] ms Nothing $ map (\(cn,ns,mi,b) -> (cn,ns,mi, tryUsePrefetchBlock [] b)) xs)
-tryUsePrefetchBlock rs (Block [] (CaseOf c cc ms md xs)) = Block (reverse rs) (CaseOf c cc ms md $ map (\(cn,ns,mi,b) -> (cn,ns,mi, tryUsePrefetchBlock [] b)) xs)
-tryUsePrefetchBlock rs (Block [] (IfThenElse c x y))     = Block (reverse rs) (IfThenElse c (tryUsePrefetchBlock [] x) (tryUsePrefetchBlock [] y))
-tryUsePrefetchBlock rs (Block [] t) = Block (reverse rs) t
-tryUsePrefetchBlock rs (Block (((mr,nb) :<=: (ce, cc)   ):xs) t) = case (nb, tryPreNextB (Block xs t)) of
-  (Just (nt,ns,_), ([NextFetch (RefVar r)], _ )) | Left r `elem` ns -> tryUsePrefetchBlock (((mr, Just (nt, ns, elemIndex (Left r) ns)) :<=: (ce, cc)):rs) (Block xs t)    -- FIXME? set elemIndex (Left r) ns in setFirstEval instead
+tryUsePrefetchBlock :: [Stmt] -> AsmBlock -> AsmBlock
+tryUsePrefetchBlock rs (AsmBlock [] (CaseOf c [] ms Nothing xs)) = case unzip (map tryPreNextA xs) of   -- TODO make it work for case with default alternative
+  (pf:pfs, xs') | all (== pf) pfs -> AsmBlock (reverse rs) (CaseOf c pf ms Nothing $ map (\(cn,ns,mi,b) -> (cn,ns,mi, tryUsePrefetchBlock [] b)) xs')
+  _                               -> AsmBlock (reverse rs) (CaseOf c [] ms Nothing $ map (\(cn,ns,mi,b) -> (cn,ns,mi, tryUsePrefetchBlock [] b)) xs)
+tryUsePrefetchBlock rs (AsmBlock [] (CaseOf c cc ms md xs)) = AsmBlock (reverse rs) (CaseOf c cc ms md $ map (\(cn,ns,mi,b) -> (cn,ns,mi, tryUsePrefetchBlock [] b)) xs)
+tryUsePrefetchBlock rs (AsmBlock [] (IfThenElse c x y))     = AsmBlock (reverse rs) (IfThenElse c (tryUsePrefetchBlock [] x) (tryUsePrefetchBlock [] y))
+tryUsePrefetchBlock rs (AsmBlock [] t) = AsmBlock (reverse rs) t
+tryUsePrefetchBlock rs (AsmBlock (((mr,nb) :<=: (ce, cc)   ):xs) t) = case (nb, tryPreNextB (AsmBlock xs t)) of
+  (Just (nt,ns,_), ([NextFetch (RefVar r)], _ )) | Left r `elem` ns -> tryUsePrefetchBlock (((mr, Just (nt, ns, elemIndex (Left r) ns)) :<=: (ce, cc)):rs) (AsmBlock xs t)    -- FIXME? set elemIndex (Left r) ns in setFirstEval instead
   (_             , (pf                    , b')) | [] <- cc         -> tryUsePrefetchBlock (((mr,nb) :<=: (ce, pf       )):rs) b'
-  _                                                                 -> tryUsePrefetchBlock (((mr,nb) :<=: (ce, cc)):rs) (Block xs t)
+  _                                                                 -> tryUsePrefetchBlock (((mr,nb) :<=: (ce, cc)):rs) (AsmBlock xs t)
 
-tryUsePrefetchBlock rs (Block (x:xs) t) = tryUsePrefetchBlock (x:rs) (Block xs t)
+tryUsePrefetchBlock rs (AsmBlock (x:xs) t) = tryUsePrefetchBlock (x:rs) (AsmBlock xs t)
 
-tryPreNextA :: (CName, [Parameter], Maybe Int, Block) -> ([PostCall], (CName, [Parameter], Maybe Int, Block))
+tryPreNextA :: (CName, [Parameter], Maybe Int, AsmBlock) -> ([PostCall], (CName, [Parameter], Maybe Int, AsmBlock))
 tryPreNextA (c, ns, mi, b) = case tryPreNextB b of
   ([NextFetch (RefVar x)], _ ) | Left x `elem` ns -> ([], (c, ns, mi, b))
   (pf                    , b')                    -> (pf, (c, ns, mi, b'))
 
-tryPreNextB :: Block -> ([PostCall], Block)
-tryPreNextB (Block (x:xs) t) = let (pf,x') = tryPreNextS x in (pf, Block (x':xs) t)
-tryPreNextB (Block [] t) = fmap (Block []) $ tryPreNextT t
+tryPreNextB :: AsmBlock -> ([PostCall], AsmBlock)
+tryPreNextB (AsmBlock (x:xs) t) = let (pf,x') = tryPreNextS x in (pf, AsmBlock (x':xs) t)
+tryPreNextB (AsmBlock [] t) = fmap (AsmBlock []) $ tryPreNextT t
 
 tryPreNextS :: Stmt -> ([PostCall], Stmt)
 tryPreNextS (nb :<=: (ce, cc)) = let (pf, ce') = tryPreNextCE ce in (pf, (nb :<=: (ce', cc)))
@@ -357,8 +357,8 @@ withCtrlStmt (_ :<-?: _ ) = False
 withCtrlStmt (_ :<=: _  ) = True
 withCtrlStmt (Put_IO _ _) = False
 
-remDeadExpsBlock :: Block -> Block
-remDeadExpsBlock (Block xs t) = Block (remDeadExpsStmts (readVarsT t') xs) t' where
+remDeadExpsBlock :: AsmBlock -> AsmBlock
+remDeadExpsBlock (AsmBlock xs t) = AsmBlock (remDeadExpsStmts (readVarsT t') xs) t' where
   t' = remDeadExpsTerm t
 
 remDeadExpsTerm :: TermStmt -> TermStmt
@@ -385,8 +385,8 @@ remDeadExpsStmt x (vs,xs) = (readVarsS x ++ vs, (x:xs))
 substTCafFun :: [(FName, RefExp)] -> Function -> (Function, [FName])
 substTCafFun s (Function f r e xs c)   = let (b, cs) = substTCafBlock s c in (Function f r e xs b, cs)
 
-substTCafBlock :: [(FName, RefExp)] -> Block -> (Block, [FName])
-substTCafBlock s (Block xs y) = (Block xs' t', concat as ++ bs) where
+substTCafBlock :: [(FName, RefExp)] -> AsmBlock -> (AsmBlock, [FName])
+substTCafBlock s (AsmBlock xs y) = (AsmBlock xs' t', concat as ++ bs) where
   (xs', as) = unzip $ map (substTCafStmt s) xs
   (t' , bs) = substTCafTerm s y
 
@@ -419,14 +419,14 @@ substTCafTerm s (TailCall (Run_Fun f []) []) = case lookup f s of
 substTCafTerm s (TailCall (Run_Fun f []) cc) = (TailCall (Run_Fun f []) cc, [f])
 substTCafTerm s t = (t, [])
 
-substTCafAlt :: [(FName, RefExp)] -> (CName, [Parameter], Maybe Int, Block) -> ((CName, [Parameter], Maybe Int, Block), [FName])
+substTCafAlt :: [(FName, RefExp)] -> (CName, [Parameter], Maybe Int, AsmBlock) -> ((CName, [Parameter], Maybe Int, AsmBlock), [FName])
 substTCafAlt s (t, ys, me, a) = ((t, ys, me, b), as) where
   (b, as) = substTCafBlock s a
 
 type VarSubst  = (String, Argument)
 
-substBlock :: [VarSubst] -> Block -> Block
-substBlock s (Block xs y) = Block (map (substStmt s) xs) (substTerm s y)
+substBlock :: [VarSubst] -> AsmBlock -> AsmBlock
+substBlock s (AsmBlock xs y) = AsmBlock (map (substStmt s) xs) (substTerm s y)
 
 substStmt :: [VarSubst] -> Stmt -> Stmt
 substStmt s (x :<-: (StoreNode t n))     = x :<-: (StoreNode t (substNode s n))
@@ -481,8 +481,8 @@ substPrim :: [VarSubst] -> PrimVal -> PrimVal
 substPrim s (PrimVar x) = maybe (PrimVar x) (either (error "primvar expected") id) (lookup x s)
 substPrim _ x           = x
 
-readVarsB :: Block -> [String]
-readVarsB (Block xs y) = concatMap readVarsS xs ++ readVarsT y
+readVarsB :: AsmBlock -> [String]
+readVarsB (AsmBlock xs y) = concatMap readVarsS xs ++ readVarsT y
 
 readVarsT :: TermStmt -> [String]
 readVarsT (NodeReturn _ xs)     = readVarsN xs
