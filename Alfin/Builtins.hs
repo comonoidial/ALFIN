@@ -7,7 +7,7 @@ data FunKind
   = RealFun ShapeType
   | FixFun ShapeType
   | PrimFun String
-  | SelFun (String, String) Int  -- ConName, index
+  | SelFun QName Int  -- ConName, index
   | IdFun
   | PrimOp ShapeType
   | CmpFun
@@ -33,16 +33,16 @@ baseData =
 defaultPrimBox :: String -> CName
 defaultPrimBox "Int" = CName "GHCziTypes.Izh"
 
-boxConstrs :: [ConName]
+boxConstrs :: [QName]
 boxConstrs =
   [("GHCziTypes","Izh")
   ]
 
-isUnboxTupleCon :: ConName -> Bool
+isUnboxTupleCon :: QName -> Bool
 isUnboxTupleCon ("GHCziPrim", ('Z':_:'H':[])) = True
 isUnboxTupleCon _                             = False
 
-baseFuns :: [(FunName, ([ShapeType], FunKind))]
+baseFuns :: [(QName, ([ShapeType], FunKind))]
 baseFuns =
   [(("GHCziPrim","zlzh"), ([PType "Int", PType "Int"], CmpFun))
   ,(("GHCziPrim","zlzezh"), ([PType "Int", PType "Int"], CmpFun))
@@ -62,7 +62,7 @@ baseFuns =
   ,(("GHCziList","badHead"), ([], ErrFun 4))
   ]
 
-compareFuns :: [FunName]
+compareFuns :: [QName]
 compareFuns = map fst $ filter ((==CmpFun) . snd . snd) baseFuns
 
 boxIntTag :: AsmTag
@@ -71,7 +71,7 @@ boxIntTag = BoxCon (CName "GHCziTypes.Izh")
 boxIntResult :: String -> (CallResultRef, Maybe (AsmTag, [Parameter], FetchHint))
 boxIntResult x = (dummyResultRef, Just (boxIntTag, [pp x], Nothing))
 
-builtinPrimOps :: [((FunName, ([ShapeType], FunKind)), Function)]
+builtinPrimOps :: [((QName, ([ShapeType], FunKind)), Function)]
 builtinPrimOps =
   [((("GHCziBase","unpackCStringzh"), ([RefType], RealFun RefType)),
     Function (FName "GHCziBase.unpackCStringzh") Nothing (Just 0) [rp "x"] (AsmBlock [] (TailCall (EvalRef (rv "x")) [])))

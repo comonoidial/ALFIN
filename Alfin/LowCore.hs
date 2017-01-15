@@ -2,15 +2,13 @@ module Alfin.LowCore where
 
 data LCModule = LCModule String [DataDef] [FunDef]
 
-data DataDef = DataDef TCName [(ConName, [ShapeType])]
+data DataDef = DataDef QName [(QName, [ShapeType])]
 
-data FunDef = FunDef FunName [VarDef] ShapeType TopExp
+data FunDef = FunDef QName [VarDef] ShapeType TopExp
 
 type VarDef = (String, ShapeType)
 
-type FunName = (String, String)
-type ConName = (String, String)
-type TCName = (String, String)
+type QName = (String, String)
 
 data ShapeType
   = RefType
@@ -20,22 +18,22 @@ data ShapeType
 data TopExp
   = SimpleExp SimpleExp
   | SLet VarDef SimpleExp TopExp
-  | Let FunName [VarDef] ShapeType TopExp TopExp
-  | LetRec FunName String [VarDef] ShapeType TopExp TopExp
-  | Case String SimpleExp ShapeType [Alternative]
+  | LetExp QName [VarDef] ShapeType TopExp TopExp
+  | LetRec QName String [VarDef] ShapeType TopExp TopExp
+  | CaseExp String SimpleExp ShapeType [Alternative]
 
 data Alternative
-  = ConAlt ConName [VarDef] TopExp
+  = ConAlt QName [VarDef] TopExp
   | IntAlt Int TopExp
   | DefAlt TopExp
 
 data SimpleExp
-  = Var String
-  | Lit Literal
-  | FunVal FunName [SimpleExp]
-  | Con ConName [SimpleExp]
-  | Apply SimpleExp [SimpleExp]
-  | Selector ConName Int SimpleExp
+  = VarExp String
+  | LitExp Literal
+  | FunVal QName [SimpleExp]
+  | ConExp QName [SimpleExp]
+  | ApplyExp SimpleExp [SimpleExp]
+  | Selector QName Int SimpleExp
 
 data Literal
   = IntLit Int
@@ -53,9 +51,9 @@ instance Show FunDef where
 instance Show TopExp where
   show (SimpleExp e)             = show e
   show (SLet n x e)              = "%var " ++ fst n ++ " = " ++ showNestedExp x ++ " %in " ++ show e
-  show (Let (m,f) as _ x e)      = "%let " ++ m ++ "." ++ f ++ concatMap ((" " ++) . fst) as ++ " = " ++ show x ++ " %in\n" ++ show e
+  show (LetExp (m,f) as _ x e)   = "%let " ++ m ++ "." ++ f ++ concatMap ((" " ++) . fst) as ++ " = " ++ show x ++ " %in\n" ++ show e
   show (LetRec (m,f) r as _ x e) = "%letrec " ++ m ++ "." ++ f ++ " " ++ r ++ concatMap ((" " ++) . fst) as ++ " = " ++ show x ++ " %in\n" ++ show e
-  show (Case s e t xs)           = "%case " ++ s ++ " <- " ++ showNestedExp e ++ " " ++ show t ++ " %of {" ++ concatMap (("\n    " ++) . show) xs ++ "\n}"
+  show (CaseExp s e t xs)        = "%case " ++ s ++ " <- " ++ showNestedExp e ++ " " ++ show t ++ " %of {" ++ concatMap (("\n    " ++) . show) xs ++ "\n}"
 
 instance Show Alternative where
   show (ConAlt c xs e) = snd c ++ concatMap ((" " ++) . fst) xs ++ " -> " ++ show e
@@ -63,19 +61,19 @@ instance Show Alternative where
   show (DefAlt e) = "_ -> " ++ show e
   
 instance Show SimpleExp where
-  show (Var n)           = n
-  show (Lit x)           = show x
+  show (VarExp n)        = n
+  show (LitExp x)        = show x
   show (FunVal (m,f) xs) = m ++ "." ++ f ++ concatMap ((" " ++) . showNestedExp) xs
-  show (Con (m,c) xs)    = m ++ "." ++ c ++ concatMap ((" " ++) . showNestedExp) xs
-  show (Apply f xs)      = showNestedExp f ++ concatMap ((" " ++) . showNestedExp) xs
+  show (ConExp (m,c) xs) = m ++ "." ++ c ++ concatMap ((" " ++) . showNestedExp) xs
+  show (ApplyExp f xs)    = showNestedExp f ++ concatMap ((" " ++) . showNestedExp) xs
   show (Selector _ n x)  = "sel_#" ++ show n ++ " " ++ showNestedExp x
   
 showNestedExp :: SimpleExp -> String
-showNestedExp (Var n)           = n
-showNestedExp (Lit x)           = show x
+showNestedExp (VarExp n)        = n
+showNestedExp (LitExp x)        = show x
 showNestedExp (FunVal (m,f) []) = m ++ "." ++ f
-showNestedExp (Con (m,c) [])    = m ++ "." ++ c
-showNestedExp (Apply f [])      = show f
+showNestedExp (ConExp (m,c) []) = m ++ "." ++ c
+showNestedExp (ApplyExp f [])   = show f
 showNestedExp e                 = "(" ++ show e ++ ")"
 
 instance Show Literal where

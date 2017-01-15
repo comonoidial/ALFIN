@@ -31,7 +31,7 @@ data Pattern
 data Expression
   = Store NodeTag [Variable]     -- storing a node on the heap, producing a reference
   | StringConst String           -- just an alternative for a large sequence of simple stores
-  | PrimOp Operator [Variable]   -- unary or binary primitive operation
+  | PrimOper Operator [Variable]   -- unary or binary primitive operation
   | Constant Int                 -- just a constant
   deriving Eq
 
@@ -130,7 +130,7 @@ showAlt is (ConPat ms t vs, b) = "\n   " ++ is ++ maybe "" ((++"@") . show) ms +
 instance Show Expression where
   show (Store t vs)    = "%STORE " ++ show t ++ showVars vs
   show (StringConst s) = show s
-  show (PrimOp p xs)   = show p ++ showVars xs
+  show (PrimOper p xs) = show p ++ showVars xs
   show (Constant i)    = show i
 
 instance Show CallExpr where
