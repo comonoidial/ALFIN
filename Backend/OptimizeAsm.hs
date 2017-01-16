@@ -1,4 +1,4 @@
-module Alfin.OptimizeAsm (preOptimMod, optimMod, substBlock, readVarsB, readVarsCCC, whnfTag) where
+module Backend.OptimizeAsm (preOptimMod, optimMod, substBlock, readVarsB, readVarsCCC, whnfTag) where
 
 import Data.Either
 import Data.List (lookup, elemIndex)
@@ -6,7 +6,7 @@ import Data.Map (Map, fromList, (!))
 import Data.Maybe (fromMaybe, catMaybes, listToMaybe)
 import Debug.Trace
 
-import Alfin.AsmLang
+import Backend.AsmLang
 
 preOptimMod :: String -> AsmModule -> AsmModule
 preOptimMod main (AsmModule m ds fs) = AsmModule m ds fs'' where

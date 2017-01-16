@@ -12,10 +12,10 @@ import Control.Lens ((.~))
 
 import Alfin.CoreConvert (convertMod, cleanMod)
 import Alfin.CoreLowering (lowerMod)
-import Alfin.CoreToAsm (c2aMod)
-import Alfin.ReduceArity (reduceArity)
-import Alfin.OptimizeAsm (optimMod, preOptimMod)
-import Alfin.Assemble
+import Backend.CoreToAsm (c2aMod)
+import Backend.ReduceArity (reduceArity)
+import Backend.OptimizeAsm (optimMod, preOptimMod)
+import Backend.Assemble
 import Simulate.ProcDefs
 import Simulate.CleanEval
 import Simulate.DetailEval

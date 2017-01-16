@@ -1,4 +1,4 @@
-module Alfin.AsmLang where
+module Backend.AsmLang where
 
 data AsmModule = AsmModule String [DataType] [Function]
 

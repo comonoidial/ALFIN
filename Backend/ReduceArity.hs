@@ -1,10 +1,10 @@
-module Alfin.ReduceArity (reduceArity) where
+module Backend.ReduceArity (reduceArity) where
 
 import Control.Monad.State
 import Data.List
 import Data.Traversable (traverse)
 
-import Alfin.AsmLang
+import Backend.AsmLang
 
 maxArity :: Int
 maxArity = 7

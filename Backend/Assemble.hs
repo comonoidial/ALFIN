@@ -1,4 +1,4 @@
-module Alfin.Assemble where
+module Backend.Assemble where
 
 import Data.List (elemIndex, findIndex, dropWhile, mapAccumL, delete, (\\), nub, sortBy)
 import Data.Maybe (fromJust, fromMaybe, catMaybes, isJust, isNothing, maybeToList)
@@ -11,8 +11,8 @@ import Data.Word (Word32)
 import Control.Monad.State
 import Control.Arrow (first)
 
-import Alfin.AsmLang
-import Alfin.OptimizeAsm
+import Backend.AsmLang
+import Backend.OptimizeAsm
 import Simulate.ProcDefs
 
 import Debug.Trace

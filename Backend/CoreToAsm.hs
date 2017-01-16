@@ -1,4 +1,4 @@
-module Alfin.CoreToAsm where
+module Backend.CoreToAsm where
 
 import Control.Monad.State
 import Data.List (lookup, partition)
@@ -6,9 +6,9 @@ import Data.Maybe (fromMaybe)
 import Debug.Trace (trace)
 
 import Alfin.LowCore
-import Alfin.AsmLang
-import Alfin.OptimizeAsm (preOptimMod, substBlock)
-import Alfin.Builtins
+import Backend.AsmLang
+import Backend.OptimizeAsm (preOptimMod, substBlock)
+import Backend.Builtins
 
 type Context a = State ([(QName, ([ShapeType], FunKind))], [(QName, Int)], [VarDef], Int) a
 

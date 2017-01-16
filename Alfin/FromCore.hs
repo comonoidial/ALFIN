@@ -73,29 +73,29 @@ c2aFix f r xs rt e = do
   return (Definition (fName f) (Just r) (buildParams xs) b : fs)
 
 c2aTopExp :: [Statement] -> ShapeType -> TopExp -> Context ([Definition], Block)
-c2aTopExp xs (PType pt) (SimpleExp (VarExp x)         ) = return ([], Block xs (Return (Box $ defaultPrimBox pt) [Right $ pv x]))
+c2aTopExp xs (PType pt) (SimpleExp (VarExp x)         ) = return ([], Block xs (Return (Box $ defaultPrimBox pt) [pv x]))
 c2aTopExp xs (PType pt) (SimpleExp (LitExp (IntLit i))) = do
   x <- newName "i"
-  return ([], Block (xs ++ [x := Constant i]) (Return (Box $ defaultPrimBox pt) [Right $ pv x]))
+  return ([], Block (xs ++ [x := Constant i]) (Return (Box $ defaultPrimBox pt) [pv x]))
 c2aTopExp xs (PType pt) (SimpleExp (FunVal f ys)) = do
   fk <- gets (fromMaybe (error ("lookup Fun " ++ show f)) . lookup f . (\(fs,_,_,_) -> fs))
   case (snd fk) of
     ErrFun e -> do
       x <- newName "n"
       y <- newName "e"
-      return ([], Block (xs ++ [x := Constant e, y := Store (Box (ConName ".ErrorCode")) [pa x]]) (Throw (rv y)))
-    PrimOp (PType _) -> do
+      return ([], Block (xs ++ [x := Constant e, y := Store (Box (ConName ".ErrorCode")) [pv x]]) (Throw (rv y)))
+    PrimFun (PType _) -> do
       ys' <- mapM c2aArgument ys
       let as = buildArgs (map snd ys')
       case as of
         [Right n] -> do
           x <- newName "y"
-          return ([], Block (xs ++ concatMap fst ys' ++ [x := PrimOper (Operator (snd f)) n Nothing]) (Return (Box $ defaultPrimBox pt) [Right $ pv x]))
+          return ([], Block (xs ++ concatMap fst ys' ++ [x := PrimOper (Operator (snd f)) n Nothing]) (Return (Box $ defaultPrimBox pt) [pv x]))
         [Right n, Right m] -> do
           x <- newName "y"
-          return ([], Block (xs ++ concatMap fst ys' ++ [x := PrimOper (Operator (snd f)) n (Just m)]) (Return (Box $ defaultPrimBox pt) [Right $ pv x]))
+          return ([], Block (xs ++ concatMap fst ys' ++ [x := PrimOper (Operator (snd f)) n (Just m)]) (Return (Box $ defaultPrimBox pt) [pv x]))
         _ -> error ("todo IntK c2aTopExp" ++ show as)
-    PrimFun _ -> do
+    UnboxFun _ -> do
       ys' <- mapM c2aArgument ys
       let as = buildArgs $ map snd ys'
       return ([], Block (xs ++ concatMap fst ys') (Jump (Call (fName f) as) []))
@@ -112,7 +112,7 @@ c2aTopExp xs RefType (SimpleExp (FunVal f ys)) = do
     ErrFun e -> do
       x <- newName "n"
       y <- newName "e"
-      return ([], Block (xs ++ [x := Constant e, y := Store (Box (ConName ".ErrorCode")) [pa x]]) (Throw y))
+      return ([], Block (xs ++ [x := Constant e, y := Store (Box (ConName ".ErrorCode")) [pv x]]) (Throw y))
     SelFun c i -> do
       case ys of
         []  -> return ([], Block xs (Return (PSel (cName c) i) []))
@@ -166,11 +166,11 @@ c2aTopExp xs rt (LetRec f r as t x e) = do
 c2aTopExp xs rt (CaseExp sr e t@(PType _) [DefAlt d, IntAlt i x]) = do
   (ys, v) <- c2aArgument e
   c <- newName "c"
-  let (s,lv) = ([(sr, Right $ PrimVar $ fst v)], [(sr,t)])
+  let (s,lv) = ([(sr, pv $ fst v)], [(sr,t)])
   d' <- withLocalVars lv $ c2aTopExp [] rt d
   x' <- withLocalVars lv $ c2aTopExp [] rt x
   n <- newName "i"
-  return (fst d' ++ fst x', Block (xs ++ ys ++ [n :<~: Constant i, c :<-?: RunCmpOp (Operator "zezezh") (PrimVar $ fst v) (PrimVar n)]) (Cond c (substBlock s $ snd x') (substBlock s $ snd d')))
+  return (fst d' ++ fst x', Block (xs ++ ys ++ [n :<= Constant i, c :<-?: RunCmpOp (Operator "zezezh") (pv $ fst v) (pv n)]) (Cond c (substBlock s $ snd x') (substBlock s $ snd d')))
 c2aTopExp xs rt (CaseExp sr x t [ConAlt cn vs e]) = do
   (ys,c,cc) <- c2aCallingExp x
   (fs, Block zs z) <- withLocalVars ((sr,t) : vs) $ c2aTopExp [] rt e
@@ -182,7 +182,7 @@ c2aTopExp xs rt (CaseExp _ (FunVal f [a,b]) _ [ConAlt _ [] e, ConAlt _ [] t]) | 
   c <- newName "c"
   e' <- c2aTopExp [] rt e
   t' <- c2aTopExp [] rt t
-  return (fst e' ++ fst t', Block (xs ++ fst a' ++ fst b' ++ [c :<-?: RunCmpOp (Operator (snd f)) (PrimVar $ fst $ snd a') (PrimVar $ fst $ snd b')]) (Cond c (snd t') (snd e')))
+  return (fst e' ++ fst t', Block (xs ++ fst a' ++ fst b' ++ [c :<-?: RunCmpOp (Operator (snd f)) (pv $ fst $ snd a') (pv $ fst $ snd b')]) (Cond c (snd t') (snd e')))
 c2aTopExp xs rt (CaseExp sr e t [DefAlt d]) = do
   (ys, c, cc) <- c2aCallingExp e
   (fs, Block zs z) <- withLocalVars [(sr,t)] $ c2aTopExp [] rt d
@@ -198,7 +198,7 @@ c2aTopExp xs rt (CaseExp sr e t as) = do
   return (concatMap fst bs, Block (xs ++ ys) (Case c cc (Left sr) Nothing (map snd bs)))
 c2aTopExp _ rt x = error ("c2aTopExp " ++ show rt ++ " " ++ show x)
 
-c2aAlt :: ShapeType -> Alternative -> Context ([Function], (ConName, [Variable], Block))
+c2aAlt :: ShapeType -> Alternative -> Context ([Definition], (ConName, [Variable], Block))
 c2aAlt rt (ConAlt c xs e) = do
   (fs,b) <- withLocalVars xs (c2aTopExp [] rt e)
   (Con d, ys) <- buildConNode c xs
@@ -211,18 +211,18 @@ c2aPrimExp n (LitExp (IntLit i)) = return [n := Constant i]
 c2aPrimExp n (FunVal f xs) = do
   fk <- gets (fromMaybe (error ("lookup Fun " ++ show f)) . lookup f . (\(fs,_,_,_) -> fs))
   case (snd fk) of
-    PrimFun pt -> do
+    UnboxFun pt -> do
       ys' <- mapM c2aArgument xs
       let as = buildArgs $ map snd ys'
-      return (concatMap fst ys' ++ [(dummyResultRef, Just (Box (defaultPrimBox pt), [pp n], Nothing)) :<=: (Call (fName f) as, [])])
-    PrimOp (PType _) -> do
+      return (concatMap fst ys' ++ [(dummyResultRef, Just (Box (defaultPrimBox pt), [pv n], Nothing)) :<=: (Call (fName f) as, [])])
+    PrimFun (PType _) -> do
       ys' <- mapM c2aArgument xs
       let as = buildArgs (map snd ys')
       case as of
         [Right a] -> do
-          return (concatMap fst ys' ++ [n :<~: PrimOp (Operator (snd f)) [a]])
+          return (concatMap fst ys' ++ [n := PrimOper (Operator (snd f)) [a]])
         [Right a, Right b] -> do
-          return (concatMap fst ys' ++ [n :<~: PrimOp (Operator (snd f)) [a, b]])
+          return (concatMap fst ys' ++ [n := PrimOper (Operator (snd f)) [a, b]])
         _ -> error ("todo IntK c2aPrimExp" ++ show as)
     x -> error ("c2aPrimExp " ++ show f ++ " " ++ show x)
 c2aPrimExp n x = error ("todo c2aPrimExp " ++ show n ++ "  " ++ show x)
@@ -264,10 +264,10 @@ c2aArgument (VarExp x) = do
   return ([], (x, type2Kind t))
 c2aArgument (LitExp (IntLit i)) = do
   x <- newName "i"
-  return ([x :<~: Constant i], (x, Prim))
+  return ([x := Constant i], (x, Prim))
 c2aArgument (LitExp (StringLit s)) = do
   x <- newName "i"
-  return ([x :<-: StringConst s], (x, Ref))
+  return ([x := StringConst s], (x, Ref))
 c2aArgument (Con c xs) = do
   xs' <- mapM c2aArgument xs
   (t, as) <- buildConNodeArg c (map snd xs')
@@ -278,7 +278,7 @@ c2aArgument (FunVal f xs) = do
   let na = length (fst fk)
   ys' <- mapM c2aArgument xs
   case (snd fk) of
-    PrimOp (PType _) -> do
+    PrimFun (PType _) -> do
       let as = buildArgs (map snd ys')
       case as of
         [Right n] -> do
@@ -288,10 +288,10 @@ c2aArgument (FunVal f xs) = do
           x <- newName "y"
           return (concatMap fst ys' ++ [x := PrimOper (Operator (snd f)) [n m]], (x, Prim))
         _ -> error "todo IntK c2aArgument"
-    PrimFun pt -> do
+    UnboxFun pt -> do
       x <- newName "z"
       let as = buildArgs $ map snd ys'
-      return (concatMap fst ys' ++ [(dummyResultRef, Just (Box (defaultPrimBox pt), [pp x], Nothing)) :<=: (Call (fName f) as, [])], (x,Prim))
+      return (concatMap fst ys' ++ [(dummyResultRef, Just (Box (defaultPrimBox pt), [pv x], Nothing)) :<=: (Call (fName f) as, [])], (x,Prim))
     RealFun _ -> do
       let as = buildArgs (map snd ys')
       case compare (length as) na of
@@ -304,7 +304,7 @@ c2aArgument (FunVal f xs) = do
         GT -> do
           x <- newName "f"
           y <- newName "oa"
-          return (concatMap fst ys' ++ [x := Store (Fun (fName f)) (take na as), y := Store (ApN (length as - na)) (ra x : drop na as)], (y, Ref))
+          return (concatMap fst ys' ++ [x := Store (Fun (fName f)) (take na as), y := Store (ApN (length as - na)) (rv x : drop na as)], (y, Ref))
     IdFun -> do
       x <- newName "i"
       let as = buildArgs (map snd ys')
