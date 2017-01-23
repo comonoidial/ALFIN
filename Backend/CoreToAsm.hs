@@ -211,10 +211,6 @@ c2aPrimExp n (LitExp (IntLit i)) = return [n :<~: Constant i]
 c2aPrimExp n (FunVal f xs) = do
   fk <- gets (fromMaybe (error ("lookup Fun " ++ show f)) . lookup f . (\(fs,_,_,_) -> fs))
   case (snd fk) of
-    PrimFun pt -> do
-      ys' <- mapM c2aArgument xs
-      let as = buildArgs $ map snd ys'
-      return (concatMap fst ys' ++ [(dummyResultRef, Just (BoxCon (defaultPrimBox pt), [pp n], Nothing)) :<=: (Run_Fun (FName (fst f ++ "." ++ snd f)) as, [])])
     PrimOp (PType _) -> do
       ys' <- mapM c2aArgument xs
       let as = buildArgs (map snd ys')
@@ -347,6 +343,8 @@ c2aCallingExp (FunVal f xs) = do
       case compare (length as) na of
         EQ -> return (concatMap fst ys', Run_Fix (FName (fst f ++ "." ++ snd f)) as, [])
         _  -> error "FixFun with wrong number of arguments"
+    -- workaround for dealing with unboxed result functions in a case
+    PrimFun _ | length as == na -> return (concatMap fst ys', Run_Fun (FName (fst f ++ "." ++ snd f)) as          , [])
     _ -> error ("c2aCallingExp " ++ show f ++ " " ++ show ft)
 c2aCallingExp (ApplyExp f xs) = do
   (ys, c, cc) <- c2aCallingExp f

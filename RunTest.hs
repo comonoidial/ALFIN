@@ -12,6 +12,8 @@ import Control.Lens ((.~))
 
 import Alfin.CoreConvert (convertMod, cleanMod)
 import Alfin.CoreLowering (lowerMod)
+import Alfin.FromCore (fromCoreMod)
+import Alfin.Optimize (preOptimM)
 import Backend.CoreToAsm (c2aMod)
 import Backend.ReduceArity (reduceArity)
 import Backend.OptimizeAsm (optimMod, preOptimMod)
@@ -39,6 +41,14 @@ testLower (m,_) = do
   case p of
     Left e -> putStrLn $ show e
     Right m -> putStrLn $ show $ lowerMod $ cleanMod $ convertMod m
+
+testAlfin :: TestCase -> IO ()
+testAlfin (m,(f,_)) = do
+  xs <- L.readFile m
+  let p = parseModule "Test" xs
+  case p of
+    Left e -> putStrLn $ show e
+    Right m -> putStrLn $ show $ preOptimM f $ fromCoreMod $ lowerMod $ cleanMod $ convertMod m
 
 -- shows a testcase converted to pilgrim assembly
 testAsm :: TestCase -> IO ()

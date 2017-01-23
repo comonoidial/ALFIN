@@ -29,6 +29,9 @@ lowerData (SCNewType) = error "uneliminated newtype"
 lowerData (SCData (TypeCon m n) _ cs) = DataDef (lowerM m, n) (map lowerCon cs)
   where lowerCon (SCConstr cm cn ts) = ((lowerM cm, cn), map lowerType ts)
 
+primBoxCon :: ShapeType -> QName
+primBoxCon (PType "Int") = ("GHCziTypes","Izh")
+
 lowerFun :: SCTopDef -> NameGen [FunDef]
 lowerFun (SCTopDef m f as (rt, e)) = do
   let vs = map (fmap lowerType) as
@@ -51,9 +54,11 @@ lowerTopExp tfs (SCApply f xs) = do
 lowerTopExp tfs (SCCase e (v, t) rt as) =
   case (lowerType t, as) of
     (pt@(PType _), [SCDefault x]) -> do
+       cv <- newName v
        y <- lowerTopExp ((v, pt) : tfs) x
        e' <- lowerSubExp tfs e
-       return (fst e' ++ fst y, foldr id (SLet (v, pt) (snd $ snd e') (snd y)) (fst $ snd e'))
+       let box = primBoxCon pt
+       return (fst e' ++ fst y, foldr id (CaseExp cv (snd $ snd e') RefType [ConAlt box [(v,pt)] (snd y)]) (fst $ snd e'))
     (s, xs) -> do 
       ys <- mapM (lowerAlt ((v, s) : tfs)) xs
       e' <- lowerSubExp tfs e

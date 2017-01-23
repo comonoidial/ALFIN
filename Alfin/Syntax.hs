@@ -6,7 +6,7 @@ data TypeCon = TypeCon String [DataCon]
 
 type DataCon = (ConName, [Kind])
 
-data Kind = Ref | Prim deriving (Show, Eq)
+data Kind = Ref | Word | Bool deriving (Show, Eq)
 
 data Definition = Definition FunName (Maybe RefVar) [Variable] Block
 
@@ -31,7 +31,7 @@ data Pattern
 data Expression
   = Store NodeTag [Variable]     -- storing a node on the heap, producing a reference
   | StringConst String           -- just an alternative for a large sequence of simple stores
-  | PrimOper Operator [Variable]   -- unary or binary primitive operation
+  | PrimOp Operator [Variable]   -- unary or binary primitive operation
   | Constant Int                 -- just a constant
   deriving Eq
 
@@ -110,32 +110,37 @@ instance Show Statement where
 
 instance Show Variable where
   show (Var Ref  x) = x
-  show (Var Prim x) = x ++ "#"
+  show (Var Word x) = x ++ "#"
+  show (Var Bool x) = x ++ "?"
 
 showVars :: [Variable] -> String
 showVars = concatMap ((" "++) . show)
 
 showTerm :: String -> Terminator -> String
-showTerm _  (Return t xs)  = "%RETURN " ++ show t ++ showVars xs
-showTerm _  (Jump c cc)    = "%JUMP " ++ show c ++ concatMap ((", " ++) . show) cc
-showTerm is (Cond c x y)   = "%IF " ++ c ++ "?\n " ++ is ++ "%THEN" ++ showBlock (is ++ "    ") x ++ "\n " ++ is ++ "%ELSE" ++ showBlock (is ++ "    ") y
-showTerm is (Case c cc xs) = "%CASE " ++ show c ++ concatMap ((", " ++) . show) cc ++ concatMap (showAlt is) xs
-showTerm _  (Throw x)      = "%THROW " ++ show x  
+showTerm _  (Return t xs)       = "%RETURN " ++ show t ++ showVars xs
+showTerm _  (Jump c cc)         = "%JUMP " ++ show c ++ concatMap ((", " ++) . show) cc
+showTerm is (Cond c x y)        = "%IF " ++ c ++ "?\n " ++ is ++ "%THEN" ++ showBlock (is ++ "    ") x ++ "\n " ++ is ++ "%ELSE" ++ showBlock (is ++ "    ") y
+showTerm is (Case c cc [(p,b)]) = show p ++ " <= " ++ show c ++ concatMap ((", " ++) . show) cc ++ showBlock is b
+showTerm is (Case c cc xs)      = "%CASE " ++ show c ++ concatMap ((", " ++) . show) cc ++ concatMap (showAlt is) xs
+showTerm _  (Throw x)           = "%THROW " ++ show x  
 
 showAlt :: String -> (Pattern, Block) -> String
-showAlt is (Default x     , b) = "\n   " ++ is ++ "def " ++ show x ++ "-> " ++ showBlock (is ++ "      ") b
-showAlt is (IntPat i      , b) = "\n   " ++ is ++ show i ++ "-> " ++ showBlock (is ++ "      ") b
-showAlt is (ConPat ms t vs, b) = "\n   " ++ is ++ maybe "" ((++"@") . show) ms ++ "C:" ++ show t ++ showVars vs ++ " ->" ++ showBlock (is ++ "      ") b
+showAlt is (p, b) = "\n   " ++ is ++ show p ++ " -> " ++ showBlock (is ++ "      ") b
+
+instance Show Pattern where
+  show (Default x     ) = "def " ++ show x
+  show (IntPat i      ) = show i
+  show (ConPat ms t vs) = maybe "" ((++"@") . show) ms ++ "C:" ++ show t ++ showVars vs
 
 instance Show Expression where
   show (Store t vs)    = "%STORE " ++ show t ++ showVars vs
   show (StringConst s) = show s
-  show (PrimOper p xs) = show p ++ showVars xs
+  show (PrimOp p xs)   = show p ++ showVars xs
   show (Constant i)    = show i
 
 instance Show CallExpr where
-  show (Eval x)    = "%eval " ++ show x
-  show (Fetch x)   = "%load " ++ show x
+  show (Eval x)    = "%eval " ++ x
+  show (Fetch x)   = "%load " ++ x
   show (Call f vs) = {- "%fun " ++ -} show f ++ showVars vs
   show (Fix f vs)  = "%fix " ++ show f ++ showVars vs
   show (Receive)   = "%receive"
@@ -147,7 +152,10 @@ instance Show CallCont where
   show (Catch x    ) = "%catch " ++ show x
 
 pv :: String -> Variable
-pv = Var Prim
+pv = Var Word
 
 rv :: String -> Variable
 rv = Var Ref
+
+bv :: String -> Variable
+bv = Var Bool

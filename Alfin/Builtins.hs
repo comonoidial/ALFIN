@@ -66,72 +66,79 @@ compareFuns :: [QName]
 compareFuns = map fst $ filter ((==CmpFun) . snd . snd) baseFuns
 
 boxIntTag :: NodeTag
-boxIntTag = Box (ConName "GHCziTypes.Izh")
+boxIntTag = Con (ConName "GHCziTypes.Izh")
 
 --boxIntResult :: String -> (CallResultRef, Maybe (NodeTag, [Parameter], FetchHint))
 --boxIntResult x = (dummyResultRef, Just (boxIntTag, [pp x], Nothing))
+
+unBoxIntCase :: String -> CallExpr -> Block -> Block
+unBoxIntCase n cx b = Block [] (Case cx [] [(ConPat Nothing (ConName "GHCziTypes.Izh") [pv n] , b)])
 
 builtinPrimOps :: [((QName, ([ShapeType], FunKind)), Definition)]
 builtinPrimOps =
   [((("GHCziBase","unpackCStringzh"), ([RefType], RealFun RefType)),
     Definition (FunName "GHCziBase.unpackCStringzh") Nothing [rv "x"] (Block [] (Jump (Eval "x") [])))
- {-
   ,((("Flite","str"), ([RefType], RealFun RefType)),
-    Definition (FunName "Flite.str") Nothing [rv "ys"] (Block [] (Case (Eval (rv "ys")) [] (dummyResultRef) Nothing
-    [((ConName "GHCziTypes.ZMZN"), [], Nothing, Block [] (Return (Con (ConName "Flite.Nil")) []))
-    ,((ConName "GHCziTypes.ZC"), [rv "x", rv "xs"], Nothing, Block 
-      [(dummyResultRef, Just (Box (ConName "GHCziTypes.Czh"), [pv "c"], Nothing)) :<=: (Eval (rv "x"), [])
-      ,"z" :<-: Store (boxIntTag) [pv "c"]
-      ,"zs" :<-: Store (Fun $ FunName "Flite.str") [rv "xs"]
-      ] (Return (Con (ConName "Flite.Cons")) [rv "z", rv "zs"]))
-    ])))
+    Definition (FunName "Flite.str") Nothing [rv "ys"] (Block [] (Case (Eval "ys") [] 
+    [(ConPat Nothing (ConName "GHCziTypes.ZMZN") [], Block [] (Return (Con (ConName "Flite.Nil")) []))
+    ,(ConPat Nothing (ConName "GHCziTypes.ZC") [rv "x", rv "xs"], Block []
+      (Case (Eval "x") [] [(ConPat Nothing (ConName "GHCziTypes.Izh") [pv "c"], Block
+        [rv "z" := Store (boxIntTag) [pv "c"]
+        ,rv "zs" := Store (Fun $ FunName "Flite.str") [rv "xs"]
+        ] (Return (Con (ConName "Flite.Cons")) [rv "z", rv "zs"]))
+      ]))])))
   ,((("Flite","emit"), ([RefType, RefType], RealFun RefType)),
-   Definition (FName "Flite.emit") Nothing [rv "i", rv "k"] (Block
-     [boxIntResult "x" :<=: (Eval (rv "i"), [])
-     ,Send (Con (ConName "GHCziTypes.Czh")) [pv "x"]]
-     (Jump (Eval (rv "k")) [])
-    ))
+   Definition (FunName "Flite.emit") Nothing [rv "i", rv "k"] $
+     unBoxIntCase "x" (Eval "i") $ Block 
+       [Send (Con (ConName "GHCziTypes.Czh")) [pv "x"]]
+       (Jump (Eval "k") [])
+    )
   ,((("GHCziBase","plusInt"), ([RefType, RefType], RealFun RefType)),
-    Definition (FunName "GHCziBase.plusInt") Nothing [rv "a", rv "b"] (Block
-      [boxIntResult "x" :<=: (Eval (rv "a"), [])
-      ,boxIntResult "y" :<=: (Eval (rv "b"), [])
-      ,"z" :<~: RunPrimOp (Operator "zpzh") (pv "x") (Just $ pv "y")]
-      (Return boxIntTag [pv "z"]))
+    Definition (FunName "GHCziBase.plusInt") Nothing [rv "a", rv "b"] $
+      unBoxIntCase "x" (Eval "a") $
+      unBoxIntCase "y" (Eval "b") $ Block
+      [pv "z" := PrimOp (Operator "zpzh") [pv "x", pv "y"]]
+      (Return boxIntTag [pv "z"])
     )
   ,((("GHCziBase","minusInt"), ([RefType, RefType], RealFun RefType)),
-    Definition (FunName "GHCziBase.minusInt") Nothing [rv "a", rv "b"] (Block
-      [boxIntResult "x" :<=: (Eval (rv "a"), [])
-      ,boxIntResult "y" :<=: (Eval (rv "b"), [])
-      ,"z" :<~: RunPrimOp (Operator "zmzh") (pv "x") (Just $ pv "y")]
-      (Return boxIntTag [pv "z"]))
+    Definition (FunName "GHCziBase.minusInt") Nothing [rv "a", rv "b"] $
+      unBoxIntCase "x" (Eval "a") $
+      unBoxIntCase "y" (Eval "b") $ Block
+      [pv "z" := PrimOp (Operator "zmzh") [pv "x", pv "y"]]
+      (Return boxIntTag [pv "z"])
     )
   ,((("GHCziBase","timesInt"), ([RefType, RefType], RealFun RefType)),
-    Definition (FunName "GHCziBase.timesInt") Nothing [rv "a", rv "b"] (Block
-      [boxIntResult "x" :<=: (Eval (rv "a"), [])
-      ,boxIntResult "y" :<=: (Eval (rv "b"), [])
-      ,"z" :<~: RunPrimOp (Operator "ztzh") (pv "x") (Just $ pv "y")]
-      (Return boxIntTag [pv "z"]))
+    Definition (FunName "GHCziBase.timesInt") Nothing [rv "a", rv "b"] $
+      unBoxIntCase "x" (Eval "a") $
+      unBoxIntCase "y" (Eval "b") $ Block
+      [pv "z" := PrimOp (Operator "ztzh") [pv "x", pv "y"]]
+      (Return boxIntTag [pv "z"])
     )
   ,((("GHCziBase","eqInt"), ([RefType, RefType], RealFun RefType)),
-    Definition (FunName "GHCziBase.eqInt") Nothing [rv "a", rv "b"] (Block
-      [boxIntResult "x" :<=: (Eval (rv "a"), [])
-      ,boxIntResult "y" :<=: (Eval (rv "b"), [])
-      ,"z" :<-?: RunCmpOp (Operator "zezezh") (pv "x") (pv "y")]
-      (BoolReturn "z" (Con (ConName "GHCziBool.True")) (Con (ConName "GHCziBool.False"))))
+    Definition (FunName "GHCziBase.eqInt") Nothing [rv "a", rv "b"] $
+      unBoxIntCase "x" (Eval "a") $
+      unBoxIntCase "y" (Eval "b") $ Block
+      [bv "z" := PrimOp (Operator "zezezh") [pv "x", pv "y"]]
+      (Cond "z" 
+        (Block [] (Return (Con (ConName "GHCziBool.True" )) []))
+        (Block [] (Return (Con (ConName "GHCziBool.False")) [])))
     )
   ,((("GHCziBase","neInt"), ([RefType, RefType], RealFun RefType)),
-    Definition (FunName "GHCziBase.neInt") Nothing [rv "a", rv "b"] (Block
-      [boxIntResult "x" :<=: (Eval (rv "a"), [])
-      ,boxIntResult "y" :<=: (Eval (rv "b"), [])
-      ,"z" :<-?: RunCmpOp (Operator "zszezh") (pv "x") (pv "y")]
-      (BoolReturn "z" (Con (ConName "GHCziBool.True")) (Con (ConName "GHCziBool.False"))))
+    Definition (FunName "GHCziBase.neInt") Nothing [rv "a", rv "b"] $
+      unBoxIntCase "x" (Eval "a") $
+      unBoxIntCase "y" (Eval "b") $ Block
+      [bv "z" := PrimOp (Operator "zszezh") [pv "x", pv "y"]]
+      (Cond "z" 
+        (Block [] (Return (Con (ConName "GHCziBool.True" )) []))
+        (Block [] (Return (Con (ConName "GHCziBool.False")) [])))
     )
   ,((("GHCziBase","leInt"), ([RefType, RefType], RealFun RefType)),
-    Definition (FunName "GHCziBase.leInt") Nothing [rv "a", rv "b"] (Block
-      [boxIntResult "x" :<=: (Eval (rv "a"), [])
-      ,boxIntResult "y" :<=: (Eval (rv "b"), [])
-      ,"z" :<-?: RunCmpOp (Operator "zlzezh") (pv "x") (pv "y")]
-      (BoolReturn "z" (Con (ConName "GHCziBool.True")) (Con (ConName "GHCziBool.False"))))
+    Definition (FunName "GHCziBase.leInt") Nothing [rv "a", rv "b"] $
+      unBoxIntCase "x" (Eval "a") $
+      unBoxIntCase "y" (Eval "b") $ Block
+      [bv "z" := PrimOp (Operator "zlzezh") [pv "x", pv "y"]]
+      (Cond "z" 
+        (Block [] (Return (Con (ConName "GHCziBool.True" )) []))
+        (Block [] (Return (Con (ConName "GHCziBool.False")) [])))
     )
-  -}
   ]

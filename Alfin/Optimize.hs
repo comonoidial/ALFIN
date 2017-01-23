@@ -1,4 +1,4 @@
-module Alfin.Optimize (preOptimMod, substBlock) where
+module Alfin.Optimize (preOptimM, substBlock) where
 
 import Data.Either
 import Data.List (lookup, elemIndex)
@@ -8,8 +8,8 @@ import Debug.Trace
 
 import Alfin.Syntax
 
-preOptimMod :: String -> Module -> Module
-preOptimMod main (Module m ds fs) = Module m ds fs'' where
+preOptimM :: String -> Module -> Module
+preOptimM main (Module m ds fs) = Module m ds fs'' where
   fs' = map preOptimFun fs
   rfs = transReachFun [FunName (m ++ "." ++ main)] (fromList $ map reachableFuns fs')
   fs'' = filter (\(Definition f _ _ _) -> f `elem` rfs) fs'
@@ -123,7 +123,7 @@ substBlock s (Block xs y) = Block (map (substStmt s) xs) (substTerm s y)
 substStmt :: [VarSubst] -> Statement -> Statement
 substStmt s (x := (Store t n))     = x := (Store t (substNode s n))
 substStmt s (x := (StringConst n)) = x := (StringConst n)
-substStmt s (x := (PrimOper f xs)) = x := (PrimOper f (substNode s xs))
+substStmt s (x := (PrimOp f xs))   = x := (PrimOp f (substNode s xs))
 substStmt _ (x := (Constant i))    = x := (Constant i)
 substStmt s (Send t n)             = Send t (substNode s n)
 
@@ -174,7 +174,7 @@ readVarsT (Throw x)      = [x]
 readVarsS :: Statement -> [String]
 readVarsS (_ := (Store _ n))     = readVarsN n
 readVarsS (_ := (StringConst _)) = []
-readVarsS (_ := (PrimOper _ xs)) = readVarsN xs
+readVarsS (_ := (PrimOp _ xs))   = readVarsN xs
 readVarsS (_ := (Constant _))    = []
 readVarsS (Send _ n)             = readVarsN n
 
