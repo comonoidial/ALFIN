@@ -6,9 +6,8 @@ import Alfin.LowCore
 data FunKind
   = RealFun ShapeType
   | FixFun ShapeType
-  | UnboxFun String   -- real function with unboxed type as result
+  | UnboxFun String   -- real function with unboxed primitive as result
   | SelFun QName Int  -- ConName, index
-  | IdFun
   | PrimFun ShapeType
   | CmpFun
   | ErrFun Int
@@ -30,17 +29,8 @@ baseData =
   ,DataDef ("", "(#3#)") [(("", "(#3#)"), [RefType, RefType, RefType])]
   ]
 
-defaultPrimBox :: String -> ConName
-defaultPrimBox "Int" = ConName "GHCziTypes.Izh"
-
-boxConstrs :: [QName]
-boxConstrs =
-  [("GHCziTypes","Izh")
-  ]
-
-isUnboxTupleCon :: QName -> Bool
-isUnboxTupleCon ("GHCziPrim", ('Z':_:'H':[])) = True
-isUnboxTupleCon _                             = False
+defaultPrimBox :: String -> NodeTag
+defaultPrimBox "Int" = Con (ConName "GHCziTypes.Izh")
 
 baseFuns :: [(QName, ([ShapeType], FunKind))]
 baseFuns =
@@ -67,9 +57,6 @@ compareFuns = map fst $ filter ((==CmpFun) . snd . snd) baseFuns
 
 boxIntTag :: NodeTag
 boxIntTag = Con (ConName "GHCziTypes.Izh")
-
---boxIntResult :: String -> (CallResultRef, Maybe (NodeTag, [Parameter], FetchHint))
---boxIntResult x = (dummyResultRef, Just (boxIntTag, [pp x], Nothing))
 
 unBoxIntCase :: String -> CallExpr -> Block -> Block
 unBoxIntCase n cx b = Block [] (Case cx [] [(ConPat Nothing (ConName "GHCziTypes.Izh") [pv n] , b)])

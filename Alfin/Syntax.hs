@@ -19,9 +19,9 @@ data Statement
 data Terminator
   = Return NodeTag [Variable]                    -- returning a node on the stack
   | Jump CallExpr [CallCont]                     -- tail call
-  | Cond BoolVar Block Block                     -- if then else statement
   | Case CallExpr [CallCont] [(Pattern, Block)]  -- case statement
   | Throw RefVar                                 -- error throwing statement
+  | Cond BoolVar Block Block                     -- if then else statement
 
 data Pattern
   = Default Variable
@@ -53,14 +53,11 @@ data CallCont
 data NodeTag 
   = Con ConName             -- fully applied constructor
   | Dec ConName ArgCount    -- partial constructor with number of missing args
-  | Box ConName             -- boxed primitive constructor
   | Fun FunName             -- fully applied function
   | Pap FunName ArgCount    -- partial function application with number of missing args
   | ApN Int                 -- unknown function application with number of application args
   | FSel ConName ElemIndex  -- selection as a function with index
   | PSel ConName ElemIndex  -- partial applied selection with index
-  | PId                     -- partial applied identity function
-  | UTuple                  -- unboxed tuple
   deriving Eq
 
 data Variable = Var Kind String deriving Eq
@@ -86,8 +83,7 @@ instance Show TypeCon where
   show (TypeCon tc cs) = "%DATA " ++ tc ++ "\n" ++ concatMap (\(c,x) -> "  " ++ show c ++ " " ++ show x ++ "\n") cs
 
 instance Show Definition where
-  show (Definition f Nothing [] c) = "%CAF " ++ show f ++ " =" ++ showBlock "   " c
-  show (Definition f mr      xs c) = "%FUN " ++ show f ++ maybe "" ("%fix " ++) mr ++ showVars xs ++ " =" ++ showBlock "   " c
+  show (Definition f mr  xs c) = "%DEF " ++ show f ++ maybe "" ("%fix " ++) mr ++ showVars xs ++ " =" ++ showBlock "   " c
 
 showBlock :: String -> Block -> String
 showBlock is (Block xs y) = concatMap (("\n" ++) . (is ++) . show) xs ++ "\n" ++ is ++ showTerm is y
@@ -95,18 +91,15 @@ showBlock is (Block xs y) = concatMap (("\n" ++) . (is ++) . show) xs ++ "\n" ++
 instance Show NodeTag where
   show (Con n)    = "C:" ++ show n
   show (Dec n a)  = "D"  ++ "-" ++ show a ++ ":" ++ show n
-  show (Box n)    = "B:" ++ show n
   show (Fun f)    = "F:" ++ show f
   show (Pap f a)  = "P" ++ "-" ++ show a ++":" ++ show f
   show (ApN n)     = "AP^" ++ show n
   show (FSel d i) = "FSEL~" ++ show d ++ "#" ++ show i
   show (PSel d i) = "PSEL~" ++ show d ++ "#" ++ show i
-  show (PId)      = "PID"
-  show (UTuple)    = "(#..#)"
 
 instance Show Statement where
   show (x  :=  e)  = show x ++ " <- " ++ show e
-  show (Send t vs) = "%SEND " ++ show t ++ showVars vs
+  show (Send t vs) = "SEND " ++ show t ++ showVars vs
 
 instance Show Variable where
   show (Var Ref  x) = x
@@ -117,12 +110,12 @@ showVars :: [Variable] -> String
 showVars = concatMap ((" "++) . show)
 
 showTerm :: String -> Terminator -> String
-showTerm _  (Return t xs)       = "%RETURN " ++ show t ++ showVars xs
-showTerm _  (Jump c cc)         = "%JUMP " ++ show c ++ concatMap ((", " ++) . show) cc
-showTerm is (Cond c x y)        = "%IF " ++ c ++ "?\n " ++ is ++ "%THEN" ++ showBlock (is ++ "    ") x ++ "\n " ++ is ++ "%ELSE" ++ showBlock (is ++ "    ") y
+showTerm _  (Return t xs)       = "RETURN " ++ show t ++ showVars xs
+showTerm _  (Jump c cc)         = "JUMP " ++ show c ++ concatMap ((", " ++) . show) cc
+showTerm is (Cond c x y)        = "IF " ++ c ++ "?\n " ++ is ++ "THEN" ++ showBlock (is ++ "    ") x ++ "\n " ++ is ++ "ELSE" ++ showBlock (is ++ "    ") y
 showTerm is (Case c cc [(p,b)]) = show p ++ " <= " ++ show c ++ concatMap ((", " ++) . show) cc ++ showBlock is b
-showTerm is (Case c cc xs)      = "%CASE " ++ show c ++ concatMap ((", " ++) . show) cc ++ concatMap (showAlt is) xs
-showTerm _  (Throw x)           = "%THROW " ++ show x  
+showTerm is (Case c cc xs)      = "CASE " ++ show c ++ concatMap ((", " ++) . show) cc ++ concatMap (showAlt is) xs
+showTerm _  (Throw x)           = "THROW " ++ show x  
 
 showAlt :: String -> (Pattern, Block) -> String
 showAlt is (p, b) = "\n   " ++ is ++ show p ++ " -> " ++ showBlock (is ++ "      ") b
@@ -133,23 +126,23 @@ instance Show Pattern where
   show (ConPat ms t vs) = maybe "" ((++"@") . show) ms ++ "C:" ++ show t ++ showVars vs
 
 instance Show Expression where
-  show (Store t vs)    = "%STORE " ++ show t ++ showVars vs
+  show (Store t vs)    = "STORE " ++ show t ++ showVars vs
   show (StringConst s) = show s
   show (PrimOp p xs)   = show p ++ showVars xs
   show (Constant i)    = show i
 
 instance Show CallExpr where
-  show (Eval x)    = "%eval " ++ x
-  show (Fetch x)   = "%load " ++ x
-  show (Call f vs) = {- "%fun " ++ -} show f ++ showVars vs
-  show (Fix f vs)  = "%fix " ++ show f ++ showVars vs
-  show (Receive)   = "%receive"
+  show (Eval x)    = "Eval " ++ x
+  show (Fetch x)   = "Load " ++ x
+  show (Call f vs) = show f ++ showVars vs
+  show (Fix f vs)  = "Fix " ++ show f ++ showVars vs
+  show (Receive)   = "Receive"
 
 instance Show CallCont where
-  show (Select d i ) = "%select " ++ show d ++ " #" ++ show i
-  show (Apply vs   ) = "%apply" ++ showVars vs
-  show (ApplyAll vs) = "%applyAll" ++ showVars vs
-  show (Catch x    ) = "%catch " ++ show x
+  show (Select d i ) = "Select " ++ show d ++ " #" ++ show i
+  show (Apply vs   ) = "Apply" ++ showVars vs
+  show (ApplyAll vs) = "ApplyAll" ++ showVars vs
+  show (Catch x    ) = "Catch " ++ show x
 
 pv :: String -> Variable
 pv = Var Word

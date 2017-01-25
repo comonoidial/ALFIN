@@ -28,10 +28,6 @@ withLocalVars vs a = do
   return x
 
 introFun :: QName -> [ShapeType] -> ShapeType -> TopExp -> Context ()
-introFun f [_] _ (SimpleExp (VarExp x)) = do
-  let fi = (f, ([RefType], IdFun)) 
-  (fs,cs,xs,n) <- get
-  put (fi:fs,cs,xs,n)
 introFun f [_] _ (SimpleExp (Selector c i (VarExp _))) = do
   let fi = (f, ([RefType], SelFun c i)) 
   (fs,cs,xs,n) <- get
@@ -53,7 +49,6 @@ fromCoreMod :: LCModule -> Module
 fromCoreMod (LCModule m xs ys) = Module m (map c2aData ds) (map snd builtinPrimOps ++ concat (evalState (mapM c2aFun ys) ct))
   where ct = (baseFuns ++ map fst builtinPrimOps ++ map c2aFD ys, concatMap c2aCD ds, [], 0)
         ds = baseData ++ xs
-        c2aFD (FunDef f [_] r (SimpleExp (VarExp _))) = (f, ([RefType], IdFun))
         c2aFD (FunDef f [_] r (SimpleExp (Selector c i (VarExp _)))) = (f, ([RefType], SelFun c i))
         c2aFD (FunDef f xs r _) = funInfo f (map snd xs) r
         c2aCD (DataDef _ cs) = map (fmap length) cs
@@ -73,29 +68,29 @@ c2aFix f r xs rt e = do
   return (Definition (fName f) (Just r) (buildParams xs) b : fs)
 
 c2aTopExp :: [Statement] -> ShapeType -> TopExp -> Context ([Definition], Block)
-c2aTopExp xs (PType pt) (SimpleExp (VarExp x)         ) = return ([], Block xs (Return (Box $ defaultPrimBox pt) [pv x]))
+c2aTopExp xs (PType pt) (SimpleExp (VarExp x)         ) = return ([], Block xs (Return (defaultPrimBox pt) [pv x]))
 c2aTopExp xs (PType pt) (SimpleExp (LitExp (IntLit i))) = do
   x <- newName "i"
-  return ([], Block (xs ++ [pv x := Constant i]) (Return (Box $ defaultPrimBox pt) [pv x]))
+  return ([], Block (xs ++ [pv x := Constant i]) (Return (defaultPrimBox pt) [pv x]))
 c2aTopExp xs (PType pt) (SimpleExp (FunVal f ys)) = do
   fk <- gets (fromMaybe (error ("lookup Fun " ++ show f)) . lookup f . (\(fs,_,_,_) -> fs))
   case (snd fk) of
     ErrFun e -> do
       x <- newName "n"
       y <- newName "e"
-      return ([], Block (xs ++ [pv x := Constant e, rv y := Store (Box (ConName ".ErrorCode")) [pv x]]) (Throw y))
+      return ([], Block (xs ++ [pv x := Constant e, rv y := Store (Con (ConName ".ErrorCode")) [pv x]]) (Throw y))
     PrimFun (PType _) -> do
       ys' <- mapM c2aArgument ys
       let as = buildArgs (map snd ys')
       x <- newName "y"
-      return ([], Block (xs ++ concatMap fst ys' ++ [pv x := PrimOp (Operator (snd f)) as]) (Return (Box $ defaultPrimBox pt) [pv x]))
+      return ([], Block (xs ++ concatMap fst ys' ++ [pv x := PrimOp (Operator (snd f)) as]) (Return (defaultPrimBox pt) [pv x]))
     UnboxFun _ -> do
       ys' <- mapM c2aArgument ys
       let as = buildArgs $ map snd ys'
       return ([], Block (xs ++ concatMap fst ys') (Jump (Call (fName f) as) []))
     RealFun _ | null ys -> return ([], Block xs (Jump (Call (fName f) []) [])) -- could be an error throwing CAF
     _ -> error $ show fk
-c2aTopExp xs RefType (SimpleExp (VarExp x)         ) = return ([], Block xs (Jump (Eval x) [])                          )
+c2aTopExp xs RefType (SimpleExp (VarExp x)   ) = return ([], Block xs (Jump (Eval x) [])                          )
 c2aTopExp xs RefType (SimpleExp (ConExp c ys)) = do
   ys' <- mapM c2aArgument ys
   (t, as) <- buildConNodeArg c (map snd ys')
@@ -106,7 +101,7 @@ c2aTopExp xs RefType (SimpleExp (FunVal f ys)) = do
     ErrFun e -> do
       x <- newName "n"
       y <- newName "e"
-      return ([], Block (xs ++ [pv x := Constant e, rv y := Store (Box (ConName ".ErrorCode")) [pv x]]) (Throw y))
+      return ([], Block (xs ++ [pv x := Constant e, rv y := Store (Con (ConName ".ErrorCode")) [pv x]]) (Throw y))
     SelFun c i -> do
       case ys of
         []  -> return ([], Block xs (Return (PSel (cName c) i) []))
@@ -269,12 +264,6 @@ c2aArgument (FunVal f xs) = do
           x <- newName "f"
           y <- newName "oa"
           return (concatMap fst ys' ++ [rv x := Store (Fun (fName f)) (take na as), rv y := Store (ApN (length as - na)) (rv x : drop na as)], (y, Ref))
-    IdFun -> do
-      x <- newName "i"
-      let as = buildArgs (map snd ys')
-      case as of
-        [] -> return ([rv x := Store PId []], (x, Ref))
-        _  -> error "TODO c2aArgument applied IdFun"
     SelFun c i -> do
       x <- newName "s"
       let as = buildArgs (map snd ys')
@@ -323,20 +312,14 @@ c2aCallingExp (Selector d i x) = do
   return (ys, c, cc ++ [Select (cName d) i])
 
 buildConNodeArg :: QName -> [(String,Kind)] -> Context (NodeTag, [Variable])
-buildConNodeArg c xs
-  | c `elem` boxConstrs = do
-    return (Box (cName c), buildArgs xs)
-  | isUnboxTupleCon c   = return (UTuple, buildArgs xs)
-  | otherwise           = do
+buildConNodeArg c xs = do
     n <- gets (fromMaybe (error ("lookup Con " ++ show c)) . lookup c . (\(_,cs,_,_) -> cs))
     if (n == length xs)
       then return (Con (cName c), buildArgs xs)
       else return (Dec (cName c) (n - length xs), buildArgs xs)
 
 buildConNode :: QName -> [VarDef] -> Context (NodeTag, [Variable])
-buildConNode c xs = do
-  n <- gets (fromMaybe (error ("lookup Con " ++ show c)) . lookup c . (\(_,cs,_,_) -> cs))
-  return (Con (cName c), buildParams xs)
+buildConNode c xs = return (Con (cName c), buildParams xs)
 
 type2Kind :: ShapeType -> Kind
 type2Kind (PType _) = Word

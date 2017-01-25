@@ -67,7 +67,10 @@ preOptimTerm ns vs (Cond c x y)      = Cond c (preOptimBlock ns vs x) (preOptimB
 preOptimTerm _  _  t                 = t
 
 preOptimAlt :: [KnownNode] -> (Pattern, Block) -> (Pattern, Block)
-preOptimAlt ns (ConPat (Just s) t xs, a) = (ConPat (Just s) t xs, preOptimBlock ((s, (Con t, xs)) : ns) [] a)  -- known constructor
+preOptimAlt ns (ConPat (Just s@(Var Ref v)) t xs, a)
+  | v `elem` readVarsB b = (ConPat (Just s) t xs, b)
+  | otherwise               = (ConPat Nothing t xs, b)
+  where b = preOptimBlock ((s, (Con t, xs)) : ns) [] a  -- known constructor
 preOptimAlt ns (p                   , a) = (p, preOptimBlock ns [] a)
 
 preOptimSequence :: [KnownNode] -> [ValueName] -> [VarSubst] -> [Statement] -> [Statement] -> ([Statement], [KnownNode], [ValueName], [VarSubst])
@@ -203,10 +206,8 @@ readVars (Var _ x) = [x]
 whnfTag :: NodeTag -> Bool
 whnfTag (Con _)    = True
 whnfTag (Dec _ _)  = True
-whnfTag (Box _)    = True
 whnfTag (Fun _)    = False
 whnfTag (Pap _ _)  = True
-whnfTag (ApN _)     = False
+whnfTag (ApN _)    = False
 whnfTag (FSel _ _) = False
 whnfTag (PSel _ _) = True
-whnfTag (PId)      = True
