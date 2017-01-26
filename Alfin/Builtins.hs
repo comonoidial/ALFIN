@@ -59,7 +59,7 @@ boxIntTag :: NodeTag
 boxIntTag = Con (ConName "GHCziTypes.Izh")
 
 unBoxIntCase :: String -> CallExpr -> Block -> Block
-unBoxIntCase n cx b = Block [] (Case cx [] [(ConPat Nothing (ConName "GHCziTypes.Izh") [pv n] , b)])
+unBoxIntCase n cx b = Block [] (Case cx [] [(ConPat (ConName "GHCziTypes.Izh") [pv n] , b)])
 
 builtinPrimOps :: [((QName, ([ShapeType], FunKind)), Definition)]
 builtinPrimOps =
@@ -67,11 +67,11 @@ builtinPrimOps =
     Definition (FunName "GHCziBase.unpackCStringzh") Nothing [rv "x"] (Block [] (Jump (Eval "x") [])))
   ,((("Flite","str"), ([RefType], RealFun RefType)),
     Definition (FunName "Flite.str") Nothing [rv "ys"] (Block [] (Case (Eval "ys") [] 
-    [(ConPat Nothing (ConName "GHCziTypes.ZMZN") [], Block [] (Return (Con (ConName "Flite.Nil")) []))
-    ,(ConPat Nothing (ConName "GHCziTypes.ZC") [rv "x", rv "xs"], Block []
-      (Case (Eval "x") [] [(ConPat Nothing (ConName "GHCziTypes.Izh") [pv "c"], Block
+    [(ConPat (ConName "GHCziTypes.ZMZN") [], Block [] (Return (Con (ConName "Flite.Nil")) []))
+    ,(ConPat (ConName "GHCziTypes.ZC") [rv "x", rv "xs"], Block []
+      (Case (Eval "x") [] [(ConPat (ConName "GHCziTypes.Izh") [pv "c"], Block
         [rv "z" := Store (boxIntTag) [pv "c"]
-        ,rv "zs" := Store (Fun $ FunName "Flite.str") [rv "xs"]
+        ,rv "zs" := Store (Fun (FunName "Flite.str") Upd) [rv "xs"]
         ] (Return (Con (ConName "Flite.Cons")) [rv "z", rv "zs"]))
       ]))])))
   ,((("Flite","emit"), ([RefType, RefType], RealFun RefType)),

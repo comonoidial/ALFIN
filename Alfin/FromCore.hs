@@ -152,14 +152,12 @@ c2aTopExp xs rt (LetRec f r as t x e) = do
   fs <- c2aFix f r as t x
   (gs, e') <- c2aTopExp xs rt e
   return (fs ++ gs, e')
-c2aTopExp xs rt (CaseExp sr e t@(PType _) [DefAlt d, IntAlt i x]) = do
+c2aTopExp xs rt (CaseExp sr e t@(PType _) (DefAlt d : (a@(IntAlt _ _)) : as)) = do
   (ys, v) <- c2aArgument e
-  c <- newName "c"
   let (s,lv) = ([(pv sr, pv $ fst v)], [(sr,t)])
   d' <- withLocalVars lv $ c2aTopExp [] rt d
-  x' <- withLocalVars lv $ c2aTopExp [] rt x
-  n <- newName "i"
-  return (fst d' ++ fst x', Block (xs ++ ys ++ [pv n := Constant i, bv c := PrimOp (Operator "zezezh") [pv $ fst v, pv n]]) (Cond c (substBlock s $ snd x') (substBlock s $ snd d')))
+  as' <- mapM (\(IntAlt i x) -> fmap (fmap (((,) i) . substBlock s)) $ withLocalVars lv $ c2aTopExp [] rt x) (a:as)
+  return (fst d' ++ concatMap fst as', Block (xs ++ ys) (Switch (fst v) (snd d') (map snd as')))
 c2aTopExp xs rt (CaseExp _ (FunVal f [a,b]) _ [ConAlt _ [] e, ConAlt _ [] t]) | f `elem` compareFuns = do
   a' <- c2aArgument a
   b' <- c2aArgument b
@@ -177,10 +175,10 @@ c2aAlt :: String -> ShapeType -> Alternative -> Context ([Definition], (Pattern,
 c2aAlt sr rt (ConAlt c xs e) = do
   (fs,b) <- withLocalVars xs (c2aTopExp [] rt e)
   (Con d, ys) <- buildConNode c xs
-  return (fs, (ConPat (Just $ rv sr) d ys, b))
+  return (fs, (NamedP sr d ys, b))
 c2aAlt sr rt (DefAlt e) = do
   (fs,b) <- c2aTopExp [] rt e
-  return (fs, (Default (rv sr), b))
+  return (fs, (Default sr, b))
 c2aAlt _ _ a = error ("c2aAlt " ++ show a)
 
 c2aPrimExp :: String -> SimpleExp -> Context [Statement]
@@ -211,7 +209,7 @@ c2aLazyRefExp n (FunVal f xs) = do
     RealFun _ -> do
       case compare (length as) na of
         LT -> return (concatMap fst ys' ++ [rv n := Store (Pap (fName f) (na - length as)) as])
-        EQ -> return (concatMap fst ys' ++ [rv n := Store (Fun (fName f)) as])
+        EQ -> return (concatMap fst ys' ++ [rv n := Store (Fun (fName f) Upd) as])
     SelFun c i -> 
       case as of
         []  -> return (concatMap fst ys' ++ [rv n := Store (PSel (cName c) i) []])
@@ -259,11 +257,11 @@ c2aArgument (FunVal f xs) = do
           return (concatMap fst ys' ++ [rv x := Store (Pap (fName f) (na - length as)) as], (x, Ref))
         EQ -> do
           x <- newName "f"
-          return (concatMap fst ys' ++ [rv x := Store (Fun (fName f)) as], (x, Ref))
+          return (concatMap fst ys' ++ [rv x := Store (Fun (fName f) Upd) as], (x, Ref))
         GT -> do
           x <- newName "f"
           y <- newName "oa"
-          return (concatMap fst ys' ++ [rv x := Store (Fun (fName f)) (take na as), rv y := Store (ApN (length as - na)) (rv x : drop na as)], (y, Ref))
+          return (concatMap fst ys' ++ [rv x := Store (Fun (fName f) Upd) (take na as), rv y := Store (ApN (length as - na)) (rv x : drop na as)], (y, Ref))
     SelFun c i -> do
       x <- newName "s"
       let as = buildArgs (map snd ys')

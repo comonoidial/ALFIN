@@ -22,11 +22,13 @@ data Terminator
   | Case CallExpr [CallCont] [(Pattern, Block)]  -- case statement
   | Throw RefVar                                 -- error throwing statement
   | Cond BoolVar Block Block                     -- if then else statement
+  | Switch PrimVar Block [(Int, Block)]          -- numeric switch statement with default
 
 data Pattern
-  = Default Variable
-  | ConPat (Maybe Variable) ConName [Variable]
-  | IntPat Int
+  = AnyPat
+  | Default RefVar
+  | ConPat ConName [Variable]
+  | NamedP RefVar ConName [Variable]
 
 data Expression
   = Store NodeTag [Variable]     -- storing a node on the heap, producing a reference
@@ -53,12 +55,18 @@ data CallCont
 data NodeTag 
   = Con ConName             -- fully applied constructor
   | Dec ConName ArgCount    -- partial constructor with number of missing args
-  | Fun FunName             -- fully applied function
+  | Fun FunName UpdateFlag  -- fully applied function
   | Pap FunName ArgCount    -- partial function application with number of missing args
   | ApN Int                 -- unknown function application with number of application args
   | FSel ConName ElemIndex  -- selection as a function with index
   | PSel ConName ElemIndex  -- partial applied selection with index
   deriving Eq
+
+data UpdateFlag
+   = Upd                    -- standard updatable thunk
+   | NoU                    -- no update and reusable / call by name 
+   | OnS                    -- oneshot thunk / no update with blackholing on use
+   deriving Eq
 
 data Variable = Var Kind String deriving Eq
   
@@ -91,11 +99,16 @@ showBlock is (Block xs y) = concatMap (("\n" ++) . (is ++) . show) xs ++ "\n" ++
 instance Show NodeTag where
   show (Con n)    = "C:" ++ show n
   show (Dec n a)  = "D"  ++ "-" ++ show a ++ ":" ++ show n
-  show (Fun f)    = "F:" ++ show f
+  show (Fun f u)  = "F" ++ show u ++ ":" ++ show f
   show (Pap f a)  = "P" ++ "-" ++ show a ++":" ++ show f
-  show (ApN n)     = "AP^" ++ show n
+  show (ApN n)    = "AP^" ++ show n
   show (FSel d i) = "FSEL~" ++ show d ++ "#" ++ show i
   show (PSel d i) = "PSEL~" ++ show d ++ "#" ++ show i
+
+instance Show UpdateFlag where
+  show Upd = "u"
+  show NoU = "n"
+  show OnS = "o"
 
 instance Show Statement where
   show (x  :=  e)  = show x ++ " <- " ++ show e
@@ -115,15 +128,17 @@ showTerm _  (Jump c cc)         = "JUMP " ++ show c ++ concatMap ((", " ++) . sh
 showTerm is (Cond c x y)        = "IF " ++ c ++ "?\n " ++ is ++ "THEN" ++ showBlock (is ++ "    ") x ++ "\n " ++ is ++ "ELSE" ++ showBlock (is ++ "    ") y
 showTerm is (Case c cc [(p,b)]) = show p ++ " <= " ++ show c ++ concatMap ((", " ++) . show) cc ++ showBlock is b
 showTerm is (Case c cc xs)      = "CASE " ++ show c ++ concatMap ((", " ++) . show) cc ++ concatMap (showAlt is) xs
-showTerm _  (Throw x)           = "THROW " ++ show x  
+showTerm _  (Throw x)           = "THROW " ++ show x
+showTerm is (Switch x d cs)     = "SWITCH " ++ x ++ "#\n " ++ is ++ "_ ->" ++ showBlock (is ++ "    " ) d ++ concatMap (\(i,b) -> "\n " ++ is ++ show i ++ " ->" ++ showBlock (is ++ "    " ) b) cs
 
 showAlt :: String -> (Pattern, Block) -> String
 showAlt is (p, b) = "\n   " ++ is ++ show p ++ " -> " ++ showBlock (is ++ "      ") b
 
 instance Show Pattern where
-  show (Default x     ) = "def " ++ show x
-  show (IntPat i      ) = show i
-  show (ConPat ms t vs) = maybe "" ((++"@") . show) ms ++ "C:" ++ show t ++ showVars vs
+  show (AnyPat       ) = "_"
+  show (Default x    ) = "def " ++ x
+  show (ConPat t vs  ) = "C:" ++ show t ++ showVars vs
+  show (NamedP x t vs) = x ++ "@C:" ++ show t ++ showVars vs
 
 instance Show Expression where
   show (Store t vs)    = "STORE " ++ show t ++ showVars vs

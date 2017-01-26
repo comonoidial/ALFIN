@@ -31,6 +31,7 @@ reachFunT (Return t _   ) = getHeapFunTag t
 reachFunT (Cond _ x y   ) = reachFunB x ++ reachFunB y
 reachFunT (Jump ce _    ) = reachFunC ce
 reachFunT (Case ce _  xs) = reachFunC ce ++ concatMap (reachFunB . snd) xs
+reachFunT (Switch n d xs) = reachFunB d ++ concatMap (reachFunB . snd) xs
 reachFunT _               = []
 
 reachFunS :: Statement -> [FunName]
@@ -40,10 +41,10 @@ reachFunS _                  = []
 reachFunC :: CallExpr -> [FunName]
 reachFunC (Call f _) = [f]
 reachFunC (Fix  f _) = [f]
-reachFunC _           = []
+reachFunC _          = []
 
 getHeapFunTag :: NodeTag -> [FunName]
-getHeapFunTag (Fun f)   = [f]
+getHeapFunTag (Fun f _) = [f]
 getHeapFunTag (Pap f _) = [f]
 getHeapFunTag _         = [ ]
 
@@ -64,19 +65,23 @@ preOptimTerm ns _  (Jump (Eval x) [])   -- TODO check if this is a good idea, it
 preOptimTerm ns _  (Jump c cc)       = uncurry Jump (optimCE ns (c,cc))
 preOptimTerm ns _  (Case c cc  xs)   = uncurry Case (optimCE ns (c,cc)) (map (preOptimAlt ns) xs)
 preOptimTerm ns vs (Cond c x y)      = Cond c (preOptimBlock ns vs x) (preOptimBlock ns vs y)
+preOptimTerm ns vs (Switch n d xs)   = Switch n (preOptimBlock ns vs d) (map (fmap $ preOptimBlock ns vs) xs)
 preOptimTerm _  _  t                 = t
 
 preOptimAlt :: [KnownNode] -> (Pattern, Block) -> (Pattern, Block)
-preOptimAlt ns (ConPat (Just s@(Var Ref v)) t xs, a)
-  | v `elem` readVarsB b = (ConPat (Just s) t xs, b)
-  | otherwise               = (ConPat Nothing t xs, b)
-  where b = preOptimBlock ((s, (Con t, xs)) : ns) [] a  -- known constructor
-preOptimAlt ns (p                   , a) = (p, preOptimBlock ns [] a)
+preOptimAlt ns (NamedP v t xs, a)
+  | v `elem` readVarsB b = (NamedP v t xs, b)
+  | otherwise            = (ConPat t xs, b)
+  where b = preOptimBlock ((Var Ref v, (Con t, xs)) : ns) [] a  -- known constructor
+preOptimAlt ns (Default x, b)
+  | x `elem` readVarsB b = (Default x, preOptimBlock ns [] b)
+  | otherwise            = (AnyPat   , preOptimBlock ns [] b)
+preOptimAlt ns (p, a) = (p, preOptimBlock ns [] a)
 
 preOptimSequence :: [KnownNode] -> [ValueName] -> [VarSubst] -> [Statement] -> [Statement] -> ([Statement], [KnownNode], [ValueName], [VarSubst])
 preOptimSequence ns vs s rs [] = (rs, ns, vs, s)
-preOptimSequence ns vs s rs ((x := (Store (Fun f) [])):ys) = case (lookup (Left (Fun f, [])) vs) of
-  Nothing -> preOptimSequence ns ((Left (Fun f, []), x) : vs) s ((x := (Store (Fun f) [])) : rs) ys
+preOptimSequence ns vs s rs ((x := (Store (Fun f u) [])):ys) = case (lookup (Left (Fun f u, [])) vs) of
+  Nothing -> preOptimSequence ns ((Left (Fun f u, []), x) : vs) s ((x := (Store (Fun f u) [])) : rs) ys
   Just r  -> preOptimSequence ns vs ((x, r):s) rs (map (substStmt ((x, r):s)) ys)
 preOptimSequence ns vs s rs ((x := (Store t n)):ys) 
   | whnfTag t = case (lookup (Left (t, n)) vs) of
@@ -91,7 +96,7 @@ preOptimSequence ns _  s rs ((Send t n)    : ys) = preOptimSequence ns [] s ((Se
 optimCE :: [KnownNode] -> (CallExpr, [CallCont]) -> (CallExpr, [CallCont])
 optimCE ns (Eval x, [Apply as]) = case lookup (Var Ref x) ns of
   Nothing             -> (Eval x   , [Apply as])
-  Just (Fun f, xs)    -> (Call f xs, [Apply as])
+  Just (Fun f _, xs)  -> (Call f xs, [Apply as])
   Just (Pap f na, xs) -> 
     case compare (length as) na of
       GT -> (Call f (xs ++ take na as), [Apply (drop na as)])
@@ -105,9 +110,10 @@ remDeadExpsBlock (Block xs t) = Block (remDeadExpsStmts (readVarsT t') xs) t' wh
   t' = remDeadExpsTerm t
 
 remDeadExpsTerm :: Terminator -> Terminator
-remDeadExpsTerm (Cond c x y)   = Cond c (remDeadExpsBlock x) (remDeadExpsBlock y)
-remDeadExpsTerm (Case c cc xs) = Case c cc (map (fmap remDeadExpsBlock) xs)
-remDeadExpsTerm t              = t
+remDeadExpsTerm (Cond c x y)    = Cond c (remDeadExpsBlock x) (remDeadExpsBlock y)
+remDeadExpsTerm (Case c cc xs)  = Case c cc (map (fmap remDeadExpsBlock) xs)
+remDeadExpsTerm (Switch n d xs) = Switch n (remDeadExpsBlock d) (map (fmap remDeadExpsBlock) xs)
+remDeadExpsTerm t               = t
 
 remDeadExpsStmts :: [String] -> [Statement] -> [Statement]
 remDeadExpsStmts vs = snd . foldr remDeadExpsStmt (vs,[])
@@ -131,11 +137,12 @@ substStmt _ (x := (Constant i))    = x := (Constant i)
 substStmt s (Send t n)             = Send t (substNode s n)
 
 substTerm :: [VarSubst] -> Terminator -> Terminator
-substTerm s (Return t xs)  = Return t (substNode s xs)
-substTerm s (Jump c cc)    = Jump (substCE s c) (map (substCC s) cc)
-substTerm s (Cond c x y)   = Cond c (substBlock s x) (substBlock s y)
-substTerm s (Case c cc xs) = Case (substCE s c) (map (substCC s) cc) (map (fmap (substBlock s)) xs)
-substTerm s (Throw x)      = Throw (substRef s x)
+substTerm s (Return t xs)   = Return t (substNode s xs)
+substTerm s (Jump c cc)     = Jump (substCE s c) (map (substCC s) cc)
+substTerm s (Cond c x y)    = Cond c (substBlock s x) (substBlock s y)
+substTerm s (Case c cc xs)  = Case (substCE s c) (map (substCC s) cc) (map (fmap (substBlock s)) xs)
+substTerm s (Throw x)       = Throw (substRef s x)
+substTerm s (Switch n d xs) = Switch n (substBlock s d) (map (fmap (substBlock s)) xs)
 
 substCE :: [VarSubst] -> CallExpr -> CallExpr
 substCE s (Eval x)    = Eval (substRef s x)
@@ -168,11 +175,12 @@ readVarsB :: Block -> [String]
 readVarsB (Block xs y) = concatMap readVarsS xs ++ readVarsT y
 
 readVarsT :: Terminator -> [String]
-readVarsT (Return _ xs)  = readVarsN xs
-readVarsT (Jump c cc)    = readVarsCCC (c,cc)
-readVarsT (Cond c x y)   = [c] ++ readVarsB x ++ readVarsB y
-readVarsT (Case c cc xs) = readVarsCCC (c,cc) ++ concatMap (readVarsB . snd) xs
-readVarsT (Throw x)      = [x]
+readVarsT (Return _ xs)   = readVarsN xs
+readVarsT (Jump c cc)     = readVarsCCC (c,cc)
+readVarsT (Cond c x y)    = [c] ++ readVarsB x ++ readVarsB y
+readVarsT (Case c cc xs)  = readVarsCCC (c,cc) ++ concatMap (readVarsB . snd) xs
+readVarsT (Throw x)       = [x]
+readVarsT (Switch n d xs) = [n] ++ readVarsB d ++ concatMap (readVarsB . snd) xs
 
 readVarsS :: Statement -> [String]
 readVarsS (_ := (Store _ n))     = readVarsN n
@@ -206,7 +214,7 @@ readVars (Var _ x) = [x]
 whnfTag :: NodeTag -> Bool
 whnfTag (Con _)    = True
 whnfTag (Dec _ _)  = True
-whnfTag (Fun _)    = False
+whnfTag (Fun _ _)  = False
 whnfTag (Pap _ _)  = True
 whnfTag (ApN _)    = False
 whnfTag (FSel _ _) = False
