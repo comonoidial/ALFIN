@@ -6,7 +6,7 @@ data TypeCon = TypeCon String [DataCon]
 
 type DataCon = (ConName, [Kind])
 
-data Kind = Ref | Word | Bool deriving (Show, Eq)
+data Kind = Ref | Word | Bool deriving (Show, Eq, Ord)
 
 data Definition = Definition FunName (Maybe RefVar) [Variable] Block
 
@@ -68,7 +68,7 @@ data UpdateFlag
    | OnS                    -- oneshot thunk / no update with blackholing on use
    deriving Eq
 
-data Variable = Var Kind String deriving Eq
+data Variable = Var Kind String deriving (Eq, Ord)
   
 type ElemIndex = Int
 type ArgCount = Int
