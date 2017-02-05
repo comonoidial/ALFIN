@@ -14,6 +14,7 @@ import Alfin.CoreConvert (convertMod, cleanMod)
 import Alfin.CoreLowering (lowerMod)
 import Alfin.FromCore (fromCoreMod)
 import Alfin.Optimize (preOptimM)
+import Alfin.Analysis (analyseMod)
 import Backend.CoreToAsm (c2aMod)
 import Backend.ReduceArity (reduceArity)
 import Backend.OptimizeAsm (optimMod, preOptimMod)
@@ -49,6 +50,14 @@ testAlfin (m,(f,_)) = do
   case p of
     Left e -> putStrLn $ show e
     Right m -> putStrLn $ show $ preOptimM f $ fromCoreMod $ lowerMod $ cleanMod $ convertMod m
+
+testAA :: TestCase -> IO ()
+testAA (m,(f,_)) = do
+  xs <- L.readFile m
+  let p = parseModule "Test" xs
+  case p of
+    Left e -> putStrLn $ show e
+    Right m -> mapM_ (putStrLn . show) $ analyseMod $ preOptimM f $ fromCoreMod $ lowerMod $ cleanMod $ convertMod m
 
 -- shows a testcase converted to pilgrim assembly
 testAsm :: TestCase -> IO ()
